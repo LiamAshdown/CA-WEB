@@ -1,0 +1,15 @@
+@import 'bootstrap/scss/_functions.scss';
+@import 'bootstrap/scss/_variables.scss';
+@import 'bootstrap/scss/_mixins.scss';
+
+@import "setup/base.scss";
+
+html {
+  height: 100vh;
+}
+
+body {
+  height: 100%;
+  background-color: $color-background;
+  font-family: 'Open Sans', 'Nunito', sans-serif;
+}

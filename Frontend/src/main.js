@@ -1,0 +1,52 @@
+import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import '../node_modules/bootstrap/scss/bootstrap.scss'
+import '../node_modules/bootstrap-vue/src/index.scss'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {
+  faTachometerAlt,
+  faFileAlt,
+  faChevronRight,
+  faUser,
+  faBell,
+  faFileInvoice
+} from '@fortawesome/free-solid-svg-icons'
+import { faCircle } from '@fortawesome/free-regular-svg-icons'
+
+import AppComponent from './App.vue'
+import router from './router'
+import store from './store'
+
+import BaseDivider from '@/components/ui/BaseDivider.vue'
+import BaseButton from '@/components/ui/BaseButton.vue'
+import BaseFormGroup from '@/components/ui/form/BaseFormGroup.vue'
+import BaseCard from '@/components/ui/BaseCard.vue'
+
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+
+library.add(faTachometerAlt,
+  faCircle,
+  faFileAlt,
+  faChevronRight,
+  faUser,
+  faBell,
+  faFileInvoice
+)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('base-divider', BaseDivider)
+Vue.component('base-button', BaseButton)
+Vue.component('base-form-group', BaseFormGroup)
+Vue.component('base-card', BaseCard)
+
+const App = new Vue({
+  render: h => h(AppComponent),
+  store,
+  router,
+  components: { AppComponent }
+}).$mount('#app')
+
+export default App
