@@ -12,6 +12,16 @@ export default {
       authenticated: true
     })
   },
+  async logout (context) {
+    await api.auth.logout()
+
+    context.commit(SET_TOKEN_MUTATION, {
+      accessToken: '',
+      expiresIn: '',
+      refreshToken: '',
+      authenticated: false
+    })
+  },
   async register (context, payload) {
     const response = await api.auth.register(payload)
 

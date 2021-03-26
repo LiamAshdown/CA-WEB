@@ -13,7 +13,7 @@
         <b-badge pill variant="primary">LA</b-badge>
         <b-nav-item-dropdown>
           <b-dropdown-item :to="{ name: 'Profile' }">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          <b-dropdown-item href="#" @click="signOut">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </div>
     </b-navbar-nav>
@@ -22,7 +22,13 @@
 
 <script>
 export default {
-  name: 'Navigation'
+  name: 'Navigation',
+  methods: {
+    async signOut () {
+      await this.$store.dispatch('logout')
+      this.$router.push({ name: 'SignIn' })
+    }
+  }
 }
 </script>
 

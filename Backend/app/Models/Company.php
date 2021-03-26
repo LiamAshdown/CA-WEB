@@ -10,6 +10,16 @@ class Company extends Model
     use HasFactory;
 
     /**
+     * Permissions
+     *
+     * @var array
+     */
+    public const PERMISSIONS = [
+        'view' => 'view company',
+        'update' => 'company update'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -28,6 +38,6 @@ class Company extends Model
     */
     public function user()
     {
-        return $this->belongsToMany(User::class, 'company_users')->withPivot('company_id', 'user_id', 'admin');
+        return $this->belongsToMany(User::class)->withPivot('company_id', 'user_id', 'admin');
     }
 }

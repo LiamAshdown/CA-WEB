@@ -19,6 +19,7 @@ Route::group([
 ], function ($router) {
 	Route::post('login', 'AuthController@login');
 	Route::post('register', 'AuthController@register');
+	Route::get('logout', 'AuthController@logout');
 });
 
 Route::group([
@@ -28,4 +29,13 @@ Route::group([
 ], function ($router) {
 	Route::get('', 'ProfileController@show');
 	Route::post('update', 'ProfileController@update');
+});
+
+Route::group([
+	'prefix' => 'company',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::get('', 'CompanyController@show');
+	Route::post('update', 'CompanyController@update');
 });

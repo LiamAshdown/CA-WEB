@@ -1,12 +1,9 @@
-export default function ({ next, store }) {
+export default function ({ next, to, store }) {
   const isAuthenticated = store.getters.isAuthenticated
-  if (to.matched.some(record => record.meta.auth !== isAuthenticated)) {
-    if (!isAuthenticated) {
-      next({ name: 'SignIn' })
-      return
-    } else {
-      next({ name: 'Dashboard' })
-      return
-    }
+  if (!isAuthenticated) {
+    next({ name: 'SignIn' })
+    return
   }
+
+  next()
 }

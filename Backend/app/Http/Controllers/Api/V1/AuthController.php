@@ -41,14 +41,27 @@ class AuthController extends Controller
 	public function login(Request $request, ProxyServiceInterface $proxyService)
 	{
         $attributes = $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' 	=> 'required|email',
+            'password' 	=> 'required'
         ]);
         
         return $proxyService->proxy('password', [
 			'username' => $attributes['email'],
 			'password' => $attributes['password']
 		]);
+	}
+
+	/**
+	* Logout
+	*
+	* Logout out of the system.
+	*
+	* @response 200
+	* @authenticated
+	*/
+	public function logout()
+	{
+		auth()->user()->token()->revoke();
 	}
 
 	/**
@@ -61,7 +74,7 @@ class AuthController extends Controller
 	* @bodyParam email string required Email
 	* @bodyParam password string required Password
 	* @bodyParam company_name string required Company Name
-	* @bodyParam company_telephone string required Company Telephone
+	* @bodyParam company_telephone_number string required Company Telephone
 	* @bodyParam company_postal_code string required Company Postal Code
 	* @bodyParam company_address string required Company Address
 	*
@@ -75,21 +88,21 @@ class AuthController extends Controller
 	public function register(Request $request, ProxyServiceInterface $proxyService) 
 	{
 		$attributes = $request->validate([
-			'first_name' 			=> 'required|string',
-			'last_name'  			=> 'required|string',
-			'email' 	 			=> 'required|email|unique:users',
-			'password'   			=> 'required',
-			'company_name'			=> 'required|string',
-			'company_address' 		=> 'required|string',
-			'company_postal_code' 	=> 'required|string',
-			'company_telephone' 	=> 'required|string',
+			'first_name' 				=> 'required|string',
+			'last_name'  				=> 'required|string',
+			'email' 	 				=> 'required|email|unique:users',
+			'password'   				=> 'required',
+			'company_name'				=> 'required|string',
+			'company_address' 			=> 'required|string',
+			'company_postal_code' 		=> 'required|string',
+			'company_telephone_number' 	=> 'required|string',
 		]);
 
 		if ($company = Company::create([
 			'name' 				=> $attributes['company_name'],
 			'address' 			=> $attributes['company_address'],
 			'postal_code' 		=> $attributes['company_postal_code'],
-			'telephone_number' 	=> $attributes['company_telephone']
+			'telephone_number' 	=> $attributes['company_telephone_number']
 		])) {
 			$user = User::create([
 				'first_name' => $attributes['first_name'],
@@ -97,6 +110,8 @@ class AuthController extends Controller
 				'email'		 => $attributes['email'],
 				'password'	 => $attributes['password']
 			]);
+
+			$user->assignRole(User::ROLES['company_admin']);
 
 			$company->user()->attach($user->id, ['admin' => true]);
 		}

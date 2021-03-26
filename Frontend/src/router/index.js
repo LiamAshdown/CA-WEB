@@ -5,6 +5,8 @@ import LoginPage from '@/pages/auth/LoginPage.vue'
 import SignUpPage from '@/pages/auth/SignUpPage.vue'
 import DashboardPage from '@/pages/DashboardPage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
+import NotAuthenticatedLayout from '@/components/layouts/NotAuthenticatedLayout.vue'
+import AuthenticatedLayout from '@/components/layouts/AuthenticatedLayout.vue'
 
 import middlewarePipeline from '@/router/middlewarePipeline.js'
 import auth from './middleware/auth.js'
@@ -17,9 +19,7 @@ const routes = [
     name: 'SignIn',
     component: LoginPage,
     meta: {
-      middleware: [
-        auth
-      ]
+      layout: NotAuthenticatedLayout
     }
   },
   {
@@ -27,7 +27,7 @@ const routes = [
     name: 'SignUp',
     component: SignUpPage,
     meta: {
-      auth: false
+      layout: NotAuthenticatedLayout
     }
   },
 
@@ -36,7 +36,10 @@ const routes = [
     name: 'Dashboard',
     component: DashboardPage,
     meta: {
-      auth: true
+      middleware: [
+        auth
+      ],
+      layout: AuthenticatedLayout
     }
   },
   {
@@ -44,7 +47,10 @@ const routes = [
     name: 'Profile',
     component: ProfilePage,
     meta: {
-      auth: true
+      middleware: [
+        auth
+      ],
+      layout: AuthenticatedLayout
     }
   }
 ]

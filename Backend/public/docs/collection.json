@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "62aea8d9-b04c-4b88-8f02-92f4c1aca856",
+        "_postman_id": "0cc5b5f2-7e21-4c0f-a615-8bd328d3fad7",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -42,7 +42,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"sit\",\n    \"password\": \"nesciunt\"\n}"
+                            "raw": "{\n    \"email\": \"odit\",\n    \"password\": \"libero\"\n}"
                         },
                         "description": "Login into the system.",
                         "auth": {
@@ -74,12 +74,38 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"first_name\": \"modi\",\n    \"last_name\": \"aliquam\",\n    \"email\": \"nobis\",\n    \"password\": \"ut\",\n    \"company_name\": \"quae\",\n    \"company_telephone\": \"et\",\n    \"company_postal_code\": \"perspiciatis\",\n    \"company_address\": \"facilis\"\n}"
+                            "raw": "{\n    \"first_name\": \"nihil\",\n    \"last_name\": \"id\",\n    \"email\": \"aliquid\",\n    \"password\": \"aliquam\",\n    \"company_name\": \"alias\",\n    \"company_telephone_number\": \"dolores\",\n    \"company_postal_code\": \"ab\",\n    \"company_address\": \"quibusdam\"\n}"
                         },
                         "description": "Register into the system.",
                         "auth": {
                             "type": "noauth"
                         }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/auth\/logout",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/auth\/logout"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Logout out of the system."
                     },
                     "response": []
                 }
@@ -247,7 +273,7 @@
                                 {
                                     "id": "token_id",
                                     "key": "token_id",
-                                    "value": "ut",
+                                    "value": "quod",
                                     "description": ""
                                 }
                             ]
@@ -371,7 +397,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "beatae",
+                                    "value": "enim",
                                     "description": ""
                                 }
                             ]
@@ -408,7 +434,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "incidunt",
+                                    "value": "eos",
                                     "description": ""
                                 }
                             ]
@@ -532,12 +558,128 @@
                                 {
                                     "id": "token_id",
                                     "key": "token_id",
-                                    "value": "nihil",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]
                         },
                         "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Show Profile Details",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/profile",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/profile"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Profile Details",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/profile\/update",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/profile\/update"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Display the specified resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/company",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/company"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/company\/update",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/company\/update"
+                        },
+                        "method": "POST",
                         "header": [
                             {
                                 "key": "Content-Type",

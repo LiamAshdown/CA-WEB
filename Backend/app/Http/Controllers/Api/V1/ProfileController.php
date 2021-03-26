@@ -3,29 +3,46 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the specified resource.
+     * Show Profile Details
      *
      * @return \Illuminate\Http\Response
      */
     public function show()
     {
-        return auth()->user();
+        return new UserResource(auth()->user());
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update Profile Details
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $attributes = $request->validate([
+			'first_name' => 'required|string',
+			'last_name'  => 'required|string',
+            'email'      => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore(auth()->id())
+            ],
+            'password' => 'nullable'
+		]);
+
+        User::find(auth()->id())->update($attributes);
+
+        return response()->json([
+            'message' => 'Successfully updated profile.'
+        ]);
     }
 }

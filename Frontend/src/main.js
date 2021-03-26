@@ -23,6 +23,8 @@ import BaseDivider from '@/components/ui/BaseDivider.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import BaseFormGroup from '@/components/ui/form/BaseFormGroup.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
+import BaseTabs from '@/components/ui/tab/Tabs.vue'
+import BaseTab from '@/components/ui/tab/Tab.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -41,6 +43,8 @@ Vue.component('base-divider', BaseDivider)
 Vue.component('base-button', BaseButton)
 Vue.component('base-form-group', BaseFormGroup)
 Vue.component('base-card', BaseCard)
+Vue.component('base-tabs', BaseTabs)
+Vue.component('base-tab', BaseTab)
 
 const App = new Vue({
   render: h => h(AppComponent),

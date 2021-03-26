@@ -7,10 +7,23 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    /**
+     * Roles
+     *
+     * @var array
+     */
+    public const ROLES = [
+        'company_admin' => 'company admin',
+        'company_user' => 'company user'
+    ];
+
+    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -63,9 +76,20 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         if (trim($password) === '') {
-          return;
+            return;
         }
 
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    /**
+    * Get Company
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function company()
+    {
+        $test = $this->belongsToMany(Company::class);
+        return $this->belongsToMany(Company::class);
     }
 }

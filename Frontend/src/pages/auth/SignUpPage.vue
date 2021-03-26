@@ -100,7 +100,7 @@
                   type="tel"
                   :optional="false"
                   autocomplete="tel"
-                  v-model="form.companyTelephone"
+                  v-model="form.companyTelephoneNumber"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
@@ -108,7 +108,7 @@
             <b-form-row fluid>
               <b-col lg="12">
                 <base-form-group
-                  id="postal-code"
+                  id="company-postal-code"
                   label="Postal Code"
                   placeholder="Postal Code"
                   type="text"
@@ -163,7 +163,7 @@ export default {
         companyName: '',
         companyAddress: '',
         companyPostalCode: '',
-        companyTelephone: ''
+        companyTelephoneNumber: ''
       }
     }
   },

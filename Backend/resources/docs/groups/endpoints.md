@@ -294,14 +294,14 @@ fetch(url, {
 
 ```bash
 curl -X DELETE \
-    "http://sittracker.test/oauth/tokens/ut" \
+    "http://sittracker.test/oauth/tokens/quod" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://sittracker.test/oauth/tokens/ut"
+    "http://sittracker.test/oauth/tokens/quod"
 );
 
 let headers = {
@@ -523,14 +523,14 @@ fetch(url, {
 
 ```bash
 curl -X PUT \
-    "http://sittracker.test/oauth/clients/beatae" \
+    "http://sittracker.test/oauth/clients/enim" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://sittracker.test/oauth/clients/beatae"
+    "http://sittracker.test/oauth/clients/enim"
 );
 
 let headers = {
@@ -583,14 +583,14 @@ fetch(url, {
 
 ```bash
 curl -X DELETE \
-    "http://sittracker.test/oauth/clients/incidunt" \
+    "http://sittracker.test/oauth/clients/eos" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://sittracker.test/oauth/clients/incidunt"
+    "http://sittracker.test/oauth/clients/eos"
 );
 
 let headers = {
@@ -819,14 +819,14 @@ fetch(url, {
 
 ```bash
 curl -X DELETE \
-    "http://sittracker.test/oauth/personal-access-tokens/nihil" \
+    "http://sittracker.test/oauth/personal-access-tokens/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://sittracker.test/oauth/personal-access-tokens/nihil"
+    "http://sittracker.test/oauth/personal-access-tokens/et"
 );
 
 let headers = {
@@ -866,6 +866,236 @@ fetch(url, {
 <b><code>token_id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
 <input type="text" name="token_id" data-endpoint="DELETEoauth-personal-access-tokens--token_id-" data-component="url" required  hidden>
 <br>
+</p>
+</form>
+
+
+## Show Profile Details
+
+
+
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://sittracker.test/api/v1/profile" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://sittracker.test/api/v1/profile"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response => response.json());
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+<div id="execution-results-GETapi-v1-profile" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-v1-profile"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-profile"></code></pre>
+</div>
+<div id="execution-error-GETapi-v1-profile" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-profile"></code></pre>
+</div>
+<form id="form-GETapi-v1-profile" data-method="GET" data-path="api/v1/profile" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-profile', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-v1-profile" onclick="tryItOut('GETapi-v1-profile');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-v1-profile" onclick="cancelTryOut('GETapi-v1-profile');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-v1-profile" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/v1/profile</code></b>
+</p>
+</form>
+
+
+## Update Profile Details
+
+
+
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://sittracker.test/api/v1/profile/update" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://sittracker.test/api/v1/profile/update"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response => response.json());
+```
+
+
+<div id="execution-results-POSTapi-v1-profile-update" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-v1-profile-update"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-profile-update"></code></pre>
+</div>
+<div id="execution-error-POSTapi-v1-profile-update" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-profile-update"></code></pre>
+</div>
+<form id="form-POSTapi-v1-profile-update" data-method="POST" data-path="api/v1/profile/update" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-profile-update', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-v1-profile-update" onclick="tryItOut('POSTapi-v1-profile-update');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-v1-profile-update" onclick="cancelTryOut('POSTapi-v1-profile-update');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-v1-profile-update" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/v1/profile/update</code></b>
+</p>
+</form>
+
+
+## Display the specified resource.
+
+
+
+
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://sittracker.test/api/v1/company" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://sittracker.test/api/v1/company"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response => response.json());
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+<div id="execution-results-GETapi-v1-company" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-v1-company"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-company"></code></pre>
+</div>
+<div id="execution-error-GETapi-v1-company" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-company"></code></pre>
+</div>
+<form id="form-GETapi-v1-company" data-method="GET" data-path="api/v1/company" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-company', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-v1-company" onclick="tryItOut('GETapi-v1-company');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-v1-company" onclick="cancelTryOut('GETapi-v1-company');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-v1-company" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/v1/company</code></b>
+</p>
+</form>
+
+
+## Update the specified resource in storage.
+
+
+
+
+> Example request:
+
+```bash
+curl -X POST \
+    "http://sittracker.test/api/v1/company/update" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://sittracker.test/api/v1/company/update"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response => response.json());
+```
+
+
+<div id="execution-results-POSTapi-v1-company-update" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-v1-company-update"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-company-update"></code></pre>
+</div>
+<div id="execution-error-POSTapi-v1-company-update" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-company-update"></code></pre>
+</div>
+<form id="form-POSTapi-v1-company-update" data-method="POST" data-path="api/v1/company/update" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-company-update', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-v1-company-update" onclick="tryItOut('POSTapi-v1-company-update');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-v1-company-update" onclick="cancelTryOut('POSTapi-v1-company-update');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-v1-company-update" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/v1/company/update</code></b>
 </p>
 </form>
 

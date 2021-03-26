@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 .content {
   background-color: #fff;
-  padding: 30px;
+  padding: 1.25rem;
   border-radius: 5px;
 }
 </style>

@@ -3,6 +3,7 @@
     :id="id"
     :label="getLabel"
     :label-for="inputId"
+    :description="description"
     >
       <input
       v-if="!textArea"
@@ -13,7 +14,7 @@
       class="form-control"
       :class="{ 'is-invalid': getErrorType === false }"
       :value="value"
-      @input="$emit('input', { field: name, value: $event.target.value} )"
+      @input="$emit('input', $event.target.value, valueName )"
       v-bind="$attrs"
       />
       <textarea
@@ -25,7 +26,7 @@
         class="form-control"
         :class="{ 'is-invalid': getErrorType === false }"
         :value="value"
-        @input="$emit('input', { field: name, value: $event.target.value} )"
+        @input="$emit('input', $event.target.value, valueName )"
         rows="4"
         v-bind="$attrs"
       >
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import { camelize } from 'humps'
+
 /**
  * Used for creating Input/TextArea Fields
  * @displayName Base Form Group
@@ -92,13 +95,23 @@ export default {
      * Changes Input to TextArea
      */
     textArea: {
+      type: Boolean,
       required: false,
       default: false
     },
     /**
      * Whether the Input is required (adds * to label)
      */
+    description: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    /**
+     * Whether the Input is required (adds * to label)
+     */
     optional: {
+      type: Boolean,
       required: false,
       default: true
     },
@@ -117,10 +130,10 @@ export default {
       return this.id + '-input'
     },
     getErrorType () {
-      return this.validation[this.name] !== undefined ? false : null
+      return this.validation[this.validationName] !== undefined ? false : null
     },
     getErrorMessage () {
-      return this.validation[this.name] ? this.validation[this.name][0] : ''
+      return this.validation[this.validationName] ? this.validation[this.validationName][0] : ''
     },
     getLabel () {
       return !this.optional ? `${this.label}*` : this.label
@@ -128,11 +141,13 @@ export default {
   },
   data () {
     return {
-      name: ''
+      validationName: '', // Validation
+      valueName: '' // API
     }
   },
   mounted () {
-    this.name = this.id.replace(/-/g, '_')
+    this.validationName = this.id.replace(/-/g, '_')
+    this.valueName = camelize(this.id)
   }
 }
 </script>

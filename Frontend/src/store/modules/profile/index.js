@@ -8,7 +8,9 @@ export default {
       email: '',
       firstName: '',
       lastName: '',
-      password: ''
+      password: '',
+      createdAt: '',
+      updatedAt: ''
     }
   },
   mutations,

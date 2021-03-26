@@ -5,7 +5,8 @@ import getters from './getters.js'
 export default {
   state () {
     return {
-      toggled: true
+      toggled: false,
+      message: ''
     }
   },
   mutations,
