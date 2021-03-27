@@ -1,7 +1,7 @@
 <template>
   <b-row>
-    <b-col xl="6" lg="12">
-      <base-card>
+    <b-col xl="6" lg="12" class="mb-4">
+      <base-card :loading="initialized">
         <b-form @submit.prevent="onSubmit">
           <b-form-row fluid>
             <b-col lg="6">
@@ -64,20 +64,46 @@
         </b-form>
       </base-card>
     </b-col>
-    <b-col xl="4" lg="12">
-      <base-card></base-card>
+    <b-col xl="3" lg="12">
+      <base-card :loading="initialized">
+        <div class="company mb-3">
+          <div id="company-logo" class="company__upload">
+            <template v-if="!company.logoPath">
+              <font-awesome-icon icon="cloud-upload-alt" class="text-muted"/>
+              <p class="text-muted">Drag a file here or <span class="text-primary">browse</span> to choose a file</p>
+            </template>
+            <img
+              v-else
+              :src="company.logoPath"
+              class="company__preview"
+            />
+          </div>
+        </div>
+        <avatar-cropper
+          trigger="company-logo"
+          @changed="onChange"
+          @uploadHandler="onUploadHandler"
+        />
+        <small class="text-muted"><font-awesome-icon icon="info-circle" class="text-primary"/> Information about your company that will be displayed on invoices, estimates and other documents created by Contractor Apps.</small>
+      </base-card>
     </b-col>
   </b-row>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import AvatarCropper from '@/components/AvatarCropper'
 
 export default {
   name: 'CompanyTab',
+  components: {
+    AvatarCropper
+  },
   data () {
     return {
-      loading: true,
+      loading: false,
+      initialized: true,
+      cropperOutputMime: '',
       errors: []
     }
   },
@@ -85,9 +111,24 @@ export default {
     ...mapGetters(['company'])
   },
   methods: {
+    onUploadHandler (cropper) {
+      const logoURL = cropper
+        .getCroppedCanvas()
+        .toDataURL(this.cropperOutputMime)
+
+      cropper.getCroppedCanvas().toBlob((blob) => {
+        this.$store.dispatch('setCompany', {
+          logo: blob,
+          logoPath: logoURL
+        })
+      })
+    },
+    onChange (file) {
+      this.cropperOutputMime = file.type
+    },
     async loadCompany () {
       await this.$store.dispatch('getCompany')
-      this.loading = false
+      this.initialized = false
     },
     updateField (value, field) {
       this.$store.dispatch('setCompany', {
@@ -111,3 +152,32 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.company {
+  height: 150px;
+  border-width: 2px;
+  border-style: dashed;
+  border-radius: .375rem;
+  border-color: #e2e2e2;
+
+  &__upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    p {
+      font-size: 0.75rem;
+    }
+  }
+
+  &__preview {
+    position: absolute;
+    height: 100%;
+  }
+}
+</style>

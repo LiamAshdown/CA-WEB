@@ -4,6 +4,7 @@
     :label="getLabel"
     :label-for="inputId"
     :description="description"
+    class="font-weight-medium"
     >
       <input
       v-if="!textArea"

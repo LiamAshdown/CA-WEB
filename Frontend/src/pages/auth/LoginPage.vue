@@ -85,7 +85,6 @@ export default {
 
 <style lang="scss">
 .signin {
-  font-family: 'Nunito';
 
   &__image {
     img {

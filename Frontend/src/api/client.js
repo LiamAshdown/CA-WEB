@@ -1,16 +1,31 @@
 import axios from 'axios'
-import { camelizeKeys, decamelizeKeys } from 'humps'
+import { camelizeKeys, decamelizeKeys, decamelize } from 'humps'
 import store from '@/store'
 
 const apiClient = axios.create({
-  baseURL: 'http://sittracker.test/api/v1'
+  baseURL: `${process.env.VUE_APP_BASE_URL}/api/v1`
 })
 
 apiClient.interceptors.request.use(async config => {
   const jwtToken = store.getters.accessToken
   const headers = jwtToken ? { Authorization: `Bearer ${jwtToken}` } : {}
 
-  config.data = decamelizeKeys(config.data)
+  if (config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+    const formData = new FormData()
+
+    for (const key in config.data) {
+      // Turn Null into empty string
+      if (config.data[key] === null) {
+        config.data[key] = ''
+      }
+
+      formData.append(decamelize(key), config.data[key])
+    }
+
+    config.data = formData
+  } else {
+    config.data = decamelizeKeys(config.data)
+  }
 
   return {
     ...config,

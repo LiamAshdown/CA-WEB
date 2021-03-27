@@ -1,5 +1,8 @@
 <template>
   <b-navbar class="topbar shadow-sm" sticky>
+    <div class="topbar__nav-icon" :class="{ ['topbar__nav-icon--open']: toggled }" @click="toggle">
+      <div></div>
+    </div>
     <b-navbar-nav class="ml-auto" :active="true">
       <b-nav-item-dropdown class="topbar__notification">
         <template #button-content>
@@ -21,9 +24,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Navigation',
+  computed: {
+    ...mapGetters(['toggled'])
+  },
   methods: {
+    toggle () {
+      this.$store.dispatch('toggle', {
+        toggled: true
+      })
+    },
     async signOut () {
       await this.$store.dispatch('logout')
       this.$router.push({ name: 'SignIn' })
@@ -36,6 +49,45 @@ export default {
 .topbar {
   height: 60px;
   background-color: #fff;
+
+  &__nav-icon {
+    display: none;
+    margin: 1em;
+    width: 30px;
+
+    &:before {
+      background-color: #777777;
+      content: '';
+      display: block;
+      height: 2px;
+      margin: 7px 0;
+      transition: all .2s ease-in-out;
+    }
+
+    div,
+    &:after {
+      background-color: #777777;
+      content: '';
+      display: block;
+      height: 2px;
+      margin: 7px 0;
+      transition: all .2s ease-in-out;
+    }
+
+    &--open {
+      &:before {
+        transform: translateY(9px) rotate(135deg);
+      }
+
+      &:after {
+        transform: translateY(-9px) rotate(-135deg);
+      }
+
+      div {
+        transform: scale(0);
+      }
+    }
+  }
 
   &__notification {
     .badge {
@@ -86,18 +138,11 @@ export default {
   }
 }
 
-@keyframes slideIn {
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
-  }
-  100% {
-    transform:translateY(0rem);
-    opacity: 1;
-  }
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
+@include media-breakpoint-down(sm) {
+  .topbar {
+    &__nav-icon {
+      display: initial;
+    }
   }
 }
 </style>

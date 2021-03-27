@@ -11,7 +11,9 @@ import {
   faChevronRight,
   faUser,
   faBell,
-  faFileInvoice
+  faFileInvoice,
+  faCloudUploadAlt,
+  faInfoCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
 
@@ -35,7 +37,9 @@ library.add(faTachometerAlt,
   faChevronRight,
   faUser,
   faBell,
-  faFileInvoice
+  faFileInvoice,
+  faCloudUploadAlt,
+  faInfoCircle
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

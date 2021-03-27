@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col xl="6" lg="12">
-      <base-card>
+      <base-card :loading="initialized">
         <b-form @submit.prevent="onSubmit">
           <base-form-group
             id="email"
@@ -67,7 +67,8 @@ export default {
   name: 'CompanyTab',
   data () {
     return {
-      loading: true,
+      loading: false,
+      initialized: true,
       errors: []
     }
   },
@@ -77,7 +78,7 @@ export default {
   methods: {
     async loadProfile () {
       await this.$store.dispatch('getProfile')
-      this.loading = false
+      this.initialized = false
     },
     updateField (value, field) {
       this.$store.dispatch('setProfile', {

@@ -89,7 +89,6 @@ class User extends Authenticatable
     */
     public function company()
     {
-        $test = $this->belongsToMany(Company::class);
         return $this->belongsToMany(Company::class);
     }
 }

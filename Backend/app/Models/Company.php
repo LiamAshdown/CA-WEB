@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class Company extends Model
 {
@@ -28,8 +30,31 @@ class Company extends Model
 		'name',
 		'telephone_number',
 		'postal_code',
-		'address'
+		'address',
+        'logo_path'
     ];
+
+    /**
+     * Handle Logo
+     *
+     * @param mixed $logo
+     * @return string
+     */
+    public function logo($request)
+    {
+        $file = $request->file('logo');
+
+        if ($file) {
+            Storage::delete($this->logo_path);
+
+            $path = $file->hashName('public/company_logos');
+            $image = Image::make($file)->fit(300);
+            Storage::put($path, (string)$image->encode());
+            return Storage::url($path);
+        }
+
+        return '';
+    }
 
 	/**
     * Get Company User

@@ -13,7 +13,11 @@ export default {
     return response
   },
   async update (payload) {
-    const response = await apiClient.post(URL.UPDATE, payload).then(response => response.data)
+    const response = await apiClient.post(URL.UPDATE, payload, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then(response => response.data)
     return response
   }
 }

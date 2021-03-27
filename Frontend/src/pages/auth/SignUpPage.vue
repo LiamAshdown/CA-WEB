@@ -188,7 +188,6 @@ export default {
 
 <style lang="scss">
 .signup {
-  font-family: 'Nunito';
 
   &__image {
     img {

@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :class="{ ['sidebar--active']: toggle }">
+  <div class="sidebar" :class="{ ['sidebar--active']: toggled }">
     <div class="sidebar__logo mb-4">
       <b-img src="images/logo.svg" alt="Contactors App"></b-img>
     </div>
@@ -36,17 +36,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  data () {
-    return {
-      toggle: false
-    }
+  name: 'TheSideBar',
+  computed: {
+    ...mapGetters(['toggled'])
   },
   methods: {
     onToggle () {
-      this.$store.dispatch('toggle', {
-        toggled: this.toggle = !this.toggle
-      })
+      this.$store.dispatch('toggle')
     }
   }
 }
@@ -152,6 +151,23 @@ export default {
           transform: rotate(180deg);
         }
       }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .sidebar {
+    left: -90px;
+    transition: left 0.4s ease, width 0.4s ease;
+    z-index: 999;
+
+    &--active {
+      width: 100%;
+      left: 0px;
+    }
+
+    &__toggle {
+      display: none;
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="root_content" :class="{ ['root_content--toggled']: toggled }">
-    <the-sidebar v-show="authenticated"></the-sidebar>
+    <the-sidebar></the-sidebar>
     <main>
-      <the-navigation v-show="authenticated"></the-navigation>
+      <the-navigation></the-navigation>
       <div class="body">
         <slot></slot>
       </div>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import TheNavigation from '@/components/partials/TheNavigation.vue'
 import TheSidebar from '@/components/partials/TheSidebar.vue'
 
@@ -21,12 +22,7 @@ export default {
     TheSidebar
   },
   computed: {
-    toggled () {
-      return this.$store.getters.toggled
-    },
-    authenticated () {
-      return this.$store.getters.isAuthenticated
-    }
+    ...mapGetters(['toggled'])
   },
   created () {
     this.$store.watch((state) => state.misc.message, (message) => {
@@ -47,21 +43,30 @@ export default {
 
 <style lang="scss">
 .root_content {
-  height: 100%;
-
   main {
-    height: 100%;
     margin-left: 90px;
     transition: margin 0.4s ease;
 
     .body {
-      margin: 30px;
+      padding: 30px;
     }
   }
 
   &--toggled {
     main {
       margin-left: 250px;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .root_content {
+    main {
+      margin: 0px;
+
+      .body {
+        padding: 30px 0px;
+      }
     }
   }
 }

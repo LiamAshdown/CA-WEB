@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
-use App\Models\Company;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class CompanyController extends Controller
 {
@@ -48,9 +45,13 @@ class CompanyController extends Controller
 			'address' 		    => 'required|string',
 			'postal_code' 	    => 'required|string',
 			'telephone_number' 	=> 'required|string',
+            'logo'              => 'nullable|mimes:jpeg,png,jpg'
         ]);
 
-        auth()->user()->company()->update($attributes);
+        $company = auth()->user()->company()->first();
+        $attributes['logo_path'] = $company->logo($request);
+
+        $company->update($attributes);
 
         return response()->json([
             'message' => 'Successfully updated company.'

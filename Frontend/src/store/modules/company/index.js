@@ -9,6 +9,8 @@ export default {
       telephoneNumber: '',
       postalCode: '',
       address: '',
+      logo: null,
+      logoPath: '',
       createdAt: '',
       updatedAt: ''
     }
