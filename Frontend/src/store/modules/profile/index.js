@@ -5,12 +5,16 @@ import getters from './getters.js'
 export default {
   state () {
     return {
-      email: '',
+      info: {
+        firstName: '',
+        lastName: '',
+        role: '',
+        permissions: ''
+      },
       firstName: '',
       lastName: '',
-      password: '',
-      createdAt: '',
-      updatedAt: ''
+      email: '',
+      password: ''
     }
   },
   mutations,

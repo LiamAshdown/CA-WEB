@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\ProfileResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +17,7 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        return new UserResource(auth()->user());
+        return new ProfileResource(auth()->user());
     }
 
     /**

@@ -14,7 +14,7 @@ apiClient.interceptors.request.use(async config => {
     const formData = new FormData()
 
     for (const key in config.data) {
-      // Turn Null into empty string
+      // Turn null into empty string
       if (config.data[key] === null) {
         config.data[key] = ''
       }

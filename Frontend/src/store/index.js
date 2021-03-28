@@ -11,7 +11,16 @@ Vue.use(Vuex)
 
 const dataState = createPersistedState({
   key: 'vuex:persist',
-  paths: ['auth']
+  reducer: (state) => ({
+    auth: state.auth,
+    profile: {
+      firstName: state.profile.firstName,
+      lastName: state.profile.lastName,
+      email: state.profile.email,
+      role: state.profile.role,
+      permissions: state.profile.permissions
+    }
+  })
 })
 
 const store = new Vuex.Store({

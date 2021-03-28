@@ -13,7 +13,7 @@
         <b-dropdown-item href="#">Notification 2</b-dropdown-item>
       </b-nav-item-dropdown>
       <div class="topbar__profile">
-        <b-badge pill variant="primary">LA</b-badge>
+        <b-badge pill variant="primary">{{ initials }}</b-badge>
         <b-nav-item-dropdown>
           <b-dropdown-item :to="{ name: 'Profile' }">Profile</b-dropdown-item>
           <b-dropdown-item href="#" @click="signOut">Sign Out</b-dropdown-item>
@@ -29,7 +29,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Navigation',
   computed: {
-    ...mapGetters(['toggled'])
+    ...mapGetters(['toggled', 'initials'])
   },
   methods: {
     toggle () {
