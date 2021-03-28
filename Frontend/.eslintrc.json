@@ -18,7 +18,8 @@
     "plugins": [
         "vue"
     ],
+    "ignorePatterns": ["**/vendor/*.js"],
     "rules": {
-      "vue/no-unused-components": "off"
+        "vue/no-unused-components": "off"
     }
 }

@@ -3,6 +3,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import '../node_modules/bootstrap/scss/bootstrap.scss'
 import '../node_modules/bootstrap-vue/src/index.scss'
 
+import '@/vendor/pace'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {

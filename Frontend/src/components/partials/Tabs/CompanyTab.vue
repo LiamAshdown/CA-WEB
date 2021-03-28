@@ -68,10 +68,10 @@
       <base-card :loading="initialized">
         <div class="company mb-3">
           <div id="company-logo" class="company__upload">
-            <template v-if="!company.logoPath">
+            <div v-if="!company.logoPath" class="company__upload_info mt-3 text-center">
               <font-awesome-icon icon="cloud-upload-alt" class="text-muted"/>
               <p class="text-muted">Drag a file here or <span class="text-primary">browse</span> to choose a file</p>
-            </template>
+            </div>
             <img
               v-else
               :src="company.logoPath"

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { camelizeKeys, decamelizeKeys, decamelize } from 'humps'
 import store from '@/store'
+import { camelizeKeys, decamelizeKeys, decamelize } from 'humps'
 
 const apiClient = axios.create({
   baseURL: `${process.env.VUE_APP_BASE_URL}/api/v1`
