@@ -1,6 +1,11 @@
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 module.exports = {
   configureWebpack: {
-    devtool: 'source-map'
+    devtool: 'source-map',
+    plugins: [
+      new BundleAnalyzerPlugin(),
+    ]
   },
   chainWebpack: (config) => {
     config

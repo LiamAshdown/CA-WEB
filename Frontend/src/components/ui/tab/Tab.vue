@@ -8,8 +8,13 @@
 export default {
   props: {
     title: {
-      required: true,
-      type: String
+      type: String,
+      required: true
+    },
+    permission: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {

@@ -19,7 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->string('telephone_number');
             $table->string('postal_code');
             $table->string('address');
-            $table->text('logo_path');
+            $table->text('logo_path')->nullable();
             $table->timestamps();
         });
     }

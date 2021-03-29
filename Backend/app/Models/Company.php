@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Storage;
 use Image;
 
 class Company extends Model
@@ -18,7 +18,7 @@ class Company extends Model
      */
     public const PERMISSIONS = [
         'view' => 'view company',
-        'update' => 'company update'
+        'update' => 'update company'
     ];
 
     /**
@@ -50,7 +50,7 @@ class Company extends Model
             $path = $file->hashName('public/company_logos');
             $image = Image::make($file)->fit(300);
             Storage::put($path, (string)$image->encode());
-            return Storage::url($path);
+            return $path;
         }
 
         return '';

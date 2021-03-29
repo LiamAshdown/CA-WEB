@@ -15,7 +15,18 @@ import {
   faBell,
   faFileInvoice,
   faCloudUploadAlt,
-  faInfoCircle
+  faInfoCircle,
+  faBold,
+  faItalic,
+  faStrikethrough,
+  faUnderline,
+  faCode,
+  faParagraph,
+  faListUl,
+  faListOl,
+  faQuoteRight,
+  faRedo,
+  faUndo
 } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
 
@@ -25,10 +36,12 @@ import store from './store'
 
 import BaseDivider from '@/components/ui/BaseDivider.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import BaseTextEditor from '@/components/ui/BaseTextEditor.vue'
 import BaseFormGroup from '@/components/ui/form/BaseFormGroup.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
 import BaseTabs from '@/components/ui/tab/Tabs.vue'
 import BaseTab from '@/components/ui/tab/Tab.vue'
+import Can from '@/components/ui/helpers/Can.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -41,16 +54,29 @@ library.add(faTachometerAlt,
   faBell,
   faFileInvoice,
   faCloudUploadAlt,
-  faInfoCircle
+  faInfoCircle,
+  faBold,
+  faItalic,
+  faStrikethrough,
+  faUnderline,
+  faCode,
+  faParagraph,
+  faListUl,
+  faListOl,
+  faQuoteRight,
+  faRedo,
+  faUndo
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('base-divider', BaseDivider)
 Vue.component('base-button', BaseButton)
+Vue.component('base-text-editor', BaseTextEditor)
 Vue.component('base-form-group', BaseFormGroup)
 Vue.component('base-card', BaseCard)
 Vue.component('base-tabs', BaseTabs)
 Vue.component('base-tab', BaseTab)
+Vue.component('can', Can)
 
 const App = new Vue({
   render: h => h(AppComponent),

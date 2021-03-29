@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     public const ROLES = [
         'company_admin' => 'company admin',
+        'company_sub_admin' => 'company sub admin',
         'company_user' => 'company user'
     ];
 
@@ -85,10 +86,10 @@ class User extends Authenticatable
     /**
     * Get Company
     *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
     public function company()
     {
-        return $this->belongsToMany(Company::class);
+        return $this->belongsTo(Company::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
+use App\Models\CompanyCustomization;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -23,10 +24,20 @@ class PermissionsSeeder extends Seeder
 
         Permission::create(['name' => Company::PERMISSIONS['view']]);
         Permission::create(['name' => Company::PERMISSIONS['update']]);
-        $role = Role::create(['name' => User::ROLES['company_admin']]);
+        Permission::create(['name' => CompanyCustomization::PERMISSIONS['view']]);
+        Permission::create(['name' => CompanyCustomization::PERMISSIONS['update']]);
 
+        $role = Role::create(['name' => User::ROLES['company_admin']]);
         $role->givePermissionTo(Company::PERMISSIONS['view']);
         $role->givePermissionTo(Company::PERMISSIONS['update']);
+        $role->givePermissionTo(CompanyCustomization::PERMISSIONS['view']);
+        $role->givePermissionTo(CompanyCustomization::PERMISSIONS['update']);
+
+        $role = Role::create(['name' => User::ROLES['company_sub_admin']]);
+        $role->givePermissionTo(Company::PERMISSIONS['view']);
+        $role->givePermissionTo(Company::PERMISSIONS['update']);
+        $role->givePermissionTo(CompanyCustomization::PERMISSIONS['view']);
+        $role->givePermissionTo(CompanyCustomization::PERMISSIONS['update']);
 
         $role = Role::create(['name' => User::ROLES['company_user']]);
     }

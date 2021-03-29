@@ -52,7 +52,6 @@ export default {
 
   &__nav-icon {
     display: none;
-    margin: 1em;
     width: 30px;
 
     &:before {

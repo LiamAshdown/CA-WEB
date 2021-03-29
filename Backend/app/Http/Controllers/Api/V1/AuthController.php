@@ -88,32 +88,31 @@ class AuthController extends Controller
 	public function register(Request $request, ProxyServiceInterface $proxyService) 
 	{
 		$attributes = $request->validate([
-			'first_name' 				=> 'required|string',
-			'last_name'  				=> 'required|string',
-			'email' 	 				=> 'required|email|unique:users',
-			'password'   				=> 'required',
-			'company_name'				=> 'required|string',
-			'company_address' 			=> 'required|string',
-			'company_postal_code' 		=> 'required|string',
+			'first_name' 								=> 'required|string',
+			'last_name'  								=> 'required|string',
+			'email' 	 									=> 'required|email|unique:users',
+			'password'   								=> 'required',
+			'company_name'							=> 'required|string',
+			'company_address' 					=> 'required|string',
+			'company_postal_code' 			=> 'required|string',
 			'company_telephone_number' 	=> 'required|string',
 		]);
 
 		if ($company = Company::create([
-			'name' 				=> $attributes['company_name'],
-			'address' 			=> $attributes['company_address'],
-			'postal_code' 		=> $attributes['company_postal_code'],
+			'name' 							=> $attributes['company_name'],
+			'address' 					=> $attributes['company_address'],
+			'postal_code' 			=> $attributes['company_postal_code'],
 			'telephone_number' 	=> $attributes['company_telephone_number']
 		])) {
-			$user = User::create([
-				'first_name' => $attributes['first_name'],
-				'last_name'  => $attributes['last_name'],
-				'email'		 => $attributes['email'],
-				'password'	 => $attributes['password']
-			]);
+			$user = new User();
+			$user->first_name  	= $attributes['first_name'];
+			$user->last_name  	= $attributes['last_name'];
+			$user->email		 		= $attributes['email'];
+			$user->password	 		= $attributes['password'];
+			$user->company_id 	= $company->id;
+			$user->save();
 
 			$user->assignRole(User::ROLES['company_admin']);
-
-			$company->user()->attach($user->id, ['admin' => true]);
 		}
 
 		return $proxyService->proxy('password', [

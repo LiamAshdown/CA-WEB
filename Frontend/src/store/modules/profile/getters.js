@@ -4,5 +4,8 @@ export default {
   },
   initials (state) {
     return state.info.firstName[0] + state.info.lastName[0]
+  },
+  permissions (state) {
+    return state.info.permissions
   }
 }

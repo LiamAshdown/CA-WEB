@@ -6,6 +6,7 @@ import authModule from '@/store/modules/auth/index.js'
 import miscModule from '@/store/modules/misc/index.js'
 import profileModule from '@/store/modules/profile/index.js'
 import companyModule from '@/store/modules/company/index.js'
+import customizationModule from '@/store/modules/customization/index.js'
 
 Vue.use(Vuex)
 
@@ -14,11 +15,12 @@ const dataState = createPersistedState({
   reducer: (state) => ({
     auth: state.auth,
     profile: {
-      firstName: state.profile.firstName,
-      lastName: state.profile.lastName,
-      email: state.profile.email,
-      role: state.profile.role,
-      permissions: state.profile.permissions
+      info: {
+        firstName: state.profile.firstName,
+        lastName: state.profile.lastName,
+        role: state.profile.role,
+        permissions: state.profile.permissions
+      }
     }
   })
 })
@@ -28,7 +30,8 @@ const store = new Vuex.Store({
     auth: authModule,
     profile: profileModule,
     company: companyModule,
-    misc: miscModule
+    misc: miscModule,
+    customization: customizationModule
   },
   plugins: [dataState]
 })

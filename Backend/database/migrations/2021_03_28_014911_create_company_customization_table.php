@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyUserTable extends Migration
+class CreateCompanyCustomizationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCompanyUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_user', function (Blueprint $table) {
+        Schema::create('company_customization', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice_prefix');
+            $table->string('default_invoice_body')->nullable();
+            $table->string('estimate_prefix');
+            $table->string('default_estimate_body')->nullable();
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->cascadeOnDelete();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->boolean('admin');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +32,6 @@ class CreateCompanyUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_users');
+        Schema::dropIfExists('user_customization');
     }
 }

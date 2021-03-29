@@ -1,13 +1,18 @@
 <template>
   <div>
-    <base-card class="mb-4">
+    <base-card class="form-group">
       <ul class='tab-navigation'>
         <li v-for='(tab, index) in tabs'
           :key='tab.title'
           @click='selectTab(index)'
           class="tab-navigation__item"
           :class='{"tab-navigation__item--active": (index == selectedIndex)}'>
-          <button class="tab-navigation__btn">{{ tab.title }}</button>
+          <button
+            v-if="hasPermission(tab)"
+            class="tab-navigation__btn"
+          >
+          {{ tab.title }}
+          </button>
         </li>
       </ul>
     </base-card>
@@ -16,9 +21,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Tabs',
-
+  computed: {
+    ...mapGetters(['permissions'])
+  },
   data () {
     return {
       selectedIndex: 0,
@@ -37,6 +46,13 @@ export default {
     this.selectTab(0)
   },
   methods: {
+    hasPermission (tab) {
+      if (tab.permission) {
+        return this.permissions.some(permission => permission === tab.permission)
+      }
+
+      return true
+    },
     selectTab (i) {
       this.selectedIndex = i
       this.tabs.forEach((tab, index) => {
@@ -52,6 +68,7 @@ export default {
   margin: 0 ;
   padding: 0;
   list-style: none;
+
   &__item {
     margin-right: 10px;
     display: inline-block;

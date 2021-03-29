@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Storage;
 
 class CompanyResource extends JsonResource
 {
@@ -20,7 +21,7 @@ class CompanyResource extends JsonResource
             'telephone_number'  => $this->telephone_number,
             'postal_code'       => $this->postal_code,
             'address'           => $this->address,
-            'logo_path'         => $this->logo_path ? url($this->logo_path) : '',
+            'logo_path'         => $this->logo_path ? url(Storage::url($this->logo_path)) : '',
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at
         ];

@@ -2,8 +2,9 @@
 @import 'bootstrap/scss/_variables.scss';
 @import 'bootstrap/scss/_mixins.scss';
 
-@import "setup/base.scss";
-@import "components/base.scss";
+@import 'setup/base';
+@import 'components/base';
+@import 'basics/base';
 
 html {
   height: 100vh;
