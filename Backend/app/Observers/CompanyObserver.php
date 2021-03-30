@@ -8,6 +8,13 @@ use App\Models\CompanyCustomization;
 class CompanyObserver
 {
     /**
+     * Handle events after all transactions are committed.
+     *
+     * @var bool
+     */
+    public $afterCommit = true;
+
+    /**
      * Handle the Company "created" event.
      *
      * @param  \App\Models\Company  $company

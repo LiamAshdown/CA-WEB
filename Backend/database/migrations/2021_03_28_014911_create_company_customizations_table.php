@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyCustomizationTable extends Migration
+class CreateCompanysCustomizationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCompanyCustomizationTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_customization', function (Blueprint $table) {
+        Schema::create('company_customizations', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_prefix');
             $table->string('default_invoice_body')->nullable();
