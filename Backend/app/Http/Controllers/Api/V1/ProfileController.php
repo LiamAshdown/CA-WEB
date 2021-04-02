@@ -39,7 +39,7 @@ class ProfileController extends Controller
             'password' => 'nullable'
 		]);
 
-        User::find(auth()->id())->update($attributes);
+        auth()->user()->update($attributes);
 
         return response()->json([
             'message' => 'Successfully updated profile.'

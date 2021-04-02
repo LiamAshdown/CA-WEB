@@ -1,4 +1,4 @@
-import { SET_TOKEN_MUTATION } from '@/store/mutation-types'
+import { SET_TOKEN_MUTATION, SET_PROFILE_INFO_DATA_MUTATION } from '@/store/mutation-types'
 import api from '@/api/index.js'
 
 export default {
@@ -15,11 +15,19 @@ export default {
   async logout (context) {
     await api.auth.logout()
 
+    // Reset the states
     context.commit(SET_TOKEN_MUTATION, {
       accessToken: '',
       expiresIn: '',
       refreshToken: '',
       authenticated: false
+    })
+
+    context.commit(SET_PROFILE_INFO_DATA_MUTATION, {
+      firstName: '',
+      lastName: '',
+      role: '',
+      permissions: ''
     })
   },
   async register (context, payload) {

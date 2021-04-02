@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col xl="6" lg="12" class="mb-4">
-      <base-card :loading="initialized">
+      <base-card :loading="initializing">
         <b-form @submit.prevent="onSubmit">
           <b-form-row fluid>
             <b-col lg="6">
@@ -65,7 +65,7 @@
       </base-card>
     </b-col>
     <b-col xl="3" lg="12">
-      <base-card :loading="initialized">
+      <base-card :loading="initializing">
         <div class="company mb-3">
           <div id="company-logo" class="company__upload">
             <div v-if="!company.logoPath" class="company__upload_info mt-3 text-center">
@@ -102,7 +102,7 @@ export default {
   data () {
     return {
       loading: false,
-      initialized: true,
+      initializing: true,
       cropperOutputMime: '',
       errors: []
     }
@@ -128,7 +128,7 @@ export default {
     },
     async loadCompany () {
       await this.$store.dispatch('getCompany')
-      this.initialized = false
+      this.initializing = false
     },
     updateField (value, field) {
       this.$store.dispatch('setCompany', {

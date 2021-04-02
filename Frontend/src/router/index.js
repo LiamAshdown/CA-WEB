@@ -7,6 +7,7 @@ import DashboardPage from '@/pages/DashboardPage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
 import UsersPage from '@/pages/UsersPage.vue'
 import AddUserPage from '@/pages/AddUserPage.vue'
+import EditUserPage from '@/pages/EditUserPage.vue'
 import NotAuthenticatedLayout from '@/components/layouts/NotAuthenticatedLayout.vue'
 import AuthenticatedLayout from '@/components/layouts/AuthenticatedLayout.vue'
 
@@ -70,6 +71,17 @@ const routes = [
     path: '/users/add-user',
     name: 'AddUser',
     component: AddUserPage,
+    meta: {
+      middleware: [
+        auth
+      ],
+      layout: AuthenticatedLayout
+    }
+  },
+  {
+    path: '/users/edit-user/:id',
+    name: 'EditUser',
+    component: EditUserPage,
     meta: {
       middleware: [
         auth

@@ -7,33 +7,54 @@
   <base-card>
     <h4>Filter</h4>
       <b-form class="mb-5">
-        <b-form-row>
-          <b-col cols="12" lg="6" class="mb-3">
-            <b-form-input
-              id="inline-form-input-name"
-              placeholder="Search"
-            ></b-form-input>
-          </b-col>
-          <b-col cols="12" lg="6">
-            <b-form-select v-model="selected" :fields="fields" :options="options"></b-form-select>
-          </b-col>
-        </b-form-row>
+        <b-form-input
+          v-model="filter"
+          placeholder="Search"
+        ></b-form-input>
       </b-form>
-      <b-table striped hover stacked="sm" :fields="fields" :items="items">
-        <template #cell(action)>
-          <base-button>Edit</base-button>
+      <b-table
+        striped
+        hover
+        stacked="sm"
+        :per-page="perPage"
+        :current-page="currentPage"
+        :filter="filter"
+        :busy="loading"
+        :fields="fields"
+        :items="users"
+      >
+        <template #table-busy>
+          <div class="text-center text-primary my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong> Loading...</strong>
+          </div>
+        </template>
+
+        <template #cell(action)="data">
+          <base-button :to="{ name: 'EditUser', params: { id: data.item.id } }">Edit</base-button>
         </template>
       </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+    ></b-pagination>
     </base-card>
   </b-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'UsersPage',
 
   data () {
     return {
+      perPage: 5,
+      currentPage: 1,
+      loading: true,
+      filter: '',
       selected: null,
       options: [
         { value: null, text: 'Choose Role' },
@@ -42,15 +63,29 @@ export default {
         { value: 'company_user', text: 'Company User' }
       ],
       fields: [
-        'first_name',
-        'last_name',
+        'firstName',
+        'lastName',
         'role',
         'action'
-      ],
-      items: [
-        { first_name: 'Dickerson', last_name: 'Macdonald', role: 'Company Admin' }
       ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      users: 'users/users'
+    }),
+    rows () {
+      return this.users.length
+    }
+  },
+  methods: {
+    async loadUsers () {
+      await this.$store.dispatch('users/index')
+      this.loading = false
+    }
+  },
+  mounted () {
+    this.loadUsers()
   }
 }
 </script>

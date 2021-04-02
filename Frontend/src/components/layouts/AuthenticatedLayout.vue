@@ -50,7 +50,7 @@ export default {
     transition: margin 0.4s ease;
 
     .body {
-      padding: 30px;
+      padding: 30px 10px;
     }
   }
 

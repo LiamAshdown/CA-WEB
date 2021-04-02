@@ -45,6 +45,8 @@ Route::group([
 	'namespace' => 'V1',
 	'middleware' => ['auth']
 ], function ($router) {
-	Route::get('', 'UsersController@show');
+	Route::get('/', 'UsersController@index');
+	Route::get('show/{id}', 'UsersController@show');
+	Route::post('update/{id}', 'UsersController@update');
 	Route::post('store', 'UsersController@store');
 });

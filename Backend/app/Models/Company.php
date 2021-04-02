@@ -7,6 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 use Storage;
 use Image;
 
+/**
+ * App\Models\Company
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $telephone_number
+ * @property string $postal_code
+ * @property string $address
+ * @property string|null $logo_path
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\CompanyCustomization $companyCustomization
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereLogoPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company wherePostalCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereTelephoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Company extends Model
 {
     use HasFactory;
@@ -57,13 +83,13 @@ class Company extends Model
     }
 
 	/**
-    * Get Company User
+    * Get Company Users
     *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
     */
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     /**

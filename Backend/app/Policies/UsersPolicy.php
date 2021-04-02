@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\CompanyCustomization;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CustomizationPolicy
+class UsersPolicy
 {
     use HandlesAuthorization;
 
@@ -18,23 +17,27 @@ class CustomizationPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CompanyCustomization  $companyCustomization
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function view(User $user, CompanyCustomization $companyCustomization)
+    public function view(User $user, User $model)
     {
-        if ($user->can(CompanyCustomization::PERMISSIONS['view'])) {
-            return true;
+        if (!$user->can(User::PERMISSIONS['view'])) {
+            return false;
         }
 
-        return false;
+        if ($user->companyId() !== $model->companyId()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -45,58 +48,64 @@ class CustomizationPolicy
      */
     public function create(User $user)
     {
-        return true;
+        if ($user->can(User::PERMISSIONS['store'])) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CompanyCustomization  $companyCustomization
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function update(User $user, CompanyCustomization $companyCustomization)
+    public function update(User $user, User $model)
     {
-        if ($user->can(CompanyCustomization::PERMISSIONS['update'])) {
-            return true;
+        if (!$user->can(User::PERMISSIONS['update'])) {
+            return false;
         }
 
-        return false;
+        if ($user->companyId() !== $model->companyId()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CompanyCustomization  $companyCustomization
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function delete(User $user, CompanyCustomization $companyCustomization)
+    public function delete(User $user, User $model)
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CompanyCustomization  $companyCustomization
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function restore(User $user, CompanyCustomization $companyCustomization)
+    public function restore(User $user, User $model)
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CompanyCustomization  $companyCustomization
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function forceDelete(User $user, CompanyCustomization $companyCustomization)
+    public function forceDelete(User $user, User $model)
     {
-        return true;
+        //
     }
 }

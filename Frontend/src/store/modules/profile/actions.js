@@ -5,7 +5,11 @@ export default {
   async getProfile (context) {
     const response = await api.profile.show()
 
-    context.commit(SET_PROFILE_DATA_MUTATION, response.data)
+    context.commit(SET_PROFILE_DATA_MUTATION, {
+      firstName: response.data.firstName,
+      lastName: response.data.lastName,
+      email: response.data.email
+    })
     context.commit(SET_PROFILE_INFO_DATA_MUTATION, response.data)
   },
   setProfile (context, payload) {
