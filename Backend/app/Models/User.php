@@ -24,6 +24,17 @@ class User extends Authenticatable
         'company_user' => 'company user'
     ];
 
+    /**
+     * Permissions
+     *
+     * @var array
+     */
+    public const PERMISSIONS = [
+        'view' => 'view user',
+        'update' => 'update user',
+        'store' => 'store user'
+    ];
+
     protected $guard_name = 'api';
 
     /**
@@ -81,6 +92,16 @@ class User extends Authenticatable
         }
 
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    /**
+     * Get Company Id
+     *
+     * @return int
+     */
+    public function companyId()
+    {
+        return $this->company()->first()->id;
     }
 
     /**

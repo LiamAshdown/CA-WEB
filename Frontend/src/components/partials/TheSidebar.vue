@@ -1,33 +1,33 @@
 <template>
   <div class="sidebar" :class="{ ['sidebar--active']: toggled }">
     <div class="sidebar__logo mb-4">
-      <b-img src="images/logo.svg" alt="Contactors App"></b-img>
+      <b-img src="/images/logo.svg" alt="Contactors App"></b-img>
     </div>
     <ul class="sidebar__menu">
-      <li class="sidebar__item sidebar__item--active">
-        <a href="#">
+      <router-link tag="li" class="sidebar__item" :to="{ name: 'Dashboard' }">
+        <div>
           <font-awesome-icon icon="tachometer-alt" size="lg"/>
           <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="sidebar__item">
-        <a href="#">
+        </div>
+      </router-link>
+      <!-- <router-link tag="li" class="sidebar__item" :to="{ name: 'fasdasda' }">
+        <div>
           <font-awesome-icon icon="file-invoice" size="lg"/>
           <span>Invoices</span>
-        </a>
-      </li>
-      <li class="sidebar__item">
-        <a href="#">
+        </div>
+      </router-link>
+      <router-link tag="li" class="sidebar__item" :to="{ name: 'fsadsada' }">
+        <div>
           <font-awesome-icon icon="file-alt" size="lg"/>
           <span>Quotes</span>
-        </a>
-      </li>
-      <li class="sidebar__item">
-        <a href="#">
-          <font-awesome-icon icon="user" size="lg"/>
-          <span>Profile</span>
-        </a>
-      </li>
+        </div>
+      </router-link> -->
+      <router-link tag="li" class="sidebar__item" :to="{ name: 'Users' }">
+        <div>
+          <font-awesome-icon icon="users" size="lg"/>
+          <span>Users</span>
+        </div>
+      </router-link>
     </ul>
     <div class="sidebar__toggle">
       <font-awesome-icon icon="chevron-right" size="lg" @click="onToggle"/>
@@ -86,17 +86,18 @@ export default {
     border-radius: 10px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease, width 0.3s ease;
+    $pItem: &;
 
     &:hover {
       background-color: darken($color: $primary, $amount: 8);
       cursor: pointer;
     }
 
-    &--active {
+    &.router-link-active {
       background-color: darken($color: $primary, $amount: 8);
     }
 
-    a {
+    div {
       display: flex;
       width: 100%;
     }

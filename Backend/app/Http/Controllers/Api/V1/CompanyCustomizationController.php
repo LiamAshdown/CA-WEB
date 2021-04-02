@@ -8,16 +8,6 @@ use Illuminate\Http\Request;
 class CompanyCustomizationController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -34,9 +24,11 @@ class CompanyCustomizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $companyCustomization = auth()->user()->company()->companyCustomization();
+
+        $this->authorize('view', $companyCustomization);
     }
 
     /**

@@ -39,3 +39,12 @@ Route::group([
 	Route::get('', 'CompanyController@show');
 	Route::post('update', 'CompanyController@update');
 });
+
+Route::group([
+	'prefix' => 'users',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::get('', 'UsersController@show');
+	Route::post('store', 'UsersController@store');
+});

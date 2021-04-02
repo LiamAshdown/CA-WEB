@@ -7,6 +7,7 @@ import miscModule from '@/store/modules/misc/index.js'
 import profileModule from '@/store/modules/profile/index.js'
 import companyModule from '@/store/modules/company/index.js'
 import customizationModule from '@/store/modules/customization/index.js'
+import usersModule from '@/store/modules/users/index.js'
 
 Vue.use(Vuex)
 
@@ -31,7 +32,8 @@ const store = new Vuex.Store({
     profile: profileModule,
     company: companyModule,
     misc: miscModule,
-    customization: customizationModule
+    customization: customizationModule,
+    users: usersModule
   },
   plugins: [dataState]
 })

@@ -6,20 +6,20 @@
     :description="description"
     class="font-weight-medium"
     >
-      <input
-      v-if="!textArea"
-      :id="inputId"
-      :type="type"
-      :placeholder="placeholder"
-      :aria-invalid="getErrorType === false ? 'true' : 'false'"
-      class="form-control"
-      :class="{ 'is-invalid': getErrorType === false }"
-      :value="value"
-      @input="$emit('input', $event.target.value, valueName )"
-      v-bind="$attrs"
-      />
+      <b-form-select
+        v-if="select"
+        :aria-invalid="getErrorType === false ? 'true' : 'false'"
+        :class="{ 'is-invalid': getErrorType === false }"
+        :value="value"
+        @change="$emit('input', $event, valueName )"
+        v-bind="$attrs"
+      >
+        <template #first v-if="placeholder">
+          <b-form-select-option :value="null" disabled>{{ placeholder }}</b-form-select-option>
+        </template>
+      </b-form-select>
       <textarea
-        v-if="textArea"
+        v-else-if="textArea"
         :id="inputId"
         :type="type"
         :placeholder="placeholder"
@@ -32,6 +32,18 @@
         v-bind="$attrs"
       >
       </textarea>
+      <input
+        v-else
+        :id="inputId"
+        :type="type"
+        :placeholder="placeholder"
+        :aria-invalid="getErrorType === false ? 'true' : 'false'"
+        class="form-control"
+        :class="{ 'is-invalid': getErrorType === false }"
+        :value="value"
+        @input="$emit('input', $event.target.value, valueName )"
+        v-bind="$attrs"
+      />
       <b-form-invalid-feedback :state="getErrorType === false">
         {{ getErrorMessage }}
       </b-form-invalid-feedback>
@@ -90,7 +102,7 @@ export default {
      * v-model Value
      */
     value: {
-      type: String
+      type: [Array, String]
     },
     /**
      * Changes Input to TextArea
@@ -101,7 +113,15 @@ export default {
       default: false
     },
     /**
-     * Whether the Input is required (adds * to label)
+     * Changes Input to select
+     */
+    select: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    /**
+     * Add a description to the Input
      */
     description: {
       type: String,

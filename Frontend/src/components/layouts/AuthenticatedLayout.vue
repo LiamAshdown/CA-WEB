@@ -43,6 +43,8 @@ export default {
 
 <style lang="scss">
 .root_content {
+  color: $color-font;
+
   main {
     margin-left: 90px;
     transition: margin 0.4s ease;

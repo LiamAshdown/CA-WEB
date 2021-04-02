@@ -5,6 +5,8 @@ import LoginPage from '@/pages/auth/LoginPage.vue'
 import SignUpPage from '@/pages/auth/SignUpPage.vue'
 import DashboardPage from '@/pages/DashboardPage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
+import UsersPage from '@/pages/UsersPage.vue'
+import AddUserPage from '@/pages/AddUserPage.vue'
 import NotAuthenticatedLayout from '@/components/layouts/NotAuthenticatedLayout.vue'
 import AuthenticatedLayout from '@/components/layouts/AuthenticatedLayout.vue'
 
@@ -46,6 +48,28 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: ProfilePage,
+    meta: {
+      middleware: [
+        auth
+      ],
+      layout: AuthenticatedLayout
+    }
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: UsersPage,
+    meta: {
+      middleware: [
+        auth
+      ],
+      layout: AuthenticatedLayout
+    }
+  },
+  {
+    path: '/users/add-user',
+    name: 'AddUser',
+    component: AddUserPage,
     meta: {
       middleware: [
         auth

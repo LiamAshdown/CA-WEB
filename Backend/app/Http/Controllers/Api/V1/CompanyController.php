@@ -49,6 +49,9 @@ class CompanyController extends Controller
         ]);
 
         $company = auth()->user()->company()->first();
+
+        $this->authorize('update', $company);
+
         $attributes['logo_path'] = $company->logo($request);
 
         $company->update($attributes);

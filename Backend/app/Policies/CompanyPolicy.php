@@ -57,7 +57,11 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company)
     {
-        return true;
+        if ($user->can(Company::PERMISSIONS['update'])) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

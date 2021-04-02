@@ -63,6 +63,16 @@ class Company extends Model
     */
     public function user()
     {
-        return $this->belongsToMany(User::class)->withPivot('company_id', 'user_id', 'admin');
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+    * Get Company Customization
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function companyCustomization()
+    {
+        return $this->belongsTo(CompanyCustomization::class);
     }
 }

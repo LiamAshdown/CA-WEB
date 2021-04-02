@@ -22,6 +22,7 @@ class CompanyObserver
      */
     public function created(Company $company)
     {
+        // TODO; Is this the best way of putting it?
         $companyCustomization = new CompanyCustomization();
         $companyCustomization->invoice_prefix = 'INV';
         $companyCustomization->estimate_prefix = 'EST';

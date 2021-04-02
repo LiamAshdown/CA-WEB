@@ -188,7 +188,6 @@ export default {
 
 <style lang="scss">
 .signup {
-
   &__image {
     img {
       width: 100%;

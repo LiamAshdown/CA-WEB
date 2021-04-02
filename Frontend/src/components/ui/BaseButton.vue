@@ -1,20 +1,22 @@
 <template>
   <b-button
-  v-if="loading"
-  :block="block"
-  variant="primary"
-  :type="type"
-  :disabled="loading"
+    v-if="loading"
+    :block="block"
+    variant="primary"
+    :type="type"
+    :disabled="loading"
+    v-bind="$attrs"
   >
     <b-spinner small></b-spinner>
     <slot></slot>
-  </b-button>
-  <b-button
-  v-else
-  :block="block"
-  :type="type"
-  :variant="variant"
-  >
+    </b-button>
+    <b-button
+      v-else
+      :block="block"
+      :type="type"
+      :variant="variant"
+      v-bind="$attrs"
+    >
   <slot></slot>
   </b-button>
 </template>
