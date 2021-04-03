@@ -11,6 +11,8 @@ export default {
       refreshToken: response.refreshToken,
       authenticated: true
     })
+
+    await context.dispatch('getProfile')
   },
   async logout (context) {
     await api.auth.logout()
