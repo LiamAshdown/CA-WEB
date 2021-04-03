@@ -6,24 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Request;
 
+/**
+ * @group Company
+ */
 class CompanyController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	* Show Company
+	*
+	* Show Company Details which user belongs to
+    *
+    * <aside class="notice">permission: view company</aside>
+	*
+	* @apiResource App\Http\Resources\CompanyResource
+    * @apiResourceModel App\Models\Company
+	*
+    * @return \Illuminate\Http\Response
+	*/
     public function show()
     {
         $company = auth()->user()->company()->first();
@@ -34,10 +33,24 @@ class CompanyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	* Update Company
+	*
+	* Update Company Details
+    *
+    * <aside class="notice">permission: update company</aside>
+	*
+    * @bodyParam name string required Name
+	* @bodyParam address string required Address
+	* @bodyParam postal_code string required Postal Code
+	* @bodyParam telephone_number string required Telephone Number
+	* @bodyParam logo file optional Logo
+    *
+	* @responseFile responses/company/update.json
+	* @responseFile status=422 scenario="Validation Error" responses/company/update.validation.json
+	*
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+	*/
     public function update(Request $request)
     {
         $attributes = $request->validate([

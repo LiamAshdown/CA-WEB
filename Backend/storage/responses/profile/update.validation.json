@@ -1,0 +1,14 @@
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "first_name": [
+      "The first name field is required."
+    ],
+    "last_name": [
+      "The last name field is required."
+    ],
+    "email": [
+      "The email field is required."
+    ]
+  }
+}

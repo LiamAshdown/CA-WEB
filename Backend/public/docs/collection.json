@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "0cc5b5f2-7e21-4c0f-a615-8bd328d3fad7",
+        "_postman_id": "bceb8314-d74a-4ac4-b5be-83cd3060ff16",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -42,7 +42,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"odit\",\n    \"password\": \"libero\"\n}"
+                            "raw": "{\n    \"email\": \"vel\",\n    \"password\": \"ut\"\n}"
                         },
                         "description": "Login into the system.",
                         "auth": {
@@ -74,7 +74,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"first_name\": \"nihil\",\n    \"last_name\": \"id\",\n    \"email\": \"aliquid\",\n    \"password\": \"aliquam\",\n    \"company_name\": \"alias\",\n    \"company_telephone_number\": \"dolores\",\n    \"company_postal_code\": \"ab\",\n    \"company_address\": \"quibusdam\"\n}"
+                            "raw": "{\n    \"first_name\": \"ut\",\n    \"last_name\": \"reprehenderit\",\n    \"email\": \"nostrum\",\n    \"password\": \"fuga\",\n    \"company_name\": \"deleniti\",\n    \"company_telephone_number\": \"reprehenderit\",\n    \"company_postal_code\": \"recusandae\",\n    \"company_address\": \"quos\"\n}"
                         },
                         "description": "Register into the system.",
                         "auth": {
@@ -112,6 +112,93 @@
             ]
         },
         {
+            "name": "Company",
+            "description": "",
+            "item": [
+                {
+                    "name": "Show Company",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/company",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/company"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Show Company Details which user belongs to\n\n<aside class=\"notice\">permission: view company<\/aside>"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Company",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/company\/update",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/company\/update"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "quod",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "address",
+                                    "value": "quia",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "postal_code",
+                                    "value": "dolores",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "telephone_number",
+                                    "value": "sunt",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "logo",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": "Update Company Details\n\n<aside class=\"notice\">permission: update company<\/aside>"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
             "name": "Endpoints",
             "description": "",
             "item": [
@@ -137,10 +224,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -166,10 +250,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -195,10 +276,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -224,10 +302,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -253,10 +328,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -273,7 +345,7 @@
                                 {
                                     "id": "token_id",
                                     "key": "token_id",
-                                    "value": "quod",
+                                    "value": "debitis",
                                     "description": ""
                                 }
                             ]
@@ -290,10 +362,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -319,10 +388,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -348,10 +414,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -377,10 +440,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -397,7 +457,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "enim",
+                                    "value": "possimus",
                                     "description": ""
                                 }
                             ]
@@ -414,10 +474,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -434,7 +491,7 @@
                                 {
                                     "id": "client_id",
                                     "key": "client_id",
-                                    "value": "eos",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]
@@ -451,10 +508,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -480,10 +534,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -509,10 +560,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -538,10 +586,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -558,7 +603,7 @@
                                 {
                                     "id": "token_id",
                                     "key": "token_id",
-                                    "value": "et",
+                                    "value": "officiis",
                                     "description": ""
                                 }
                             ]
@@ -575,22 +620,19 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "Show Profile Details",
+                    "name": "Display a listing of the resource.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/profile",
+                            "path": "api\/v1\/users",
                             "query": [],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/profile"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/users"
                         },
                         "method": "GET",
                         "header": [
@@ -604,39 +646,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Update Profile Details",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "{{baseUrl}}",
-                            "path": "api\/v1\/profile\/update",
-                            "query": [],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/profile\/update"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -646,9 +656,17 @@
                         "url": {
                             "protocol": "http",
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/company",
+                            "path": "api\/v1\/users\/show\/:id",
                             "query": [],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/company"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/users\/show\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "harum",
+                                    "description": ""
+                                }
+                            ]
                         },
                         "method": "GET",
                         "header": [
@@ -662,10 +680,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": []
                 },
@@ -675,9 +690,17 @@
                         "url": {
                             "protocol": "http",
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/company\/update",
+                            "path": "api\/v1\/users\/update\/:id",
                             "query": [],
-                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/company\/update"
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/users\/update\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "maxime",
+                                    "description": ""
+                                }
+                            ]
                         },
                         "method": "POST",
                         "header": [
@@ -691,10 +714,33 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Store a newly created resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/users\/store",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/users\/store"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
                     },
                     "response": []
                 },
@@ -720,10 +766,68 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Profile",
+            "description": "",
+            "item": [
+                {
+                    "name": "Profile",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/profile",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/profile"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Show User profile details"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Profile Details",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/profile\/update",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/profile\/update"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"first_name\": \"nemo\",\n    \"last_name\": \"necessitatibus\",\n    \"email\": \"ut\",\n    \"password\": \"at\"\n}"
+                        },
+                        "description": ""
                     },
                     "response": []
                 }

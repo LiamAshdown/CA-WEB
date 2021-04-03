@@ -34,6 +34,8 @@ class AuthController extends Controller
 	* @responseFile responses/authentication/token.post.json
 	* @responseFile status=422 responses/authentication/login.post.json
 	*
+	* @unauthenticated
+	*
 	* @param \Illuminate\Http\Request $request
 	* @param \App\Service\Base\ProxyServiceInterface $proxyService
 	* @return \App\Service\Base\ProxyServiceInterface::proxy
@@ -80,6 +82,8 @@ class AuthController extends Controller
 	*
 	* @responseFile responses/authentication/token.post.json
 	* @responseFile status=422 responses/authentication/registration.post.json
+	*
+	* @unauthenticated
 	*
 	* @param \Illuminate\Http\Request $request
 	* @param \App\Service\Base\ProxyServiceInterface $proxyService

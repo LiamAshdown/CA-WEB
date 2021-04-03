@@ -13,7 +13,7 @@ curl -X POST \
     "http://sittracker.test/api/v1/auth/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email":"odit","password":"libero"}'
+    -d '{"email":"vel","password":"ut"}'
 
 ```
 
@@ -28,8 +28,8 @@ let headers = {
 };
 
 let body = {
-    "email": "odit",
-    "password": "libero"
+    "email": "vel",
+    "password": "ut"
 }
 
 fetch(url, {
@@ -73,9 +73,6 @@ fetch(url, {
 <form id="form-POSTapi-v1-auth-login" data-method="POST" data-path="api/v1/auth/login" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-auth-login', this);">
 <h3>
     Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-v1-auth-login" onclick="tryItOut('POSTapi-v1-auth-login');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-v1-auth-login" onclick="cancelTryOut('POSTapi-v1-auth-login');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-v1-auth-login" hidden>Send Request 💥</button>
     </h3>
 <p>
 <small class="badge badge-black">POST</small>
@@ -108,7 +105,7 @@ curl -X POST \
     "http://sittracker.test/api/v1/auth/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"first_name":"nihil","last_name":"id","email":"aliquid","password":"aliquam","company_name":"alias","company_telephone_number":"dolores","company_postal_code":"ab","company_address":"quibusdam"}'
+    -d '{"first_name":"ut","last_name":"reprehenderit","email":"nostrum","password":"fuga","company_name":"deleniti","company_telephone_number":"reprehenderit","company_postal_code":"recusandae","company_address":"quos"}'
 
 ```
 
@@ -123,14 +120,14 @@ let headers = {
 };
 
 let body = {
-    "first_name": "nihil",
-    "last_name": "id",
-    "email": "aliquid",
-    "password": "aliquam",
-    "company_name": "alias",
-    "company_telephone_number": "dolores",
-    "company_postal_code": "ab",
-    "company_address": "quibusdam"
+    "first_name": "ut",
+    "last_name": "reprehenderit",
+    "email": "nostrum",
+    "password": "fuga",
+    "company_name": "deleniti",
+    "company_telephone_number": "reprehenderit",
+    "company_postal_code": "recusandae",
+    "company_address": "quos"
 }
 
 fetch(url, {
@@ -177,9 +174,6 @@ fetch(url, {
 <form id="form-POSTapi-v1-auth-register" data-method="POST" data-path="api/v1/auth/register" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-auth-register', this);">
 <h3>
     Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-v1-auth-register" onclick="tryItOut('POSTapi-v1-auth-register');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-v1-auth-register" onclick="cancelTryOut('POSTapi-v1-auth-register');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-v1-auth-register" hidden>Send Request 💥</button>
     </h3>
 <p>
 <small class="badge badge-black">POST</small>
@@ -281,9 +275,6 @@ fetch(url, {
 <form id="form-GETapi-v1-auth-logout" data-method="GET" data-path="api/v1/auth/logout" data-authed="1" data-hasfiles="0" data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-auth-logout', this);">
 <h3>
     Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-v1-auth-logout" onclick="tryItOut('GETapi-v1-auth-logout');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-v1-auth-logout" onclick="cancelTryOut('GETapi-v1-auth-logout');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-v1-auth-logout" hidden>Send Request 💥</button>
     </h3>
 <p>
 <small class="badge badge-green">GET</small>

@@ -65,8 +65,9 @@ apiClient.interceptors.response.use((response) => {
   } else if (error.response.status === 500) {
     store.dispatch('toast', {
       title: 'Server Error',
-      message: 'An internal error server occured. Please try again later',
-      variant: 'danger'
+      message: 'An internal server error occured. Please try again later',
+      variant: 'danger',
+      noAutoHide: true
     })
   }
 
