@@ -7,8 +7,6 @@ export default {
     })
   },
   toast (context, payload) {
-    context.commit(SET_TOAST_MESSAGE_MUTATION, {
-      message: payload.message
-    })
+    context.commit(SET_TOAST_MESSAGE_MUTATION, payload)
   }
 }

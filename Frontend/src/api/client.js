@@ -43,6 +43,33 @@ apiClient.interceptors.response.use((response) => {
 
   return response
 }, (error) => {
+  if (!error.response) {
+    store.dispatch('toast', {
+      title: 'Network Error',
+      message: 'Please check your internet connection or wait until servers are back online',
+      variant: 'danger',
+      noAutoHide: true
+    })
+  } else if (
+    error.response.data &&
+    (error.response.statusText === 'Unauthorized' ||
+      error.response.data === ' Unauthorized.')
+  ) {
+    store.dispatch('toast', {
+      title: 'Unauthorized',
+      message: error.response.data.message ? error.response.data.message : 'Unauthorized',
+      variant: 'danger'
+    })
+
+    store.dispatch('logout')
+  } else if (error.response.status === 500) {
+    store.dispatch('toast', {
+      title: 'Server Error',
+      message: 'An internal error server occured. Please try again later',
+      variant: 'danger'
+    })
+  }
+
   return Promise.reject(error)
 })
 

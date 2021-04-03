@@ -25,16 +25,25 @@ export default {
     ...mapGetters(['toggled'])
   },
   created () {
-    this.$store.watch((state) => state.misc.message, (message) => {
+    this.$store.watch((state) => state.misc.toast.message, (message) => {
+      const toast = this.$store.getters.toast
+      console.log(toast)
+
       this.$bvToast.toast(message, {
-        title: 'Notification',
+        title: toast.title || 'Notification',
+        variant: toast.variant || 'default',
         autoHideDelay: 1500,
-        appendToast: true
+        appendToast: true,
+        noAutoHide: toast.noAutoHide || false
       })
 
       // Reset Toast
+      // TODO; Setting message to empty string triggers the watch again
       this.$store.dispatch('toast', {
-        message: ''
+        title: '',
+        message: '',
+        variant: '',
+        noAutoHide: false
       })
     })
   }

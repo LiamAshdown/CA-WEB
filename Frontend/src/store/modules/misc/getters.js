@@ -3,6 +3,6 @@ export default {
     return state.toggled
   },
   toast (state) {
-    return state.message
+    return state.toast
   }
 }

@@ -17,10 +17,10 @@ const dataState = createPersistedState({
     auth: state.auth,
     profile: {
       info: {
-        firstName: state.profile.firstName,
-        lastName: state.profile.lastName,
-        role: state.profile.role,
-        permissions: state.profile.permissions
+        firstName: state.profile.info.firstName,
+        lastName: state.profile.info.lastName,
+        role: state.profile.info.role,
+        permissions: state.profile.info.permissions
       }
     }
   })

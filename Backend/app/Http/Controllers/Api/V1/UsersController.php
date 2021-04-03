@@ -87,7 +87,7 @@ class UsersController extends Controller
             'email'      => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore(auth()->id())
+                Rule::unique('users')->ignore($id)
             ],
             'role'       => 'required',
 			'password'   => 'nullable'

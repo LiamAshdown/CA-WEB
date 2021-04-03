@@ -5,6 +5,6 @@ export default {
     state.toggled = payload.toggled
   },
   [SET_TOAST_MESSAGE_MUTATION] (state, payload) {
-    state.message = payload.message
+    state.toast = payload
   }
 }

@@ -6,7 +6,12 @@ export default {
   state () {
     return {
       toggled: false,
-      message: ''
+      toast: {
+        title: '',
+        message: '',
+        variant: '',
+        noAutoHide: false
+      }
     }
   },
   mutations,
