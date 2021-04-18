@@ -32,6 +32,15 @@ Route::group([
 });
 
 Route::group([
+	'prefix' => 'customization',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::get('', 'CustomizationController@show');
+	Route::post('update', 'CustomizationController@update');
+});
+
+Route::group([
 	'prefix' => 'company',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
@@ -45,8 +54,26 @@ Route::group([
 	'namespace' => 'V1',
 	'middleware' => ['auth']
 ], function ($router) {
-	Route::get('/', 'UsersController@index');
-	Route::get('show/{id}', 'UsersController@show');
-	Route::post('update/{id}', 'UsersController@update');
-	Route::post('store', 'UsersController@store');
+	Route::get('/', 'UserController@index');
+	Route::get('show/{id}', 'UserController@show');
+	Route::post('update/{id}', 'UserController@update');
+	Route::post('store', 'UserController@store');
+});
+
+Route::group([
+	'prefix' => 'customers',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::get('/', 'CustomerController@index');
+	Route::post('store', 'CustomerController@store');
+});
+
+Route::group([
+	'prefix' => 'items',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::get('/', 'ItemController@index');
+	Route::post('store', 'ItemController@store');
 });

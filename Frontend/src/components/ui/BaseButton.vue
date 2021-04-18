@@ -5,9 +5,10 @@
     variant="primary"
     :type="type"
     :disabled="loading"
+    @click="onClick"
     v-bind="$attrs"
   >
-    <b-spinner small></b-spinner>
+    <b-spinner class="mr-1" small></b-spinner>
     <slot></slot>
     </b-button>
     <b-button
@@ -15,6 +16,7 @@
       :block="block"
       :type="type"
       :variant="variant"
+      @click="onClick"
       v-bind="$attrs"
     >
   <slot></slot>
@@ -59,6 +61,14 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    }
+  },
+  methods: {
+    /**
+     * Click Event
+     */
+    onClick (event) {
+      this.$emit('click', event)
     }
   }
 }

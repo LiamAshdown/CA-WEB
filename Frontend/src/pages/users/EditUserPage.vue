@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <h1 class="page-title">Edit User</h1>
+    <h1 class="page-title">{{ title }}</h1>
     <b-row>
       <b-col cols="12" lg="6">
         <base-card :loading="initializing">
@@ -14,7 +14,7 @@
                   type="text"
                   :optional="false"
                   autocomplete="given-name"
-                  v-model="user.firstName"
+                  :value="user.firstName"
                   @input="updateField"
                   :validation="errors"
                 ></base-form-group>
@@ -27,7 +27,7 @@
                   type="text"
                   :optional="false"
                   autocomplete="family-name"
-                  v-model="user.lastName"
+                  :value="user.lastName"
                   @input="updateField"
                   :validation="errors"
                 ></base-form-group>
@@ -42,7 +42,7 @@
                   type="email"
                   :optional="false"
                   autocomplete="email"
-                  v-model="user.email"
+                  :value="user.email"
                   @input="updateField"
                   :validation="errors"
                 ></base-form-group>
@@ -56,9 +56,9 @@
                     placeholder="Choose Role"
                     :select="true"
                     :optional="false"
-                    v-model="user.role"
-                    :options="options"
+                    :value="user.role"
                     @input="updateField"
+                    :options="options"
                     :validation="errors"
                   ></base-form-group>
                 </b-col>
@@ -72,7 +72,7 @@
                     type="password"
                     :optional="false"
                     autocomplete="new-password"
-                    v-model="user.password"
+                    :value="user.password"
                     @input="updateField"
                     :validation="errors"
                   ></base-form-group>
@@ -95,6 +95,7 @@ export default {
   data () {
     return {
       id: this.$route.params.id,
+      title: '...',
       errors: false,
       loading: false,
       initializing: true,
@@ -115,6 +116,8 @@ export default {
       await this.$store.dispatch('users/show', {
         id: this.id
       })
+
+      this.title = `Editing ${this.user.firstName + ' ' + this.user.lastName}`
 
       this.initializing = false
     },

@@ -1,6 +1,6 @@
 import api from '@/api/index.js'
 import { SET_USERS_DATA_MUTATION, SET_USER_DATA_MUTATION, SET_TOAST_MESSAGE_MUTATION } from '@/store/mutation-types'
-import { snakeCase } from '@/utils'
+import { snakeCase } from '@/helpers/utils'
 
 export default {
   async index (context) {
@@ -24,8 +24,8 @@ export default {
       message: response.message
     }, { root: true })
   },
-  async create (context, payload) {
-    const response = await api.users.store(payload)
+  async create (context) {
+    const response = await api.users.store(context.getters.user)
 
     context.commit(SET_TOAST_MESSAGE_MUTATION, {
       message: response.message

@@ -77,8 +77,12 @@
                 ></base-form-group>
               </b-col>
             </b-form-row>
-            <p class="signup__company_details mb-n2 font-weight-bold">Company Details</p>
-            <base-divider></base-divider>
+            <b-form-group
+              label="Company Details"
+              label-class="font-weight-bold text-primary"
+              class="mb-0"
+            >
+            <base-divider class="m-0 mb-3"></base-divider>
             <b-form-row fluid>
               <b-col lg="6">
                 <base-form-group
@@ -132,6 +136,7 @@
                 ></base-form-group>
               </b-col>
             </b-form-row>
+            </b-form-group>
             <base-button :loading="loading" class="mt-4">Create Account </base-button>
             <p class="signup__content__signin mt-4">Already got an account? <router-link :to="{ name: 'SignIn'}" class="text-primary font-weight-bold">Sign In</router-link></p>
           </b-form>

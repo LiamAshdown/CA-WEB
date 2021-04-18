@@ -28,7 +28,7 @@
         :class="{ 'is-invalid': getErrorType === false }"
         :value="value"
         @input="$emit('input', $event.target.value, valueName )"
-        rows="4"
+        :rows="rows"
         v-bind="$attrs"
       >
       </textarea>
@@ -102,7 +102,7 @@ export default {
      * v-model Value
      */
     value: {
-      type: [Array, String]
+      type: [Array, String, Number, undefined]
     },
     /**
      * Changes Input to TextArea
@@ -127,6 +127,14 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    /**
+     * Define how many rows text area should have
+     */
+    rows: {
+      type: String,
+      required: false,
+      default: '4'
     },
     /**
      * Whether the Input is required (adds * to label)

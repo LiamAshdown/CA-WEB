@@ -164,4 +164,32 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class);
     }
+
+    /**
+     * Get Customers
+     *
+     * @return mixed
+     */
+    public function customers()
+    {
+        if ($this->hasRole(self::ROLES['company_admin']) || $this->hasRole(self::ROLES['company_sub_admin'])) {
+            return Customer::where('company_id', $this->companyId())->get();
+        }
+
+        return Customer::where('user_id', $this->id)->get();
+    }
+
+    /**
+     * Get Items
+     *
+     * @return mixed
+     */
+    public function items()
+    {
+        if ($this->hasRole(self::ROLES['company_admin']) || $this->hasRole(self::ROLES['company_sub_admin'])) {
+            Item::where('company_id', $this->companyId())->get();
+        }
+
+        return Item::where('user_id', $this->id)->get();
+    }
 }

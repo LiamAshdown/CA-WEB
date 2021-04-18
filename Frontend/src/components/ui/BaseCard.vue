@@ -1,11 +1,11 @@
 <template>
-  <div class="content">
-    <div class="content__loader" v-show="loading">
-      <div class="content__loader__body">
+  <div class="base_card">
+    <div class="base_card__loader" v-show="loading">
+      <div class="base_card__loader__body">
       </div>
       <b-spinner type="grow" variant="primary" label="Loading..."></b-spinner>
     </div>
-    <div class="content__body shadow-sm">
+    <div class="base_card__body shadow-sm" :class="{['base_card--padded']: padding}">
       <slot></slot>
     </div>
   </div>
@@ -15,6 +15,11 @@
 export default {
   name: 'BaseCard',
   props: {
+    padding: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
     loading: {
       type: Boolean,
       required: false,
@@ -25,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-.content {
+.base_card {
   position: relative;
 
   &__loader {
@@ -48,8 +53,11 @@ export default {
 
   &__body {
     background-color: #fff;
-    padding: 1.25rem;
     border-radius: 5px;
+  }
+
+  &--padded {
+    padding: 1.25rem;
   }
 }
 </style>

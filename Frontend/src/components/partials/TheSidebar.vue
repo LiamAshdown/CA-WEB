@@ -22,6 +22,12 @@
           <span>Quotes</span>
         </div>
       </router-link> -->
+      <router-link tag="li" class="sidebar__item" :to="{ name: 'Items' }">
+        <div>
+          <font-awesome-icon icon="tags" size="lg"/>
+          <span>Users</span>
+        </div>
+      </router-link>
       <router-link tag="li" class="sidebar__item" :to="{ name: 'Users' }">
         <div>
           <font-awesome-icon icon="users" size="lg"/>

@@ -27,7 +27,6 @@ export default {
   created () {
     this.$store.watch((state) => state.misc.toast.message, (message) => {
       const toast = this.$store.getters.toast
-      console.log(toast)
 
       this.$bvToast.toast(message, {
         title: toast.title || 'Notification',

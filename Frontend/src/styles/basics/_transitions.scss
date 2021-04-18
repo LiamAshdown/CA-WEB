@@ -2,20 +2,14 @@
 // Fade In
 //************************
 
-.fade-in-enter-active {
-  animation: fade 0.7s ease-out;
+.fade-enter-active {
+  transition: opacity .5s;
 }
 
-@keyframes fade {
-  from {
-    opacity: 0;
-    transform: translateY(-50px)
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0)
-  }
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+  position: absolute;
 }
 
 //************************
@@ -30,9 +24,5 @@
   100% {
     transform:translateY(0rem);
     opacity: 1;
-  }
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
   }
 }

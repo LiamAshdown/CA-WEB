@@ -31,7 +31,9 @@
         </template>
 
         <template #cell(action)="data">
-          <base-button :to="{ name: 'EditUser', params: { id: data.item.id } }">Edit</base-button>
+          <b-dropdown split variant="primary" :split-to="{ name: 'EditUser', params: { id: data.item.id } }" text="Edit" class="m-2">
+            <b-dropdown-item href="#" disabled>Remove (TODO)</b-dropdown-item>
+          </b-dropdown>
         </template>
       </b-table>
       <b-pagination

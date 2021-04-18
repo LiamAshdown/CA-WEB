@@ -37,7 +37,7 @@
                 :optional="false"
                 autocomplete="family-name"
                 @input="updateField"
-                v-model="profile.lastName"
+                :value="profile.lastName"
                 :validation="errors"
               ></base-form-group>
             </b-col>
@@ -48,7 +48,7 @@
             placeholder="Password"
             type="password"
             autocomplete="new-password"
-            v-model="profile.password"
+            :value="profile.password"
             @input="updateField"
             :validation="errors"
             description="Setting the password is optional :)"

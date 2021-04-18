@@ -5,11 +5,14 @@ import LoginPage from '@/pages/auth/LoginPage.vue'
 import SignUpPage from '@/pages/auth/SignUpPage.vue'
 import DashboardPage from '@/pages/DashboardPage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
-import UsersPage from '@/pages/UsersPage.vue'
-import AddUserPage from '@/pages/AddUserPage.vue'
-import EditUserPage from '@/pages/EditUserPage.vue'
+import CreateCustomerPage from '@/pages/CreateCustomerPage.vue'
+import CreateEstimatePage from '@/pages/CreateEstimatePage.vue'
 import NotAuthenticatedLayout from '@/components/layouts/NotAuthenticatedLayout.vue'
 import AuthenticatedLayout from '@/components/layouts/AuthenticatedLayout.vue'
+
+// Modules
+import usersModule from '@/router/modules/users'
+import itemsModule from '@/router/modules/items'
 
 import middlewarePipeline from '@/router/middlewarePipeline.js'
 import auth from './middleware/auth.js'
@@ -57,9 +60,9 @@ const routes = [
     }
   },
   {
-    path: '/users',
-    name: 'Users',
-    component: UsersPage,
+    path: '/customers/create',
+    name: 'CreateCustomer',
+    component: CreateCustomerPage,
     meta: {
       middleware: [
         auth
@@ -68,9 +71,9 @@ const routes = [
     }
   },
   {
-    path: '/users/add-user',
-    name: 'AddUser',
-    component: AddUserPage,
+    path: '/estimates/create',
+    name: 'CreateEstimate',
+    component: CreateEstimatePage,
     meta: {
       middleware: [
         auth
@@ -78,17 +81,8 @@ const routes = [
       layout: AuthenticatedLayout
     }
   },
-  {
-    path: '/users/edit-user/:id',
-    name: 'EditUser',
-    component: EditUserPage,
-    meta: {
-      middleware: [
-        auth
-      ],
-      layout: AuthenticatedLayout
-    }
-  }
+  ...itemsModule,
+  ...usersModule
 ]
 
 const router = new VueRouter({

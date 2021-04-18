@@ -6,7 +6,7 @@
         <base-card>
           <b-form @submit.prevent="onSubmit">
             <b-form-row fluid>
-              <b-col lg="6">
+              <b-col lg="6" cols="12">
                 <base-form-group
                   id="first-name"
                   label="First Name"
@@ -14,11 +14,12 @@
                   type="text"
                   :optional="false"
                   autocomplete="given-name"
-                  v-model="form.firstName"
+                  :value="user.firstName"
+                  @input="updateField"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
-              <b-col lg="6">
+              <b-col lg="6" cols="12">
                 <base-form-group
                   id="last-name"
                   label="Last Name"
@@ -26,13 +27,14 @@
                   type="text"
                   :optional="false"
                   autocomplete="family-name"
-                  v-model="form.lastName"
+                  :value="user.lastName"
+                  @input="updateField"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
             </b-form-row>
             <b-form-row fluid>
-              <b-col lg="12">
+              <b-col cols="12">
                 <base-form-group
                   id="email"
                   label="Email"
@@ -40,27 +42,29 @@
                   type="email"
                   :optional="false"
                   autocomplete="email"
-                  v-model="form.email"
+                  :value="user.email"
+                  @input="updateField"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
               </b-form-row>
               <b-form-row>
-                <b-col lg="12">
+                <b-col cols="12">
                   <base-form-group
                     id="role"
                     label="Role"
                     placeholder="Choose Role"
                     :select="true"
                     :optional="false"
-                    v-model="form.role"
+                    :value="user.role"
+                    @input="updateField"
                     :options="options"
                     :validation="errors"
                   ></base-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
-                <b-col lg="6">
+                <b-col lg="6" cols="12">
                   <base-form-group
                     id="password"
                     label="Password"
@@ -68,7 +72,8 @@
                     type="password"
                     :optional="false"
                     autocomplete="new-password"
-                    v-model="form.password"
+                    :value="user.password"
+                    @input="updateField"
                     :validation="errors"
                   ></base-form-group>
                 </b-col>
@@ -82,6 +87,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'AddUserPage',
 
@@ -93,15 +100,13 @@ export default {
         { value: 'company_admin', text: 'Company Admin' },
         { value: 'company_sub_admin', text: 'Company Sub Admin' },
         { value: 'company_user', text: 'Company User' }
-      ],
-      form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        role: ''
-      }
+      ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'users/user'
+    })
   },
   methods: {
     async onSubmit () {
@@ -109,13 +114,13 @@ export default {
       this.errors = []
 
       try {
-        await this.$store.dispatch('users/create', this.form)
+        await this.$store.dispatch('users/create')
         this.$router.push({ name: 'Users' })
       } catch (err) {
         this.errors = err.response.data.errors
       }
 
-      this.form.password = ''
+      this.user.password = ''
       this.loading = false
     }
   }

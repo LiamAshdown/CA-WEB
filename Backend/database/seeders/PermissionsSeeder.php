@@ -46,5 +46,6 @@ class PermissionsSeeder extends Seeder
         $role->givePermissionTo(CompanyCustomization::PERMISSIONS['update']);
 
         $role = Role::create(['name' => User::ROLES['company_user']]);
+        $role->givePermissionTo(CompanyCustomization::PERMISSIONS['view']);
     }
 }

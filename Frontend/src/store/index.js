@@ -7,7 +7,10 @@ import miscModule from '@/store/modules/misc/index.js'
 import profileModule from '@/store/modules/profile/index.js'
 import companyModule from '@/store/modules/company/index.js'
 import customizationModule from '@/store/modules/customization/index.js'
+import customersModule from '@/store/modules/customers/index.js'
 import usersModule from '@/store/modules/users/index.js'
+import itemsModule from '@/store/modules/items/index.js'
+import estimatesModule from '@/store/modules/estimates/index.js'
 
 Vue.use(Vuex)
 
@@ -27,13 +30,17 @@ const dataState = createPersistedState({
 })
 
 const store = new Vuex.Store({
+  strict: true,
   modules: {
     auth: authModule,
     profile: profileModule,
     company: companyModule,
     misc: miscModule,
     customization: customizationModule,
-    users: usersModule
+    users: usersModule,
+    customers: customersModule,
+    items: itemsModule,
+    estimates: estimatesModule
   },
   plugins: [dataState]
 })

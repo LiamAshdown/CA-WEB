@@ -32,6 +32,8 @@ use Image;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereTelephoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  */
 class Company extends Model
 {
@@ -97,8 +99,8 @@ class Company extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
     */
-    public function companyCustomization()
+    public function customization()
     {
-        return $this->belongsTo(CompanyCustomization::class);
+        return $this->hasOne(CompanyCustomization::class);
     }
 }

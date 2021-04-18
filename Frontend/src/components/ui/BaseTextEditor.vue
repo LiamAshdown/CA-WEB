@@ -120,8 +120,47 @@
 
         </div>
       </editor-menu-bar>
-
-      <editor-content class="editor__content" :editor="editor" />
+      <!-- TODO; This could be put into an array instead of hard coding it. -->
+      <div class="editor__insert_field" v-click-outside="hideInsertFields">
+        <div class="editor__insert_field__button">
+          <b-button ref="insertFieldRef" variant="outline-primary" @click="showInsertFields"><b-icon icon="plus"></b-icon>Insert Field</b-button>
+          <div ref="insertFieldPop" class="editor__insert_field__submenu shadow-sm rounded mt-1 opacity-0">
+            <b-row no-gutters>
+              <b-col lg="4" cols="12">
+                <div class="editor__insert_field__submenu__item">
+                  <p class="font-weight-bold text-capitalize mb-1">Customer</p>
+                  <ul class="editor__insert_field__submenu__menu list-unstyled">
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('CUSTOMER_NAME')"><font-awesome-icon icon="sort-down"/>Contact Name</li>
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('CUSTOMER_EMAIL')"><font-awesome-icon icon="sort-down"/>Email</li>
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('CUSTOMER_PHONE')"><font-awesome-icon icon="sort-down"/>Phone</li>
+                  </ul>
+                </div>
+              </b-col>
+              <b-col lg="4" cols="12">
+                <div class="editor__insert_field__submenu__item">
+                  <p class="font-weight-bold text-capitalize mb-1">Invoice</p>
+                  <ul class="editor__insert_field__submenu__menu list-unstyled">
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('INVOICE_DATE')"><font-awesome-icon icon="sort-down"/>Date</li>
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('INVOICE_DUE_DATE')"><font-awesome-icon icon="sort-down"/>Due Date</li>
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('INVOICE_REF_NUMBER')"><font-awesome-icon icon="sort-down"/>Ref Number</li>
+                  </ul>
+                </div>
+              </b-col>
+              <b-col lg="4" cols="12">
+                <div class="editor__insert_field__submenu__item">
+                  <p class="font-weight-bold text-capitalize mb-1">Company</p>
+                  <ul class="editor__insert_field__submenu__menu list-unstyled">
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('COMPANY_NAME')"><font-awesome-icon icon="sort-down"/>Company Name</li>
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('COMPANY_PHONE')"><font-awesome-icon icon="sort-down"/>Phone</li>
+                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('COMPANY_ADDRESS')"><font-awesome-icon icon="sort-down"/>Address</li>
+                  </ul>
+                </div>
+              </b-col>
+            </b-row>
+          </div>
+        </div>
+      </div>
+      <editor-content class="editor__content" :editor="editor"/>
     </b-form-group>
   </div>
 </template>
@@ -148,6 +187,8 @@ import {
   Underline,
   History
 } from 'tiptap-extensions'
+import InsertField from '@/vendor/tiptap-insert-field'
+import { createPopper } from '@popperjs/core'
 
 export default {
   components: {
@@ -172,18 +213,44 @@ export default {
       type: String
     }
   },
-  watch: {
-    value (val) {
-      // So cursor doesn't jump to start on typing
-      if (this.editor && val !== this.value) {
-        this.editor.setContent(val, true)
-      }
-    }
-  },
   data () {
     return {
       editor: null,
-      valueName: ''
+      popper: null,
+      valueName: '',
+      emitAfterOnUpdate: false
+    }
+  },
+  watch: {
+    value (val) {
+      if (this.emitAfterOnUpdate) {
+        this.emitAfterOnUpdate = false
+        return
+      }
+
+      if (this.editor) {
+        this.editor.setContent(val)
+      }
+    }
+  },
+  methods: {
+    showInsertFields () {
+      // Update position first and then set the visibility
+      this.popper.update().then(() => {
+        // TODO; This could be set better, maybe do the styles in an object?
+        this.$refs.insertFieldPop.style.visibility = 'visible'
+        this.$refs.insertFieldPop.style.pointerEvents = 'initial'
+      })
+    },
+    hideInsertFields () {
+      // TODO; This could be set better, maybe do the styles in an object?
+      this.$refs.insertFieldPop.style.visibility = 'hidden'
+      this.$refs.insertFieldPop.style.pointerEvents = 'none'
+    },
+    insertField (field) {
+      this.editor.commands.insertHTML(`<b>{${field}}</b>`)
+
+      this.hideInsertFields()
     }
   },
   mounted () {
@@ -206,15 +273,21 @@ export default {
         new Italic(),
         new Strike(),
         new Underline(),
-        new History()
+        new History(),
+        new InsertField()
       ],
-      content: this.value,
+      content: '',
       onUpdate: ({ getHTML }) => {
+        this.emitAfterOnUpdate = true
         this.$emit('input', getHTML(), this.valueName)
       }
     })
 
     this.editor.setContent(this.value)
+
+    this.popper = createPopper(this.$refs.insertFieldRef, this.$refs.insertFieldPop, {
+      placement: 'bottom-start'
+    })
   },
   beforeDestroy () {
     this.editor.destroy()
@@ -225,12 +298,13 @@ export default {
 <style lang="scss">
 .editor {
   border-radius: 6px;
+  position: relative;
 
   &__menubar {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding: 10px;
+    padding: 3px;
     border: 1px solid #ced4da;
     border-bottom: 0px;
     border-radius: 5px 5px 0px 0px;
@@ -247,16 +321,15 @@ export default {
     display: flex;
     align-items: center;
 
+    &--active,
     &:hover {
-      background-color: #e2e8f0;
-    }
-    &--active {
       background-color: #e2e8f0;
     }
   }
 
   &__content {
     .ProseMirror {
+      min-height: 150px;
       border: 1px solid #ced4da;
       border-radius: 0px 0px 5px 5px;
 
@@ -265,6 +338,45 @@ export default {
       &-focused {
         border: 1px solid #ced4da;
         outline: none;
+      }
+    }
+  }
+
+  &__insert_field {
+    width: 100%;
+    z-index: 99;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    &__button {
+      float: right;
+    }
+
+    &__submenu {
+      padding: 10px;
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      animation: slideIn 0.3s ease;
+      visibility: hidden;
+      pointer-events: none;
+
+      &__menu {
+        &__item {
+          &:hover {
+            cursor: pointer;
+            background: darken($color: #edf2f7, $amount: 0);
+          }
+
+          svg {
+            margin-right: 10px;
+          }
+        }
+      }
+
+      svg {
+        transform: rotate(270deg);
       }
     }
   }

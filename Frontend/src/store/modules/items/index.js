@@ -1,0 +1,24 @@
+import mutations from './mutations.js'
+import actions from './actions.js'
+import getters from './getters.js'
+
+export default {
+  namespaced: true,
+  state () {
+    return {
+      loadingItems: false,
+      items: [],
+      item: {
+        id: 0,
+        uniqueId: '',
+        name: '',
+        description: '',
+        gross: 0.00,
+        vat: 20
+      }
+    }
+  },
+  mutations,
+  actions,
+  getters
+}
