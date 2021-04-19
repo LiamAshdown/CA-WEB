@@ -73,6 +73,7 @@ export default {
         await this.$store.dispatch('login', this.form)
         this.$router.push({ name: 'Dashboard' })
       } catch (err) {
+        console.log(err)
         this.error = true
       }
 

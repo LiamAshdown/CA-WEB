@@ -10,8 +10,7 @@
             type="email"
             :optional="false"
             autocomplete="email"
-            @input="updateField"
-            :value="profile.email"
+            v-model="profile.email"
             :validation="errors"
           ></base-form-group>
           <b-form-row fluid>
@@ -23,8 +22,7 @@
                 type="text"
                 :optional="false"
                 autocomplete="given-name"
-                @input="updateField"
-                :value="profile.firstName"
+                v-model="profile.firstName"
                 :validation="errors"
               ></base-form-group>
             </b-col>
@@ -36,8 +34,7 @@
                 type="text"
                 :optional="false"
                 autocomplete="family-name"
-                @input="updateField"
-                :value="profile.lastName"
+                v-model="profile.lastName"
                 :validation="errors"
               ></base-form-group>
             </b-col>
@@ -48,8 +45,7 @@
             placeholder="Password"
             type="password"
             autocomplete="new-password"
-            :value="profile.password"
-            @input="updateField"
+            v-model="profile.password"
             :validation="errors"
             description="Setting the password is optional :)"
           ></base-form-group>
@@ -61,35 +57,31 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'CompanyTab',
   data () {
     return {
       loading: false,
       initializing: true,
-      errors: []
+      errors: [],
+      profile: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+      }
     }
-  },
-  computed: {
-    ...mapGetters(['profile'])
   },
   methods: {
     async loadProfile () {
-      await this.$store.dispatch('getProfile')
+      this.profile = await this.$store.dispatch('getProfile')
       this.initializing = false
-    },
-    updateField (value, field) {
-      this.$store.dispatch('setProfile', {
-        [field]: value
-      })
     },
     async onSubmit () {
       this.loading = true
 
       try {
-        await this.$store.dispatch('updateProfile')
+        await this.$store.dispatch('updateProfile', this.profile)
       } catch (err) {
         this.errors = err.response.data.errors
       }

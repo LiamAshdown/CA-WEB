@@ -166,8 +166,6 @@
 </template>
 
 <script>
-import { camelize } from 'humps'
-
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Blockquote,
@@ -217,7 +215,6 @@ export default {
     return {
       editor: null,
       popper: null,
-      valueName: '',
       emitAfterOnUpdate: false
     }
   },
@@ -254,8 +251,6 @@ export default {
     }
   },
   mounted () {
-    this.valueName = camelize(this.id)
-
     this.editor = new Editor({
       extensions: [
         new Blockquote(),
@@ -279,7 +274,7 @@ export default {
       content: '',
       onUpdate: ({ getHTML }) => {
         this.emitAfterOnUpdate = true
-        this.$emit('input', getHTML(), this.valueName)
+        this.$emit('input', getHTML())
       }
     })
 

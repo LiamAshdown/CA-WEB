@@ -12,7 +12,6 @@
                 type="text"
                 :optional="false"
                 autocomplete="organization"
-                @input="updateField"
                 v-model="company.name"
                 :validation="errors"
               ></base-form-group>
@@ -25,7 +24,6 @@
                 type="tel"
                 :optional="false"
                 autocomplete="tel"
-                @input="updateField"
                 v-model="company.telephoneNumber"
                 :validation="errors"
               ></base-form-group>
@@ -40,7 +38,6 @@
                 type="text"
                 :optional="false"
                 autocomplete="postal-code"
-                @input="updateField"
                 v-model="company.postalCode"
                 :validation="errors"
               ></base-form-group>
@@ -54,7 +51,6 @@
                 :optional="false"
                 v-model="company.address"
                 autocomplete="address"
-                @input="updateField"
                 :textArea="true"
                 :validation="errors"
               ></base-form-group>
@@ -91,8 +87,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import AvatarCropper from '@/components/AvatarCropper'
+import api from '@/api/index.js'
 
 export default {
   name: 'CompanyTab',
@@ -104,11 +100,16 @@ export default {
       loading: false,
       initializing: true,
       cropperOutputMime: '',
-      errors: []
+      errors: [],
+      company: {
+        name: '',
+        telephoneNumber: '',
+        postalCode: '',
+        address: '',
+        logo: null,
+        logoPath: ''
+      }
     }
-  },
-  computed: {
-    ...mapGetters(['company'])
   },
   methods: {
     onUploadHandler (cropper) {
@@ -117,29 +118,22 @@ export default {
         .toDataURL(this.cropperOutputMime)
 
       cropper.getCroppedCanvas().toBlob((blob) => {
-        this.$store.dispatch('setCompany', {
-          logo: blob,
-          logoPath: logoURL
-        })
+        this.form.logo = blob
+        this.form.logoPath = logoURL
       })
     },
     onChange (file) {
       this.cropperOutputMime = file.type
     },
     async loadCompany () {
-      await this.$store.dispatch('getCompany')
+      this.company = await api.company.show()
       this.initializing = false
-    },
-    updateField (value, field) {
-      this.$store.dispatch('setCompany', {
-        [field]: value
-      })
     },
     async onSubmit () {
       this.loading = true
 
       try {
-        await this.$store.dispatch('updateCompany')
+        await api.company.update(this.company)
       } catch (err) {
         this.errors = err.response.data.errors
       }

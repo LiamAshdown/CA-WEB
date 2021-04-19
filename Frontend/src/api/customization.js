@@ -9,7 +9,7 @@ const URL = {
 
 export default {
   async show () {
-    const response = await apiClient.get(URL.SHOW).then(response => response.data)
+    const response = await apiClient.get(URL.SHOW).then(response => response.data.data)
     return response
   },
   async update (payload) {

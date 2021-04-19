@@ -12,16 +12,14 @@
             placeholder="INV"
             type="text"
             :optional="false"
-            :value="customization.invoicePrefix"
-            @input="updateField"
+            v-model="customization.invoicePrefix"
             :description="'Invoice would show as: ' + (customization.estimatePrefix || 'INV_') + '0001'"
             :validation="errors"
           ></base-form-group>
           <base-text-editor
             id="default-invoice-body"
             label="Default Invoice Email Body"
-            :value="customization.defaultInvoiceBody"
-            @input="updateField"
+            v-model="customization.defaultInvoiceBody"
           ></base-text-editor>
         </base-card>
       </b-col>
@@ -33,16 +31,14 @@
             placeholder="EST"
             type="text"
             :optional="false"
-            :value="customization.estimatePrefix"
-            @input="updateField"
+            v-model="customization.estimatePrefix"
             :description="'Estimate would show as: ' + (customization.estimatePrefix || 'EST_') + '0001'"
             :validation="errors"
           ></base-form-group>
           <base-text-editor
             id="default-estimate-body"
             label="Default Estimate Email Body"
-            :value="customization.defaultEstimateBody"
-            @input="updateField"
+            v-model="customization.defaultEstimateBody"
           ></base-text-editor>
         </base-card>
       </b-col>
@@ -51,7 +47,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import api from '@/api/index.js'
 
 export default {
   name: 'CustomizationTab',
@@ -59,29 +55,30 @@ export default {
     return {
       loading: false,
       initializing: true,
-      errors: []
+      errors: [],
+      customization: {
+        invoicePrefix: '',
+        defaultInvoiceBody: '',
+        estimatePrefix: '',
+        defaultEstimateBody: ''
+      }
     }
-  },
-  computed: {
-    ...mapGetters({
-      customization: 'customization/customization'
-    })
   },
   methods: {
     async loadCustomization () {
-      await this.$store.dispatch('customization/show')
+      this.customization = await api.customization.show()
       this.initializing = false
-    },
-    updateField (value, field) {
-      this.$store.dispatch('customization/set', {
-        [field]: value
-      })
     },
     async onSubmit () {
       this.loading = true
 
       try {
-        await this.$store.dispatch('customization/update')
+        const response = await api.customization.update(this.customization)
+
+        this.$store.dispatch('toast', {
+          message: response.message
+        })
+
         this.errors = []
       } catch (err) {
         this.errors = err.response.data.errors

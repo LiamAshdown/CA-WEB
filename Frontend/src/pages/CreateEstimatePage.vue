@@ -56,7 +56,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="6" cols="12">
+      <b-col lg="6" cols="12" class="mb-4">
         <base-card :loading="initializing">
           <p class="font-weight-bold">Notes & Term Conditions</p>
           <b-row>
@@ -80,7 +80,7 @@
         </base-card>
       </b-col>
       <b-col lg="6" cols="12" class="d-flex justify-content-end">
-        <base-card class="w-50">
+        <base-card class="w-100 w-lg-50">
           <div class="estimate__total d-flex justify-content-between text-uppercase">
             <label class="font-weight-bold">Sub Total</label>
             <label>£{{ calculateTotalAmount }}</label>

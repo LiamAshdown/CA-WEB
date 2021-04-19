@@ -1,27 +1,21 @@
-import { SET_PROFILE_DATA_MUTATION, SET_PROFILE_INFO_DATA_MUTATION, SET_TOAST_MESSAGE_MUTATION } from '@/store/mutation-types'
+import { SET_PROFILE_DATA_MUTATION, SET_TOAST_MESSAGE_MUTATION } from '@/store/mutation-types'
 import api from '@/api/index.js'
 
 export default {
   async getProfile (context) {
     const response = await api.profile.show()
-
-    context.commit(SET_PROFILE_DATA_MUTATION, {
-      firstName: response.data.firstName,
-      lastName: response.data.lastName,
-      email: response.data.email
-    })
-    context.commit(SET_PROFILE_INFO_DATA_MUTATION, response.data)
+    context.commit(SET_PROFILE_DATA_MUTATION, response)
+    return response
   },
   setProfile (context, payload) {
     context.commit(SET_PROFILE_DATA_MUTATION, payload)
   },
-  async updateProfile (context) {
-    const response = await api.profile.update(context.getters.profile)
+  async updateProfile (context, payload) {
+    const response = await api.profile.update(payload)
 
-    const profile = context.getters.profile
-    context.commit(SET_PROFILE_INFO_DATA_MUTATION, {
-      firstName: profile.firstName,
-      lastName: profile.lastName
+    context.commit(SET_PROFILE_DATA_MUTATION, {
+      firstName: payload.firstName,
+      lastName: payload.lastName
     })
 
     context.commit(SET_TOAST_MESSAGE_MUTATION, {

@@ -1,4 +1,4 @@
-import { SET_TOKEN_MUTATION, SET_PROFILE_INFO_DATA_MUTATION } from '@/store/mutation-types'
+import { SET_TOKEN_MUTATION, SET_PROFILE_DATA_MUTATION } from '@/store/mutation-types'
 import api from '@/api/index.js'
 
 export default {
@@ -25,7 +25,7 @@ export default {
       authenticated: false
     })
 
-    context.commit(SET_PROFILE_INFO_DATA_MUTATION, {
+    context.commit(SET_PROFILE_DATA_MUTATION, {
       firstName: '',
       lastName: '',
       role: '',
