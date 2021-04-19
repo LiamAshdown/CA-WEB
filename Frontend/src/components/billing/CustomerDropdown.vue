@@ -5,7 +5,7 @@
   <div class="customer-dropdown" v-click-outside="hide" v-else>
     <div class="customer-dropdown__input form-control" :class="{['customer-dropdown--invalid']: !validated}">
       <div class="customer-dropdown__search_icon" @click="handleOnDropdown(true)"><b-icon icon="search"></b-icon></div>
-      <input class="customer-dropdown__search" v-model="filter" @click="handleOnDropdown(true)"/>
+      <input class="customer-dropdown__search" placeholder="Type or click to select a customer" v-model="filter" @click="handleOnDropdown(true)"/>
       <div class="customer-dropdown__caret_icon"
         @click="handleOnDropdown(!show)"
         :class="{['customer-dropdown__caret_icon--toggle']: show}"

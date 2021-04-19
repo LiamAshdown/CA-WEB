@@ -1,4 +1,4 @@
-import { SET_ESTIMATE_DATA_MUTATION, ADD_ITEM_ESTIMATES_MUTATION, REMOVE_ITEM_ESTIMATES_MUTATION, SET_ITEM_ESTIMATES_MUTATION } from '@/store/mutation-types'
+import { SET_ESTIMATE_DATA_MUTATION, ADD_ITEM_ESTIMATES_MUTATION, REMOVE_ITEM_ESTIMATES_MUTATION, SET_ITEM_ESTIMATES_MUTATION, SET_ESTIMATE_ITEMS_DATA_MUTATION } from '@/store/mutation-types'
 import api from '@/api/index.js'
 
 export default {
@@ -10,6 +10,9 @@ export default {
   },
   removeItem (context, payload) {
     context.commit(REMOVE_ITEM_ESTIMATES_MUTATION, payload)
+  },
+  setItems (context, payload) {
+    context.commit(SET_ESTIMATE_ITEMS_DATA_MUTATION, payload)
   },
   async create (context) {
     const response = await api.customization.show()

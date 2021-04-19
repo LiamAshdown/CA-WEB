@@ -1,5 +1,5 @@
 <template>
-  <tr class="item">
+  <tr class="item items-group-item">
     <td colspan="4">
       <table class="w-100">
         <colgroup>
@@ -11,7 +11,7 @@
         <tbody>
           <tr>
             <td class="d-flex align-items-center p-4">
-              <b-icon class="mr-4" icon="arrows-move"></b-icon>
+              <b-icon class="mr-4 handle" icon="arrows-move"></b-icon>
               <div class="item__selected form-control d-flex justify-content-lg-between align-items-center disabled" v-if="itemSelected">
                 <span>{{ item.name }}</span>
                 <font-awesome-icon icon="times" @click="deSelectItem"/>

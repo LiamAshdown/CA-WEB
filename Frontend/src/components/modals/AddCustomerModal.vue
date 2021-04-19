@@ -61,7 +61,7 @@
       </b-form-group>
       <base-divider></base-divider>
       <b-form-group
-        label="Shipping Address"
+        label="Billing Address"
         label-class="font-weight-bold pt-0"
       >
         <b-form-row fluid>

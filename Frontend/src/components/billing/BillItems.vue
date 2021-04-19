@@ -14,12 +14,21 @@
           <th class="px-4">Price</th>
           <th class="text-right px-4"><span>Total</span></th>
         </thead>
-        <tbody class="items__content">
-          <bill-item
-            v-for="(item, index) in items"
-            :key="item.uniqueId"
-            :index="index"></bill-item>
-        </tbody>
+        <draggable
+            v-model="itemsList"
+            class="items__content items-group"
+            v-bind="dragOptions"
+            tag="tbody"
+            handle=".handle"
+            @start="drag=true"
+            @end="drag=false"
+          >
+            <bill-item
+              v-for="(item, index) in items"
+              :key="item.uniqueId"
+              :index="index"
+            ></bill-item>
+        </draggable>
       </table>
     </div>
     <div class="items__add text-primary font-weight-bold" @click="addLine">
@@ -32,15 +41,18 @@
 import { mapGetters } from 'vuex'
 import BillAddItem from './BillAddItem.vue'
 import BillItem from './BillItem.vue'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'BillItems',
   components: {
     BillItem,
-    BillAddItem
+    BillAddItem,
+    draggable
   },
   data () {
     return {
+      dragging: false,
       vatOptions: [
         { value: '20', text: '20%' },
         { value: '5', text: '5%' },
@@ -54,6 +66,22 @@ export default {
     }),
     newEstimate () {
       return !this.addNew && !this.items.length
+    },
+    itemsList: {
+      get () {
+        return this.items
+      },
+      set (value) {
+        // Set the new order
+        this.$store.dispatch('estimates/setItems', value)
+      }
+    },
+    dragOptions () {
+      return {
+        animation: 200,
+        disabled: false,
+        ghostClass: 'ghost'
+      }
     }
   },
   methods: {
@@ -81,6 +109,11 @@ export default {
 </script>
 
 <style lang="scss">
+.ghost {
+  opacity: 0.5;
+  background: darken($color: $white, $amount: 2)
+}
+
 .items {
   &__header {
     margin-top: 1rem;
@@ -96,6 +129,12 @@ export default {
       }
 
       padding-bottom: .75rem;
+    }
+  }
+
+  .handle {
+    &:hover {
+      cursor: pointer;
     }
   }
 

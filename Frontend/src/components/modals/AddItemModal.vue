@@ -118,8 +118,6 @@ export default {
       try {
         // Create the item
         await this.$store.dispatch('items/create')
-        // Store the newly created item in estimates
-        await this.$store.dispatch('estimates/addItem')
         this.$bvModal.hide('modal-add-item')
       } catch (err) {
         this.errors = err.response.data.errors
