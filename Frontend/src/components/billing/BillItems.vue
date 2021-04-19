@@ -1,5 +1,5 @@
 <template>
-  <base-card class="items" :padding="false">
+  <base-card class="items" :loading="initializing" :padding="false">
     <div class="items__body">
       <table class="items__table w-100">
         <colgroup>
@@ -53,6 +53,7 @@ export default {
   data () {
     return {
       dragging: false,
+      initializing: true,
       vatOptions: [
         { value: '20', text: '20%' },
         { value: '5', text: '5%' },
@@ -88,13 +89,18 @@ export default {
     updateState (field, value) {
       this[field] = value
     },
+    async getItems () {
+      await this.$store.dispatch('items/index')
+      this.initializing = false
+    },
     addLine () {
       this.$store.dispatch('estimates/addItem', {
         name: '',
         description: '',
         gross: 0.00,
         vat: 20,
-        quantity: 1
+        quantity: 1,
+        passed: true
       })
     }
   },
@@ -102,8 +108,7 @@ export default {
     // Add a new line
     this.addLine()
 
-    // Fetch our items
-    this.$store.dispatch('items/index')
+    this.getItems()
   }
 }
 </script>

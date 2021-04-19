@@ -18,10 +18,15 @@
             <b-col xl="6" cols="12">
               <b-form-row fluid>
                 <b-col lg="6" cols="12">
-                  <label for="estimate-due-date">Due date</label>
-                  <b-form-datepicker
-                    id="estimate-due-date"
-                  ></b-form-datepicker>
+                  <b-form-group
+                    id="estimate-due-date-group"
+                    label="Due Date"
+                    description="Not setting a due date will automatically set todays date"
+                    label-for="duedate-input">
+                    <b-form-datepicker
+                      id="estimate-due-date"
+                    ></b-form-datepicker>
+                  </b-form-group>
                 </b-col>
                 <b-col lg="6" cols="12" class="mt-4 mt-lg-0">
                   <!-- TODO; BaseFormGroup does not support prepend/append, so using default boostrap to achieve this -->
@@ -47,7 +52,7 @@
     </b-row>
     <b-row class="mb-4">
       <b-col cols="12">
-        <bill-items></bill-items>
+        <bill-items :validation="validation.items"></bill-items>
       </b-col>
     </b-row>
     <b-row>
@@ -117,6 +122,9 @@ export default {
       validation: {
         customer: {
           pass: true
+        },
+        dueDate: {
+          pass: true
         }
       }
     }
@@ -161,10 +169,33 @@ export default {
       })
     },
     viewDraft () {
+      let pass = true
+
       // Lets validate the data first before we create a draft
       if (!this.customer) {
         this.validation.customer.pass = false
+        pass = false
       }
+
+      for (const [key, item] of this.items.entries()) {
+        // If item does not have a name, means we have not selected any yet
+        if (item.name === '') {
+          this.$store.dispatch('estimates/setItem', {
+            item: {
+              passed: false
+            },
+            index: key
+          })
+
+          pass = false
+        }
+      }
+
+      if (!pass) {
+        // return
+      }
+
+      // Okay, generate the draft Invoice
     }
   },
   created () {

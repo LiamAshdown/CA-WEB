@@ -10,13 +10,16 @@
         </colgroup>
         <tbody>
           <tr>
-            <td class="d-flex align-items-center p-4">
-              <b-icon class="mr-4 handle" icon="arrows-move"></b-icon>
-              <div class="item__selected form-control d-flex justify-content-lg-between align-items-center disabled" v-if="itemSelected">
-                <span>{{ item.name }}</span>
-                <font-awesome-icon icon="times" @click="deSelectItem"/>
+            <td class="p-4 position-relative">
+              <div class="d-flex align-items-center">
+                <b-icon class="mr-4 handle" icon="arrows-move"></b-icon>
+                <div class="item__selected form-control d-flex justify-content-lg-between align-items-center disabled" v-if="itemSelected">
+                  <span>{{ item.name }}</span>
+                  <font-awesome-icon icon="times" @click="deSelectItem"/>
+                </div>
+                <bill-item-dropdown @selectedItem="selectedItem" :passed="item.passed === false" v-else></bill-item-dropdown>
               </div>
-              <bill-item-dropdown @selectedItem="selectedItem" v-else></bill-item-dropdown>
+              <div class="invalid-feedback d-block text-center position-absolute" v-if="item.passed === false"><b-icon icon="info-circle"></b-icon> Item is required</div>
             </td>
             <td class="p-4">
               <base-input
@@ -24,6 +27,7 @@
                 type="number"
                 :value="item.quantity"
                 @input="updateField"
+                :disabled="!itemSelected"
               ></base-input>
             </td>
             <td class="p-4">
@@ -32,6 +36,7 @@
                 type="number"
                 :value="item.gross"
                 @input="updateField"
+                :disabled="!itemSelected"
               ></base-input>
             </td>
             <td class="text-right item__total p-4">
@@ -83,6 +88,7 @@ export default {
   },
   methods: {
     updateField (value, field) {
+      console.log(this.item.validated)
       // TODO; I think this can be better, don't like passing an index through
       this.$store.dispatch('estimates/setItem', {
         item: {
@@ -93,7 +99,10 @@ export default {
     },
     selectedItem (item) {
       this.$store.dispatch('estimates/setItem', {
-        item: item,
+        item: {
+          ...item,
+          passed: true
+        },
         index: this.index
       })
 
@@ -106,8 +115,9 @@ export default {
           name: '',
           description: '',
           quantity: 1,
-          net: 0.00,
-          vat: 20
+          gross: 0.00,
+          vat: 20,
+          passed: true
         },
         index: this.index
       })
@@ -132,6 +142,10 @@ export default {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       }
     }
+  }
+
+  .invalid-feedback {
+    bottom: 3px;
   }
 
   .disabled {

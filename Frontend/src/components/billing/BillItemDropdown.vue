@@ -1,9 +1,6 @@
 <template>
-  <div class="item-selected" v-if="bill">
-    {{ item.name }} <span class="text-primary ml-5 font-weight-bold" @click="onItemClick(null)">Deselect</span>
-  </div>
-  <div class="item-dropdown w-100" v-click-outside="hide" v-else>
-    <div class="item-dropdown__input form-control">
+  <div class="item-dropdown w-100" v-click-outside="hide">
+    <div class="item-dropdown__input form-control" :class="{ ['item-dropdown--invalid']: passed }">
       <div class="item-dropdown__search_icon" @click="handleOnDropdown(true)"><b-icon icon="search"></b-icon></div>
       <input class="item-dropdown__search"  type="search" v-model="filter" @click="handleOnDropdown(true)" placeholder="Type or click to select an item"/>
       <div class="item-dropdown__caret_icon"
@@ -42,9 +39,9 @@ export default {
   name: 'billDropdown',
 
   props: {
-    bill: {
+    passed: {
       required: false,
-      default: null
+      default: true
     }
   },
   data () {
@@ -96,6 +93,10 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 0;
+  }
+
+  &--invalid {
+    border-color: #dc3545;
   }
 
   &__caret_icon,
