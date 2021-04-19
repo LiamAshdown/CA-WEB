@@ -6,17 +6,7 @@ export default {
   namespaced: true,
   state () {
     return {
-      customers: [],
-      customer: {
-        name: '',
-        website: '',
-        email: '',
-        telephoneNumber: '',
-        billingName: '',
-        billingTelephoneNumber: '',
-        billingPostalCode: '',
-        billingAddress: ''
-      }
+      customers: []
     }
   },
   mutations,

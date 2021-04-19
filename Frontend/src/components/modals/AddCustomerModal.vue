@@ -114,52 +114,75 @@
         </b-form-row>
       </b-form-group>
     </form>
+    <template #modal-footer="{ ok, cancel }">
+      <base-button variant="secondary" @click="cancel()">
+        Cancel
+      </base-button>
+      <base-button :loading="loading" @click="ok()">
+        Create
+      </base-button>
+    </template>
   </b-modal>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import api from '@/api/index.js'
 
 export default {
   name: 'AddCustomerModal',
   data () {
     return {
       errors: [],
-      loading: false
+      loading: false,
+      customer: {
+        name: '',
+        website: '',
+        email: '',
+        telephoneNumber: '',
+        billingName: '',
+        billingTelephoneNumber: '',
+        billingPostalCode: '',
+        billingAddress: ''
+      }
     }
   },
-  computed: {
-    ...mapGetters({
-      customer: 'customers/customer'
-    })
-  },
   methods: {
-    checkFormValidity () {
-      const valid = this.$refs.form.checkValidity()
-      this.nameState = valid
-      return valid
-    },
     resetModal () {
-      this.name = ''
-      this.nameState = null
+      this.loading = false
+      this.errors = []
+      this.customer = {
+        name: '',
+        website: '',
+        email: '',
+        telephoneNumber: '',
+        billingName: '',
+        billingTelephoneNumber: '',
+        billingPostalCode: '',
+        billingAddress: ''
+      }
     },
     handleOk (bvModalEvt) {
-      // Prevent modal from closing
       bvModalEvt.preventDefault()
-      // Trigger submit handler
       this.handleSubmit()
     },
-    handleSubmit () {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return
+    async handleSubmit () {
+      this.loading = true
+
+      try {
+        const response = await api.customers.store(this.customer)
+
+        this.$store.dispatch('toast', {
+          message: response.message
+        })
+
+        this.$nextTick(() => {
+          this.$store.dispatch('customers/index')
+          this.$bvModal.hide('modal-add-customer')
+        })
+      } catch (err) {
+        this.errors = err.response.data.errors
+        this.loading = false
       }
-      // Push the name to submitted names
-      this.submittedNames.push(this.name)
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$bvModal.hide('modal-prevent-closing')
-      })
     }
   }
 }

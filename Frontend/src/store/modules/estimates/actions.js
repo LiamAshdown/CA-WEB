@@ -18,8 +18,8 @@ export default {
     const response = await api.customization.show()
 
     context.commit(SET_ESTIMATE_DATA_MUTATION, {
-      estimateBody: response.data.defaultEstimateBody,
-      prefix: response.data.estimatePrefix
+      estimateBody: response.defaultEstimateBody,
+      prefix: response.estimatePrefix
     })
   },
   set (context, payload) {
