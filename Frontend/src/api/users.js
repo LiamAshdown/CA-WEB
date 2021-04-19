@@ -11,11 +11,11 @@ const URL = {
 
 export default {
   async index () {
-    const response = await apiClient.get(URL.INDEX).then(response => response.data)
+    const response = await apiClient.get(URL.INDEX).then(response => response.data.data)
     return response
   },
   async show (id) {
-    const response = await apiClient.get(URL.SHOW + id).then(response => response.data)
+    const response = await apiClient.get(URL.SHOW + id).then(response => response.data.data)
     return response
   },
   async update (payload) {

@@ -133,7 +133,11 @@ export default {
       this.loading = true
 
       try {
-        await api.company.update(this.company)
+        const response = await api.company.update(this.company)
+
+        this.$store.dispatch('toast', {
+          message: response.message
+        })
       } catch (err) {
         this.errors = err.response.data.errors
       }

@@ -14,8 +14,7 @@
                   type="text"
                   :optional="false"
                   autocomplete="given-name"
-                  :value="user.firstName"
-                  @input="updateField"
+                  v-model="user.firstName"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
@@ -27,8 +26,7 @@
                   type="text"
                   :optional="false"
                   autocomplete="family-name"
-                  :value="user.lastName"
-                  @input="updateField"
+                  v-model="user.lastName"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
@@ -42,8 +40,7 @@
                   type="email"
                   :optional="false"
                   autocomplete="email"
-                  :value="user.email"
-                  @input="updateField"
+                  v-model="user.email"
                   :validation="errors"
                 ></base-form-group>
               </b-col>
@@ -56,8 +53,7 @@
                     placeholder="Choose Role"
                     :select="true"
                     :optional="false"
-                    :value="user.role"
-                    @input="updateField"
+                    v-model="user.role"
                     :options="options"
                     :validation="errors"
                   ></base-form-group>
@@ -72,8 +68,7 @@
                     type="password"
                     :optional="false"
                     autocomplete="new-password"
-                    :value="user.password"
-                    @input="updateField"
+                    v-model="user.password"
                     :validation="errors"
                   ></base-form-group>
                 </b-col>
@@ -87,18 +82,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import api from '@/api/index.js'
+import { snakeCase } from '@/helpers/utils'
 
 export default {
   name: 'EditUserPage',
 
   data () {
     return {
-      id: this.$route.params.id,
       title: '...',
       errors: false,
       loading: false,
       initializing: true,
+      user: {
+        id: null,
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: '',
+        password: ''
+      },
       options: [
         { value: 'company_admin', text: 'Company Admin' },
         { value: 'company_sub_admin', text: 'Company Sub Admin' },
@@ -106,31 +109,25 @@ export default {
       ]
     }
   },
-  computed: {
-    ...mapGetters({
-      user: 'users/user'
-    })
-  },
   methods: {
     async loadUser () {
-      await this.$store.dispatch('users/show', {
-        id: this.id
-      })
+      this.user = await api.users.show(this.$route.params.id)
 
+      this.user.role = snakeCase(this.user.role)
       this.title = `Editing ${this.user.firstName + ' ' + this.user.lastName}`
 
       this.initializing = false
-    },
-    updateField (value, field) {
-      this.$store.dispatch('users/set', {
-        [field]: value
-      })
     },
     async onSubmit () {
       this.loading = true
 
       try {
-        await this.$store.dispatch('users/update')
+        const response = await api.users.update(this.user)
+
+        this.$store.dispatch('toast', {
+          message: response.message
+        })
+
         this.$router.push({ name: 'Users' })
       } catch (err) {
         this.errors = err.response.data.errors

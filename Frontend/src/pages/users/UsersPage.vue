@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import api from '@/api/index.js'
 
 export default {
   name: 'UsersPage',
@@ -58,6 +58,7 @@ export default {
       loading: true,
       filter: '',
       selected: null,
+      users: [],
       options: [
         { value: null, text: 'Choose Role' },
         { value: 'company_admin', text: 'Company Admin' },
@@ -73,16 +74,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      users: 'users/users'
-    }),
     rows () {
       return this.users.length
     }
   },
   methods: {
     async loadUsers () {
-      await this.$store.dispatch('users/index')
+      this.users = await api.users.index()
       this.loading = false
     }
   },

@@ -6,7 +6,6 @@ import authModule from '@/store/modules/auth/index.js'
 import miscModule from '@/store/modules/misc/index.js'
 import profileModule from '@/store/modules/profile/index.js'
 import customersModule from '@/store/modules/customers/index.js'
-import usersModule from '@/store/modules/users/index.js'
 import itemsModule from '@/store/modules/items/index.js'
 import estimatesModule from '@/store/modules/estimates/index.js'
 
@@ -31,7 +30,6 @@ const store = new Vuex.Store({
     auth: authModule,
     profile: profileModule,
     misc: miscModule,
-    users: usersModule,
     customers: customersModule,
     items: itemsModule,
     estimates: estimatesModule
