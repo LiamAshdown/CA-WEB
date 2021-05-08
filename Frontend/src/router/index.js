@@ -6,9 +6,13 @@ import SignUpPage from '@/pages/auth/SignUpPage.vue'
 import DashboardPage from '@/pages/DashboardPage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
 import CreateCustomerPage from '@/pages/CreateCustomerPage.vue'
-import CreateEstimatePage from '@/pages/CreateEstimatePage.vue'
+import CreateBillPage from '@/pages/CreateBillPage.vue'
+import ViewBillDraftPage from '@/pages/ViewBillDraftPage.vue'
+
 import NotAuthenticatedLayout from '@/components/layouts/NotAuthenticatedLayout.vue'
+import CacheAuthenticatedLayout from '@/components/layouts/CacheAuthenticatedLayout.vue'
 import AuthenticatedLayout from '@/components/layouts/AuthenticatedLayout.vue'
+import ViewBillDraftLayout from '@/components/layouts/ViewBillDraftLayout.vue'
 
 // Modules
 import usersModule from '@/router/modules/users'
@@ -71,14 +75,26 @@ const routes = [
     }
   },
   {
-    path: '/estimates/create',
-    name: 'CreateEstimate',
-    component: CreateEstimatePage,
+    path: '/bills/create/:type',
+    name: 'CreateBill',
+    component: CreateBillPage,
     meta: {
       middleware: [
         auth
       ],
-      layout: AuthenticatedLayout
+      layout: CacheAuthenticatedLayout,
+      keepAlive: true
+    }
+  },
+  {
+    path: '/bills/draft',
+    name: 'DraftBill',
+    component: ViewBillDraftPage,
+    meta: {
+      middleware: [
+        auth
+      ],
+      layout: ViewBillDraftLayout
     }
   },
   ...itemsModule,

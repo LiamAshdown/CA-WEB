@@ -4,9 +4,9 @@
       <table class="items__table w-100">
         <colgroup>
           <col style="width: 40%;">
+          <col style="width: 15%;">
+          <col style="width: 15%;">
           <col style="width: 10%;">
-          <col style="width: 15%;">
-          <col style="width: 15%;">
         </colgroup>
         <thead class="items__header">
           <th class="px-4">Items</th>
@@ -14,6 +14,11 @@
           <th class="px-4">Price</th>
           <th class="text-right px-4"><span>Total</span></th>
         </thead>
+        <tbody v-if="!itemsList.length">
+          <tr>
+            <td colspan="4" class="text-center pt-3">No Items found... Start adding some!</td>
+          </tr>
+        </tbody>
         <draggable
             v-model="itemsList"
             class="items__content items-group"
@@ -32,7 +37,7 @@
       </table>
     </div>
     <div class="items__add text-primary font-weight-bold" @click="addLine">
-      <b-icon icon="basket3-fill"></b-icon> Add An Item
+      <b-icon icon="basket3-fill"></b-icon> Add New Line
     </div>
   </base-card>
 </template>
@@ -63,7 +68,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      items: 'estimates/items'
+      items: 'bills/items'
     }),
     newEstimate () {
       return !this.addNew && !this.items.length
@@ -74,7 +79,7 @@ export default {
       },
       set (value) {
         // Set the new order
-        this.$store.dispatch('estimates/setItems', value)
+        this.$store.dispatch('bills/setItems', value)
       }
     },
     dragOptions () {
@@ -94,20 +99,16 @@ export default {
       this.initializing = false
     },
     addLine () {
-      this.$store.dispatch('estimates/addItem', {
+      this.$store.dispatch('bills/addItem', {
         name: '',
         description: '',
-        gross: 0.00,
-        vat: 20,
         quantity: 1,
+        price: 0.00,
         passed: true
       })
     }
   },
   created () {
-    // Add a new line
-    this.addLine()
-
     this.getItems()
   }
 }

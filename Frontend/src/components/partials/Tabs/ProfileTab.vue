@@ -1,6 +1,6 @@
 <template>
   <b-row>
-    <b-col xl="6" lg="12">
+    <b-col xl="6" cols="12">
       <base-card :loading="initializing">
         <b-form @submit.prevent="onSubmit">
           <base-form-group

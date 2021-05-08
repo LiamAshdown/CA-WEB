@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $this->authorize('view', auth()->user());
 
-        return new UserResourceCollection(auth()->user()->users()->get());
+        return new UserResourceCollection(auth()->user()->users);
     }
 
     /**

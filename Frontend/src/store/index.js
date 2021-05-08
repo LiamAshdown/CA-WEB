@@ -7,7 +7,7 @@ import miscModule from '@/store/modules/misc/index.js'
 import profileModule from '@/store/modules/profile/index.js'
 import customersModule from '@/store/modules/customers/index.js'
 import itemsModule from '@/store/modules/items/index.js'
-import estimatesModule from '@/store/modules/estimates/index.js'
+import billsModule from '@/store/modules/bills/index.js'
 
 Vue.use(Vuex)
 
@@ -20,6 +20,9 @@ const dataState = createPersistedState({
       lastName: state.profile.lastName,
       role: state.profile.role,
       permissions: state.profile.permissions
+    },
+    bills: {
+      bill: state.bills.bill
     }
   })
 })
@@ -32,7 +35,7 @@ const store = new Vuex.Store({
     misc: miscModule,
     customers: customersModule,
     items: itemsModule,
-    estimates: estimatesModule
+    bills: billsModule
   },
   plugins: [dataState]
 })

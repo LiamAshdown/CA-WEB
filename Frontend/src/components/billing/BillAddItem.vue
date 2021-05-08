@@ -129,7 +129,7 @@ export default {
         await this.$store.dispatch('items/create')
 
         // Add newly created item to store
-        this.$store.dispatch('estimates/addItem')
+        this.$store.dispatch('bills/addItem')
 
         this.$emit('updateState', 'addNew', false)
       } catch (err) {

@@ -30,16 +30,13 @@ class ItemController extends Controller
         $attributes = $request->validate([
             'name'          => 'required',
             'description'   => 'nullable',
-            'gross'         => 'required',
-            'vat'           => 'required'
+            'price'         => 'required'
         ]);
 
         $item = new Item();
         $item->name = $attributes['name'];
         $item->description = $attributes['description'];
-        $item->gross = $attributes['gross'];
-        $item->vat = $attributes['vat'];
-        $item->net = $attributes['gross'] * ($attributes['vat'] / 100);
+        $item->price = $attributes['price'];
         $item->user_id = auth()->id();
         $item->company_id = auth()->user()->companyId();
         $item->save();

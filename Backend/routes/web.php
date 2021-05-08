@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use PDF;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::get('/test/', function () {
+//     // return view('pdf.invoices.invoice1');
+//     $pdf = App::make('dompdf.wrapper');
+//     $pdf->loadView('pdf.invoices.invoice1');
+//     return $pdf->stream();
+// });
 
 Route::get('/', function () {
     return view('welcome');

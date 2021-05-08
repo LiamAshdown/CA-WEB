@@ -4,5 +4,8 @@ export default {
   },
   toast (state) {
     return state.toast
+  },
+  seenTooltips (state) {
+    return state.tooltips.seen
   }
 }

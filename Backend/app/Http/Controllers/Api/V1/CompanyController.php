@@ -25,7 +25,7 @@ class CompanyController extends Controller
 	*/
     public function show()
     {
-        $company = auth()->user()->company()->first();
+        $company = auth()->user()->company;
 
         $this->authorize('view', $company);
 
@@ -61,7 +61,7 @@ class CompanyController extends Controller
             'logo'              => 'nullable|mimes:jpeg,png,jpg'
         ]);
 
-        $company = auth()->user()->company()->first();
+        $company = auth()->user()->company;
 
         $this->authorize('update', $company);
 

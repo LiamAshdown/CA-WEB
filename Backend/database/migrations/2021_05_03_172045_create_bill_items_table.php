@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstimateItemsTable extends Migration
+class CreateBillItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateEstimateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('estimate_items', function (Blueprint $table) {
+        Schema::create('bill_items', function (Blueprint $table) {
             $table->id();
+            $table->integer('quantity');
+            $table->float('net');
+            $table->unsignedBigInteger('bill_id');
+            $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->cascadeOnDelete();
-            $table->unsignedBigInteger('estimate_id');
-            $table->foreign('estimate_id')->references('id')->on('estimates')->cascadeOnDelete();
-            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateEstimateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estimate_items');
+        Schema::dropIfExists('bill_items');
     }
 }

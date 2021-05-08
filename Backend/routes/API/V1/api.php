@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
+Route::group([ 
 	'prefix' => 'auth',
 	'namespace' => 'V1'
 ], function ($router) {
@@ -76,4 +76,23 @@ Route::group([
 ], function ($router) {
 	Route::get('/', 'ItemController@index');
 	Route::post('store', 'ItemController@store');
+});
+
+Route::group([
+	'prefix' => 'tax',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::get('/', 'TaxController@index');
+	Route::get('show/{id}', 'TaxController@show');
+	Route::post('update/{id}', 'TaxController@update');
+	Route::post('store', 'TaxController@store');
+});
+
+Route::group([
+	'prefix' => 'bills',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function ($router) {
+	Route::post('store', 'BillController@store');
 });

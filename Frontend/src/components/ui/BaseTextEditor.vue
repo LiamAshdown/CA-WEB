@@ -1,233 +1,83 @@
 <template>
-  <div class="editor">
-    <b-form-group
-      :id="id"
-      :label="label"
-      :description="description"
-    >
-      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, focused }">
-        <div class="editor__menubar" :class="{['editor__menubar--focused']: focused}">
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.bold() }"
-            @click="commands.bold"
-          >
-            <font-awesome-icon icon="bold"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.italic() }"
-            @click="commands.italic"
-          >
-            <font-awesome-icon icon="italic"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.strike() }"
-            @click="commands.strike"
-          >
-            <font-awesome-icon icon="strikethrough"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.underline() }"
-            @click="commands.underline"
-          >
-            <font-awesome-icon icon="underline"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.code() }"
-            @click="commands.code"
-          >
-            <font-awesome-icon icon="code"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.paragraph() }"
-            @click="commands.paragraph"
-          >
-            <font-awesome-icon icon="paragraph"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.heading({ level: 1 }) }"
-            @click="commands.heading({ level: 1 })"
-          >
-            <span class="font-weight-bold">H1</span>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.heading({ level: 2 }) }"
-            @click="commands.heading({ level: 2 })"
-          >
-            <span class="font-weight-bold">H2</span>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.heading({ level: 3 }) }"
-            @click="commands.heading({ level: 2 })"
-          >
-            <span class="font-weight-bold">H3</span>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.bullet_list() }"
-            @click="commands.bullet_list"
-          >
-            <font-awesome-icon icon="list-ul"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.ordered_list() }"
-            @click="commands.ordered_list"
-          >
-            <font-awesome-icon icon="list-ol"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            :class="{ 'editor__button--active': isActive.blockquote() }"
-            @click="commands.blockquote"
-          >
-            <font-awesome-icon icon="quote-right"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            @click="commands.undo"
-          >
-            <font-awesome-icon icon="undo"/>
-          </button>
-
-          <button
-            class="editor__button btn"
-            @click="commands.redo"
-          >
-            <font-awesome-icon icon="redo"/>
-          </button>
-
-        </div>
-      </editor-menu-bar>
-      <!-- TODO; This could be put into an array instead of hard coding it. -->
-      <div class="editor__insert_field" v-click-outside="hideInsertFields">
-        <div class="editor__insert_field__button">
-          <b-button ref="insertFieldRef" variant="outline-primary" @click="showInsertFields"><b-icon icon="plus"></b-icon>Insert Field</b-button>
-          <div ref="insertFieldPop" class="editor__insert_field__submenu shadow-sm rounded mt-1 opacity-0">
-            <b-row no-gutters>
-              <b-col lg="4" cols="12">
-                <div class="editor__insert_field__submenu__item">
-                  <p class="font-weight-bold text-capitalize mb-1">Customer</p>
-                  <ul class="editor__insert_field__submenu__menu list-unstyled">
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('CUSTOMER_NAME')"><font-awesome-icon icon="sort-down"/>Contact Name</li>
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('CUSTOMER_EMAIL')"><font-awesome-icon icon="sort-down"/>Email</li>
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('CUSTOMER_PHONE')"><font-awesome-icon icon="sort-down"/>Phone</li>
-                  </ul>
-                </div>
-              </b-col>
-              <b-col lg="4" cols="12">
-                <div class="editor__insert_field__submenu__item">
-                  <p class="font-weight-bold text-capitalize mb-1">Invoice</p>
-                  <ul class="editor__insert_field__submenu__menu list-unstyled">
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('INVOICE_DATE')"><font-awesome-icon icon="sort-down"/>Date</li>
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('INVOICE_DUE_DATE')"><font-awesome-icon icon="sort-down"/>Due Date</li>
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('INVOICE_REF_NUMBER')"><font-awesome-icon icon="sort-down"/>Ref Number</li>
-                  </ul>
-                </div>
-              </b-col>
-              <b-col lg="4" cols="12">
-                <div class="editor__insert_field__submenu__item">
-                  <p class="font-weight-bold text-capitalize mb-1">Company</p>
-                  <ul class="editor__insert_field__submenu__menu list-unstyled">
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('COMPANY_NAME')"><font-awesome-icon icon="sort-down"/>Company Name</li>
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('COMPANY_PHONE')"><font-awesome-icon icon="sort-down"/>Phone</li>
-                    <li class="editor__insert_field__submenu__menu__item" @click="insertField('COMPANY_ADDRESS')"><font-awesome-icon icon="sort-down"/>Address</li>
-                  </ul>
-                </div>
-              </b-col>
-            </b-row>
-          </div>
-        </div>
+  <div class="editor" v-if="editor">
+    <base-text-editor-menu class="editor__header" :editor="editor"></base-text-editor-menu>
+    <div class="editor__menu" v-click-outside="hideInsertFields">
+      <b-button ref="insertFieldRef" variant="outline-primary" @click="showInsertFields"><b-icon icon="plus"></b-icon>Insert Field</b-button>
+      <div ref="insertFieldPop" class="editor__float_menu shadow-sm rounded mt-1 p-2">
+        <b-row no-gutters>
+          <b-col lg="4" cols="12">
+            <div>
+              <p class="font-weight-bold text-capitalize mb-1">Customer</p>
+              <ul class="list-unstyled">
+                <li class="editor__float_menu__item" @click="insertField('CUSTOMER_NAME')"><font-awesome-icon icon="sort-down"/>Contact Name</li>
+                <li class="editor__float_menu__item" @click="insertField('CUSTOMER_EMAIL')"><font-awesome-icon icon="sort-down"/>Email</li>
+                <li class="editor__float_menu__item" @click="insertField('CUSTOMER_PHONE')"><font-awesome-icon icon="sort-down"/>Phone</li>
+              </ul>
+            </div>
+          </b-col>
+          <b-col lg="4" cols="12">
+            <div>
+              <p class="font-weight-bold text-capitalize mb-1">Invoice</p>
+              <ul class="list-unstyled">
+                <li class="editor__float_menu__item" @click="insertField('INVOICE_DATE')"><font-awesome-icon icon="sort-down"/>Date</li>
+                <li class="editor__float_menu__item" @click="insertField('INVOICE_DUE_DATE')"><font-awesome-icon icon="sort-down"/>Due Date</li>
+                <li class="editor__float_menu__item" @click="insertField('INVOICE_REF_NUMBER')"><font-awesome-icon icon="sort-down"/>Ref Number</li>
+              </ul>
+            </div>
+          </b-col>
+          <b-col lg="4" cols="12">
+            <div>
+              <p class="font-weight-bold text-capitalize mb-1">Company</p>
+              <ul class="list-unstyled">
+                <li class="editor__float_menu__item" @click="insertField('COMPANY_NAME')"><font-awesome-icon icon="sort-down"/>Company Name</li>
+                <li class="editor__float_menu__item" @click="insertField('COMPANY_PHONE')"><font-awesome-icon icon="sort-down"/>Phone</li>
+                <li class="editor__float_menu__item" @click="insertField('COMPANY_ADDRESS')"><font-awesome-icon icon="sort-down"/>Address</li>
+              </ul>
+            </div>
+          </b-col>
+        </b-row>
       </div>
-      <editor-content class="editor__content" :editor="editor"/>
-    </b-form-group>
+    </div>
+    <editor-content class="editor__content" :editor="editor" />
   </div>
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
-import {
-  Blockquote,
-  CodeBlock,
-  HardBreak,
-  Heading,
-  OrderedList,
-  BulletList,
-  ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Code,
-  Italic,
-  Link,
-  Strike,
-  Underline,
-  History
-} from 'tiptap-extensions'
-import InsertField from '@/vendor/tiptap-insert-field'
+import { Editor, EditorContent } from '@tiptap/vue-2'
+import { defaultExtensions } from '@tiptap/starter-kit'
+import BaseTextEditorMenu from './BaseTextEditorMenu.vue'
 import { createPopper } from '@popperjs/core'
 
 export default {
   components: {
     EditorContent,
-    EditorMenuBar
+    BaseTextEditorMenu
   },
+
   props: {
-    id: {
-      type: String,
-      required: true
-    },
-    label: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String,
-      required: false,
-      default: ''
-    },
     value: {
-      type: String
+      type: String,
+      default: ''
     }
   },
+
   data () {
     return {
-      editor: null,
+      content: '',
       popper: null,
-      emitAfterOnUpdate: false
+      editor: null
     }
   },
   watch: {
-    value (val) {
-      if (this.emitAfterOnUpdate) {
-        this.emitAfterOnUpdate = false
+    value (value) {
+      // HTML
+      const isSame = this.editor.getHTML() === value
+
+      if (isSame) {
         return
       }
 
-      if (this.editor) {
-        this.editor.setContent(val)
-      }
+      this.editor.commands.setContent(this.value, false)
     }
   },
   methods: {
@@ -245,7 +95,7 @@ export default {
       this.$refs.insertFieldPop.style.pointerEvents = 'none'
     },
     insertField (field) {
-      this.editor.commands.insertHTML(`<b>{${field}}</b>`)
+      this.editor.chain().focus().insertContent(`<b>{${field}}</b>`).run()
 
       this.hideInsertFields()
     }
@@ -253,35 +103,18 @@ export default {
   mounted () {
     this.editor = new Editor({
       extensions: [
-        new Blockquote(),
-        new BulletList(),
-        new CodeBlock(),
-        new HardBreak(),
-        new Heading({ levels: [1, 2, 3] }),
-        new ListItem(),
-        new OrderedList(),
-        new TodoItem(),
-        new TodoList(),
-        new Link(),
-        new Bold(),
-        new Code(),
-        new Italic(),
-        new Strike(),
-        new Underline(),
-        new History(),
-        new InsertField()
+        ...defaultExtensions()
       ],
-      content: '',
-      onUpdate: ({ getHTML }) => {
-        this.emitAfterOnUpdate = true
-        this.$emit('input', getHTML())
+      content: this.value,
+      onUpdate: () => {
+        this.$emit('input', this.editor.getHTML())
       }
     })
 
-    this.editor.setContent(this.value)
-
-    this.popper = createPopper(this.$refs.insertFieldRef, this.$refs.insertFieldPop, {
-      placement: 'bottom-start'
+    this.$nextTick(function () {
+      this.popper = createPopper(this.$refs.insertFieldRef, this.$refs.insertFieldPop, {
+        placement: 'bottom-start'
+      })
     })
   },
   beforeDestroy () {
@@ -292,88 +125,56 @@ export default {
 
 <style lang="scss">
 .editor {
-  border-radius: 6px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  background: #fff;
   position: relative;
 
-  &__menubar {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 3px;
-    border: 1px solid #ced4da;
-    border-bottom: 0px;
-    border-radius: 5px 5px 0px 0px;
-    background: #fff;
-
-    &--focused {
-      border: 1px solid #ced4da;
-      border-bottom: 0px;
-      outline: none;
-    }
-  }
-
-  &__button {
-    display: flex;
-    align-items: center;
-
-    &--active,
-    &:hover {
-      background-color: #e2e8f0;
-    }
+  &__header {
+    padding: 5px;
+    border-bottom: 1px solid #ced4da;
   }
 
   &__content {
-    .ProseMirror {
-      min-height: 150px;
-      border: 1px solid #ced4da;
-      border-radius: 0px 0px 5px 5px;
-
-      padding: 20px 20px 10px 20px;
-
-      &-focused {
-        border: 1px solid #ced4da;
-        outline: none;
-      }
-    }
+    min-height: 150px;
   }
 
-  &__insert_field {
-    width: 100%;
-    z-index: 99;
+  &__menu {
     position: absolute;
     bottom: 10px;
     right: 10px;
+    z-index: 999;
+    width: 100%;
 
-    &__button {
+    button {
       float: right;
     }
+  }
 
-    &__submenu {
-      padding: 10px;
-      background: white;
-      width: 100%;
-      max-width: 600px;
-      animation: slideIn 0.3s ease;
-      visibility: hidden;
-      pointer-events: none;
+  &__float_menu {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
 
-      &__menu {
-        &__item {
-          &:hover {
-            cursor: pointer;
-            background: darken($color: #edf2f7, $amount: 0);
-          }
-
-          svg {
-            margin-right: 10px;
-          }
-        }
+    &__item {
+      &:hover {
+        cursor: pointer;
+        background: darken($color: #edf2f7, $amount: 0);
       }
 
       svg {
+        margin-right: 10px;
         transform: rotate(270deg);
       }
     }
   }
+}
+
+.ProseMirror {
+  min-height: 150px !important;
+  padding: 10px;
+  color: black;
+  outline: none;
 }
 </style>

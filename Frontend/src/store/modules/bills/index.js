@@ -6,16 +6,20 @@ export default {
   namespaced: true,
   state () {
     return {
-      estimate: {
+      saveDraft: false,
+      bill: {
         id: 0,
         uniqueId: '',
-        estimateNumber: 1,
-        dueDate: '',
+        type: '',
+        number: 1,
+        customer: null,
+        dueDate: new Date().toISOString().slice(0, 10),
         draft: false,
         items: [],
         prefix: '...',
+        taxes: [],
         termsConditions: '',
-        estimateBody: ''
+        body: ''
       }
     }
   },

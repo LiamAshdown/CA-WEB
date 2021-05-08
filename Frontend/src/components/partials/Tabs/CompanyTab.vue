@@ -118,8 +118,8 @@ export default {
         .toDataURL(this.cropperOutputMime)
 
       cropper.getCroppedCanvas().toBlob((blob) => {
-        this.form.logo = blob
-        this.form.logoPath = logoURL
+        this.company.logo = blob
+        this.company.logoPath = logoURL
       })
     },
     onChange (file) {

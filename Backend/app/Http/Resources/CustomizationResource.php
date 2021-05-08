@@ -18,7 +18,8 @@ class CustomizationResource extends JsonResource
             'invoice_prefix'        => $this->invoice_prefix,
             'default_invoice_body'  => $this->default_invoice_body,
             'estimate_prefix'       => $this->estimate_prefix,
-            'default_estimate_body' => $this->default_estimate_body
+            'default_estimate_body' => $this->default_estimate_body,
+            'terms_conditions'      => $this->terms_conditions
         ];
     }
 }

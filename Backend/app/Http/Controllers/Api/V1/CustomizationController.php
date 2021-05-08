@@ -16,7 +16,7 @@ class CustomizationController extends Controller
      */
     public function show()
     {
-        $customization = auth()->user()->company()->first()->customization()->first();
+        $customization = auth()->user()->company->customization;
 
         $this->authorize('view', $customization);
 
@@ -32,13 +32,14 @@ class CustomizationController extends Controller
     public function update(Request $request)
     {
         $attributes = $request->validate([
-            'invoice_prefix'	    => 'required|string',
+            'invoice_prefix'	     => 'required|string',
 			'default_invoice_body'   => 'nullable|string',
-			'estimate_prefix' 	    => 'required|string',
-			'default_estimate_body' 	=> 'nullable|string'
+			'estimate_prefix' 	     => 'required|string',
+			'default_estimate_body'  => 'nullable|string',
+			'terms_conditions'       => 'nullable|string'
         ]);
 
-        $customization = auth()->user()->company()->first()->customization()->first();
+        $customization = auth()->user()->company->customization;
 
         $this->authorize('update', $customization);
 

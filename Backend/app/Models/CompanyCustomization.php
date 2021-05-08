@@ -52,6 +52,7 @@ class CompanyCustomization extends Model
 		'invoice_prefix',
 		'default_invoice_body',
         'estimate_prefix',
-        'default_estimate_body'
+        'default_estimate_body',
+        'terms_conditions'
     ];
 }

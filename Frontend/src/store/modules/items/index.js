@@ -13,8 +13,7 @@ export default {
         uniqueId: '',
         name: '',
         description: '',
-        gross: 0.00,
-        vat: 20
+        price: 0.00
       }
     }
   },

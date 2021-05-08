@@ -36,6 +36,7 @@
                   label="Password"
                   placeholder="Password"
                   type="password"
+                  autocomplete="new-password"
                   v-model="form.password"
                 ></base-form-group>
 

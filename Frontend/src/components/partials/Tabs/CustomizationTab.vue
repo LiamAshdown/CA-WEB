@@ -6,6 +6,7 @@
     <b-row>
       <b-col xl="6" lg="12" class="form-group">
         <base-card :loading="initializing">
+          <p class="font-weight-bold">Invoice</p>
           <base-form-group
             id="invoice-prefix"
             label="Invoice Prefix"
@@ -16,15 +17,21 @@
             :description="'Invoice would show as: ' + (customization.estimatePrefix || 'INV_') + '0001'"
             :validation="errors"
           ></base-form-group>
-          <base-text-editor
+          <b-form-group
             id="default-invoice-body"
-            label="Default Invoice Email Body"
-            v-model="customization.defaultInvoiceBody"
-          ></base-text-editor>
+            label="Default Invoice Body"
+            label-for="default-invoice-body-input"
+          >
+            <base-text-editor
+              id="default-invoice-body-input"
+              v-model="customization.defaultInvoiceBody"
+            ></base-text-editor>
+          </b-form-group>
         </base-card>
       </b-col>
       <b-col xl="6" lg="12">
         <base-card :loading="initializing">
+        <p class="font-weight-bold">Estimate</p>
           <base-form-group
             id="estimate-prefix"
             label="Estimate Prefix"
@@ -35,11 +42,33 @@
             :description="'Estimate would show as: ' + (customization.estimatePrefix || 'EST_') + '0001'"
             :validation="errors"
           ></base-form-group>
-          <base-text-editor
+          <b-form-group
             id="default-estimate-body"
             label="Default Estimate Email Body"
-            v-model="customization.defaultEstimateBody"
-          ></base-text-editor>
+            label-for="default-estimate-body-input"
+          >
+            <base-text-editor
+              id="default-estimate-body-input"
+              v-model="customization.defaultEstimateBody"
+            ></base-text-editor>
+          </b-form-group>
+        </base-card>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col lg="6" cols="12">
+        <base-card :loading="initializing">
+          <b-form-group
+            id="terms-conditions"
+            label="Terms & Conditions"
+            label-for="terms-conditions-input"
+            description="Used for Estimate and Invoices"
+          >
+            <base-text-editor
+              id="terms-conditions-input"
+              v-model="customization.termsConditions"
+            ></base-text-editor>
+          </b-form-group>
         </base-card>
       </b-col>
     </b-row>
@@ -60,7 +89,8 @@ export default {
         invoicePrefix: '',
         defaultInvoiceBody: '',
         estimatePrefix: '',
-        defaultEstimateBody: ''
+        defaultEstimateBody: '',
+        termsConditions: ''
       }
     }
   },

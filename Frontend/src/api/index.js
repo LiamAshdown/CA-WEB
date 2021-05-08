@@ -5,6 +5,8 @@ import usersApi from './users.js'
 import customersApi from './customers.js'
 import itemsApi from './items.js'
 import customizationApi from './customization.js'
+import taxApi from './tax.js'
+import billApi from './bill.js'
 
 export const api = {
   auth: authApi,
@@ -13,7 +15,9 @@ export const api = {
   users: usersApi,
   customers: customersApi,
   items: itemsApi,
-  customization: customizationApi
+  customization: customizationApi,
+  tax: taxApi,
+  bill: billApi
 }
 
 export default api

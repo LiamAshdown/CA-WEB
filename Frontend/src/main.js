@@ -2,8 +2,10 @@ import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import '../node_modules/bootstrap/scss/bootstrap.scss'
 import '../node_modules/bootstrap-vue/src/index.scss'
+import VueShepherd from 'vue-shepherd'
 
 import '@/helpers/directives'
+import '@/helpers/filters'
 import '@/vendor/pace'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -46,11 +48,15 @@ import BaseDivider from '@/components/ui/BaseDivider.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import BaseTextEditor from '@/components/ui/BaseTextEditor.vue'
 import BaseFormGroup from '@/components/ui/form/BaseFormGroup.vue'
+import BaseTooltip from '@/components/ui/BaseTooltip.vue'
 import BaseInput from '@/components/ui/form/BaseInput.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
 import BaseTabs from '@/components/ui/tab/Tabs.vue'
 import BaseTab from '@/components/ui/tab/Tab.vue'
 import Can from '@/components/ui/helpers/Can.vue'
+
+import money from 'v-money'
+Vue.use(money, { precision: 2 })
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -93,7 +99,9 @@ Vue.component('base-input', BaseInput)
 Vue.component('base-card', BaseCard)
 Vue.component('base-tabs', BaseTabs)
 Vue.component('base-tab', BaseTab)
+Vue.component('base-tooltip', BaseTooltip)
 Vue.component('can', Can)
+Vue.use(VueShepherd)
 
 const App = new Vue({
   render: h => h(AppComponent),

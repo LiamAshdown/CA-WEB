@@ -63,6 +63,17 @@ class Company extends Model
     ];
 
     /**
+     * Get Company Path
+     *
+     * @param string $type
+     * @return string
+     */
+    public function getPath($type, $unique = false)
+    {
+        return 'companies/'.$this->id.'/'.$type.'/'.($unique ? uniqid() : '');
+    }
+
+    /**
      * Handle Logo
      *
      * @param mixed $logo
@@ -75,9 +86,9 @@ class Company extends Model
         if ($file) {
             Storage::delete($this->logo_path);
 
-            $path = $file->hashName('public/company_logos');
-            $image = Image::make($file)->fit(300);
-            Storage::put($path, (string)$image->encode());
+            $path = $file->hashName($this->getPath('logo'));
+            $image = Image::make($file)->fit(150);
+            Storage::disk('public')->put($path, (string)$image->encode());
             return $path;
         }
 

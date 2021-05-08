@@ -29,31 +29,13 @@
       ></base-form-group>
 
       <base-form-group
-        id="gross"
-        label="Gross"
+        id="price"
+        label="Price"
         type="number"
         :optional="false"
-        :value="item.gross"
+        :value="item.price"
         @input="updateField"
         :validation="errors"
-      ></base-form-group>
-
-      <base-form-group
-        id="vat"
-        label="VAT"
-        :select="true"
-        :options="vatOptions"
-        :value="item.vat"
-        @input="updateField"
-        :validation="errors"
-      ></base-form-group>
-
-      <base-form-group
-        id="net"
-        label="Net"
-        type="text"
-        :value="calculateNet"
-        disabled
       ></base-form-group>
     </b-form>
 
@@ -74,27 +56,13 @@ export default {
   data () {
     return {
       loading: false,
-      errors: [],
-      vatOptions: [
-        { value: '20', text: '20%' },
-        { value: '5', text: '5%' },
-        { value: '0', text: '0%' }
-      ]
+      errors: []
     }
   },
   computed: {
     ...mapGetters({
       item: 'items/item'
-    }),
-    calculateNet () {
-      const net = (this.item.gross - (this.item.gross * (this.item.vat / 100))).toLocaleString()
-
-      if (isNaN(net)) {
-        return 0.00
-      }
-
-      return net
-    }
+    })
   },
   methods: {
     updateField (value, field) {

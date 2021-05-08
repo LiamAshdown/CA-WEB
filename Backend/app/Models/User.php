@@ -142,7 +142,7 @@ class User extends Authenticatable
      */
     public function companyId()
     {
-        return $this->company()->first()->id;
+        return $this->company->id;
     }
 
     /**
@@ -152,7 +152,7 @@ class User extends Authenticatable
      */
     public function users()
     {
-        return $this->company()->first()->users();
+        return $this->company->users();
     }
 
     /**
@@ -163,6 +163,16 @@ class User extends Authenticatable
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Get Taxes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function taxes()
+    {
+        return $this->hasMany(Tax::class);
     }
 
     /**

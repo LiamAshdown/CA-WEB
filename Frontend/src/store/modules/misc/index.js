@@ -11,6 +11,9 @@ export default {
         message: '',
         variant: '',
         noAutoHide: false
+      },
+      tooltips: {
+        seen: []
       }
     }
   },

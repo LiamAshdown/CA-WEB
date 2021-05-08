@@ -19,6 +19,7 @@ class CreateCompanyCustomizationsTable extends Migration
             $table->string('default_invoice_body')->nullable();
             $table->string('estimate_prefix');
             $table->string('default_estimate_body')->nullable();
+            $table->string('terms_conditions')->nullable();
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->cascadeOnDelete();
             $table->timestamps();

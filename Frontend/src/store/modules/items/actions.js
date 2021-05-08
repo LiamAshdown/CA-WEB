@@ -38,8 +38,8 @@ export default {
       uniqueId: '',
       name: '',
       description: '',
-      net: 0.00,
-      vat: 20
+      quantity: 1,
+      price: 0.00
     })
   }
 }

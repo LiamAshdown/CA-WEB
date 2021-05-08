@@ -7,7 +7,7 @@ use App\Http\Resources\ProfileResource;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-/**
+/*
  * @group Profile
  */
 class ProfileController extends Controller
