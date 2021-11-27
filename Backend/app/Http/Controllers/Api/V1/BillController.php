@@ -55,7 +55,7 @@ class BillController extends Controller
 
         // Prepare attributes to build PDF
         $attributes['type'] = 'Estimate';
-        $attributes['company'] = auth()->user()->company->;
+        $attributes['company'] = auth()->user()->company;
         $attributes['number'] = $attributes['estimate_number'];
         $attributes['due_date'] = $estimate->due_date;
         $attributes['creation_date'] = $estimate->created_at;

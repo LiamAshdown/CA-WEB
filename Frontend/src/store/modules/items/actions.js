@@ -18,8 +18,8 @@ export default {
       loading: false
     })
   },
-  async create (context) {
-    const response = await api.items.store(context.getters.item)
+  async create (context, payload) {
+    const response = await api.items.store(payload)
 
     // TODO; When we adding a new item, we should just push it to the array,
     // instead of just recalling the index API - I'm doing this just out of lazyiness

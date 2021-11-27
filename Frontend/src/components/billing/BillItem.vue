@@ -5,7 +5,6 @@
         <colgroup>
           <col style="width: 40%;">
           <col style="width: 15%;">
-          <col style="width: 15%;">
           <col style="width: 10%;">
         </colgroup>
         <tbody>
@@ -26,15 +25,6 @@
                 id="quantity"
                 type="number"
                 :value="item.quantity"
-                @input="updateField"
-                :disabled="!item.name"
-              ></base-input>
-            </td>
-            <td class="p-4">
-              <base-input
-                id="price"
-                type="number"
-                :value="item.price"
                 @input="updateField"
                 :disabled="!item.name"
               ></base-input>
@@ -73,7 +63,7 @@ export default {
       return this.items[this.index]
     },
     calculateTotal () {
-      return (this.item.price * this.item.quantity).toLocaleString('en-GB', {
+      return (this.item.unitPrice * this.item.quantity).toLocaleString('en-GB', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       })

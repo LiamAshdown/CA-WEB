@@ -16,7 +16,6 @@ class CreateBillItemsTable extends Migration
         Schema::create('bill_items', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->float('net');
             $table->unsignedBigInteger('bill_id');
             $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();
             $table->unsignedBigInteger('item_id');

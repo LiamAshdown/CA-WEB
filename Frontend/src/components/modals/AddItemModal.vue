@@ -12,9 +12,8 @@
         id="name"
         label="Name"
         type="text"
+        v-model="form.name"
         :optional="false"
-        :value="item.name"
-        @input="updateField"
         :validation="errors"
       ></base-form-group>
 
@@ -22,20 +21,42 @@
         id="description"
         label="Description"
         type="text"
+        v-model="form.description"
         :textArea="true"
-        :value="item.description"
-        @input="updateField"
         :validation="errors"
       ></base-form-group>
 
       <base-form-group
         id="price"
-        label="Price"
+        label="Unit Price"
         type="number"
+        v-model="form.unitPrice"
         :optional="false"
-        :value="item.price"
-        @input="updateField"
         :validation="errors"
+      ></base-form-group>
+
+      <b-form-group label="VAT">
+        <b-form-select v-model="form.vat" :options="vatOptions"></b-form-select>
+      </b-form-group>
+
+      <base-form-group
+        id="net"
+        label="Net"
+        type="number"
+        :value="calculateNet"
+        :optional="true"
+        :validation="errors"
+        disabled
+      ></base-form-group>
+
+      <base-form-group
+        id="gross"
+        label="Gross"
+        type="number"
+        :value="calculateGross"
+        :optional="true"
+        :validation="errors"
+        disabled
       ></base-form-group>
     </b-form>
 
@@ -49,30 +70,46 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'AddItemModal',
   data () {
     return {
       loading: false,
-      errors: []
+      errors: [],
+      vatOptions: [
+        { value: 5, text: '5%' },
+        { value: 10, text: '10%' },
+        { value: 20, text: '20%' }
+      ],
+      form: {
+        name: '',
+        description: '',
+        unitPrice: 0.00,
+        net: 0.00,
+        vat: 0.00,
+        gross: 0.00
+      }
     }
   },
   computed: {
-    ...mapGetters({
-      item: 'items/item'
-    })
+    calculateGross () {
+      return this.form.unitPrice * (1 + this.form.vat / 100)
+    },
+    calculateNet  () {
+      return this.form.unitPrice
+    }
   },
   methods: {
-    updateField (value, field) {
-      this.$store.dispatch('items/set', {
-        [field]: value
-      })
-    },
     resetModal () {
-      this.$store.dispatch('items/reset')
       this.errors = []
+      this.form = {
+        name: '',
+        description: '',
+        unitPrice: 0.00,
+        net: 0.00,
+        vat: 0.00,
+        gross: 0.00
+      }
     },
     handleOk (bvModalEvt) {
       bvModalEvt.preventDefault()
@@ -85,7 +122,7 @@ export default {
 
       try {
         // Create the item
-        await this.$store.dispatch('items/create')
+        await this.$store.dispatch('items/create', this.form)
         this.$bvModal.hide('modal-add-item')
       } catch (err) {
         this.errors = err.response.data.errors

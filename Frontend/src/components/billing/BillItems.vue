@@ -4,19 +4,17 @@
       <table class="items__table w-100">
         <colgroup>
           <col style="width: 40%;">
-          <col style="width: 15%;">
-          <col style="width: 15%;">
+          <col style="width: 13.3%;">
           <col style="width: 10%;">
         </colgroup>
         <thead class="items__header">
-          <th class="px-4">Items</th>
-          <th class="text-right px-4">Quantity</th>
-          <th class="px-4">Price</th>
-          <th class="text-right px-4"><span>Total</span></th>
+          <th>Items</th>
+          <th>Quantity</th>
+          <th class="text-right"><span>Total</span></th>
         </thead>
         <tbody v-if="!itemsList.length">
           <tr>
-            <td colspan="4" class="text-center pt-3">No Items found... Start adding some!</td>
+            <td colspan="3" class="text-center pt-3">No Items found... Start adding some!</td>
           </tr>
         </tbody>
         <draggable

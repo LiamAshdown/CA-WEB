@@ -10,10 +10,12 @@ export default {
       items: [],
       item: {
         id: 0,
-        uniqueId: '',
         name: '',
         description: '',
-        price: 0.00
+        vat: 0.00,
+        unitPrice: 0.00,
+        net: 0.00,
+        gross: 0.00
       }
     }
   },

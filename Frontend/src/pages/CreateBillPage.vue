@@ -1,7 +1,7 @@
 <template>
-  <b-container class="bill" fluid>
+  <b-container class="bill text-capitalize" fluid>
     <div class="bill__header">
-      <h1 class="page-title">Create bill</h1>
+      <h1 class="page-title">Create {{ type }}</h1>
       <div class="bill__header__buttons">
         <base-button @click="viewDraft" class="mr-2"><b-icon icon="pencil"></b-icon> View Draft</base-button>
         <base-button @click="saveChanges"><font-awesome-icon icon="save"/> Save Changes</base-button>
@@ -161,14 +161,6 @@ export default {
         dueDate: {
           pass: true
         }
-      }
-    }
-  },
-  watch: {
-    $route (to, from) {
-      if (from.name !== 'DraftBill' && from.name !== 'CreateBill') {
-        this.$store.dispatch('bills/reset')
-        this.$destroy()
       }
     }
   },

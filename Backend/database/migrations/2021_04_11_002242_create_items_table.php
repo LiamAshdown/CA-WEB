@@ -17,7 +17,10 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->float('price');
+            $table->float('vat');
+            $table->float('unit_price');
+            $table->float('net');
+            $table->float('gross');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->unsignedBigInteger('company_id');
