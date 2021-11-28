@@ -9,7 +9,10 @@
   "dependencies": {
     "@capacitor/android": "^3.2.5",
     "@capacitor/core": "^3.2.5",
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "humps": "^2.0.1",
+    "vee-validate": "^3.4.14",
     "vue": "^2.6.11",
     "vue-router": "^3.5.3",
     "vuetify": "^2.4.0",

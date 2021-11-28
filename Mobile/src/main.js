@@ -35,7 +35,6 @@ const app = createApp(App)
 // Components
 Components.install(app)
 
-  
 router.isReady().then(() => {
   app.mount('#app');
 });

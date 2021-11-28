@@ -19,6 +19,8 @@ Route::group([
 ], function ($router) {
 	Route::post('login', 'AuthController@login');
 	Route::post('register', 'AuthController@register');
+	Route::post('register/user', 'AuthController@registerUser');
+	Route::post('register/company', 'AuthController@registerCompany');
 	Route::get('logout', 'AuthController@logout');
 });
 

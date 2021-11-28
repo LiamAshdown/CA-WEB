@@ -5,6 +5,8 @@ import store from '@/store'
 
 // Modules
 import authModule from '@/router/modules/auth'
+import generalModule from '@/router/modules/general'
+import profileModule from '@/router/modules/profile'
 
 // Middleware Pipeline
 import middlewarePipeline from '@/router/middlewarePipeline.js'
@@ -12,7 +14,9 @@ import middlewarePipeline from '@/router/middlewarePipeline.js'
 Vue.use(VueRouter)
 
 const routes = [
-  ...authModule
+  ...authModule,
+  ...generalModule,
+  ...profileModule
 ]
 
 const router = new VueRouter({

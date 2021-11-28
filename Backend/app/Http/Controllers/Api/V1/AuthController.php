@@ -20,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'logout']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'registerUser', 'logout']]);
     }
 
 	/**
@@ -92,8 +92,8 @@ class AuthController extends Controller
 	public function register(Request $request, ProxyServiceInterface $proxyService) 
 	{
 		$attributes = $request->validate([
-			'first_name' 				=> 'required|string',
-			'last_name'  				=> 'required|string',
+			'first_name' 				=> 'required|string|max:30',
+			'last_name'  				=> 'required|string|max:30',
 			'email' 	 				=> 'required|email|unique:users',
 			'password'   				=> 'required',
 			'company_name'				=> 'required|string',
@@ -123,5 +123,68 @@ class AuthController extends Controller
 			'username' => $attributes['email'],
 			'password' => $attributes['password']
 		]);
+	}
+
+	/**
+	 * Register User
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param \App\Service\Base\ProxyServiceInterface $proxyService
+	 * @return \App\Service\Base\ProxyServiceInterface::proxy
+	 */
+	public function registerUser(Request $request, ProxyServiceInterface $proxyService) 
+	{
+		$attributes = $request->validate([
+			'first_name' 				=> 'required|string|max:30',
+			'last_name'  				=> 'required|string|max:30',
+			'email' 	 				=> 'required|email|unique:users',
+			'password'   				=> 'required'
+		]);
+
+		$user = new User();
+		$user->first_name  	= $attributes['first_name'];
+		$user->last_name  	= $attributes['last_name'];
+		$user->email		= $attributes['email'];
+		$user->password	 	= $attributes['password'];
+		$user->save();
+
+		$user->assignRole(User::ROLES['company_admin']);
+
+		return $proxyService->proxy('password', [
+			'username' => $attributes['email'],
+			'password' => $attributes['password']
+		]);
+	}
+	
+
+	/**
+	 * Register Company
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param \App\Service\Base\ProxyServiceInterface $proxyService
+	 * @return \App\Service\Base\ProxyServiceInterface::proxy
+	 */
+	public function registerCompany(Request $request, ProxyServiceInterface $proxyService) 
+	{
+		$attributes = $request->validate([
+			'name' 				=> 'required|string',
+			'address' 			=> 'required|string',
+			'postal_code' 		=> 'required|string',
+			'telephone_number' 	=> 'required|string'
+		]);
+
+		$company = new Company();
+		$company->name 			   = $attributes['name'];
+		$company->address 		   = $attributes['address'];
+		$company->postal_code 	   = $attributes['postal_code'];
+		$company->telephone_number = $attributes['telephone_number'];
+		$company->save();
+
+		$user = auth()->user();
+
+		$user->company_id = $company->id;
+		$user->save();
+
+		return response()->noContent();
 	}
 }
