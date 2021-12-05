@@ -1,6 +1,6 @@
 
 // Pages
-import Feed from '@/pages/general/Feed'
+import Notifications from '@/pages/notifications/Notifications'
 
 // Layouts
 import AuthenticatedLayout from '@/components/layouts/AuthenticatedLayout'
@@ -10,9 +10,9 @@ import authMiddleware from '@/router/middlewares/auth'
 
 export default [
   {
-    path: '/feed',
-    name: 'feed',
-    component: Feed,
+    path: '/notifications',
+    name: 'notifications',
+    component: Notifications,
     meta: {
       middlewares: [
         authMiddleware

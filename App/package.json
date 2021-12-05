@@ -14,7 +14,9 @@
     "humps": "^2.0.1",
     "vee-validate": "^3.4.14",
     "vue": "^2.6.11",
+    "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.5.3",
+    "vue2-animate": "^2.1.4",
     "vuetify": "^2.4.0",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.0.0-beta.3"
@@ -31,6 +33,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
     "eslint-plugin-vue": "^8.0.3",
+    "pulltorefreshjs": "^0.1.22",
     "sass": "~1.32.0",
     "sass-loader": "^10.2.0",
     "vue-cli-plugin-vuetify": "~2.4.3",

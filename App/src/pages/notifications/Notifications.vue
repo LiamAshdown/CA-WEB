@@ -1,11 +1,11 @@
 <template>
-  <v-container>
-    Test
-  </v-container>
+  <div>
+    Hello Beth
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'FeedPage'
+  name: 'NotificationsPage'
 }
 </script>

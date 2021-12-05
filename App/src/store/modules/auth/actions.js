@@ -1,5 +1,5 @@
 import { SET_TOKEN_MUTATION, SET_PROFILE_DATA_MUTATION } from '@/store/mutation-types'
-import api from '@/api/index.js'
+import api from '@/api'
 
 export default {
   async login (context, payload) {

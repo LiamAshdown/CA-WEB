@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([ 
 	'prefix' => 'auth',
 	'namespace' => 'V1'
-], function ($router) {
+], function () {
 	Route::post('login', 'AuthController@login');
 	Route::post('register', 'AuthController@register');
 	Route::post('register/user', 'AuthController@registerUser');
@@ -28,7 +28,7 @@ Route::group([
 	'prefix' => 'profile',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('', 'ProfileController@show');
 	Route::post('update', 'ProfileController@update');
 });
@@ -37,7 +37,7 @@ Route::group([
 	'prefix' => 'customization',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('', 'CustomizationController@show');
 	Route::post('update', 'CustomizationController@update');
 });
@@ -46,7 +46,7 @@ Route::group([
 	'prefix' => 'company',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('', 'CompanyController@show');
 	Route::post('update', 'CompanyController@update');
 });
@@ -55,7 +55,7 @@ Route::group([
 	'prefix' => 'users',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('/', 'UserController@index');
 	Route::get('show/{id}', 'UserController@show');
 	Route::post('update/{id}', 'UserController@update');
@@ -66,7 +66,7 @@ Route::group([
 	'prefix' => 'customers',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('/', 'CustomerController@index');
 	Route::post('store', 'CustomerController@store');
 });
@@ -75,7 +75,7 @@ Route::group([
 	'prefix' => 'items',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('/', 'ItemController@index');
 	Route::post('store', 'ItemController@store');
 });
@@ -84,7 +84,7 @@ Route::group([
 	'prefix' => 'tax',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::get('/', 'TaxController@index');
 	Route::get('show/{id}', 'TaxController@show');
 	Route::post('update/{id}', 'TaxController@update');
@@ -95,6 +95,21 @@ Route::group([
 	'prefix' => 'bills',
 	'namespace' => 'V1',
 	'middleware' => ['auth']
-], function ($router) {
+], function () {
 	Route::post('store', 'BillController@store');
+});
+
+Route::group([
+	'prefix' => 'post',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function () {
+	Route::get('', 'PostController@index');
+	Route::post('store', 'PostController@store');
+	Route::post('like', 'PostController@like');
+	Route::post('unlike', 'PostController@unlike');
+	Route::post('reply', 'PostController@reply');
+	Route::get('replies/{id}', 'PostController@replies');
+	Route::get('show/{id}', 'PostController@show');
+	Route::get('likes/{id}', 'PostController@likes');
 });

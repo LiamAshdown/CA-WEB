@@ -202,4 +202,14 @@ class User extends Authenticatable
 
         return Item::where('user_id', $this->id)->get();
     }
+
+    /**
+     * Get Notifications
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'notify_user_id', 'id');
+    }
 }

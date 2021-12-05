@@ -1,6 +1,7 @@
 <template>
   <v-bottom-navigation
     :value="1"
+    elevation="0"
     color="primary"
     fixed
   >
@@ -10,12 +11,7 @@
     </v-btn>
 
     <v-btn>
-      <span>Invoice</span>
-      <v-icon>mdi-receipt</v-icon>
-    </v-btn>
-
-    <v-btn>
-      <span>Quote</span>
+      <span>Portfolio</span>
       <v-icon>mdi-receipt</v-icon>
     </v-btn>
   </v-bottom-navigation>

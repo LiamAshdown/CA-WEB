@@ -8,6 +8,9 @@ import vuetify from './plugins/vuetify'
 // Api
 import api from '@/api'
 
+// Loaders
+import '@/global/loaders'
+
 Vue.prototype.$api = api
 
 Vue.config.productionTip = false

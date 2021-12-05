@@ -4,18 +4,12 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+  
     {
-      "name": "Listen for XDebug test",
+      "name": "Listen for XDebug",
       "type": "php",
       "request": "launch",
-      "port": 9003,
-      "log":true,
-      "ignore": [
-          "**/vendor/**/*.php"
-      ],
-      "pathMappings": {
-        "/home/vagrant/Projects/web/Backend": "${workspaceRoot}",
-      },
-    }
+      "port": 9003
+  },
   ]
 }

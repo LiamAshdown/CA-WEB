@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="authenticated-layout">
     <top-navigation></top-navigation>
     <main>
         <slot></slot>
@@ -20,3 +20,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.authenticated-layout {
+  background-color: #f6f7fc;
+  height: 100%;
+
+  main {
+    margin-top: 56px;
+  }
+}
+</style>
