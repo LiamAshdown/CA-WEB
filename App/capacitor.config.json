@@ -1,6 +1,0 @@
-{
-  "appId": "com.contractors.app",
-  "appName": "Contractors App",
-  "webDir": "dist",
-  "bundledWebRuntime": false
-}
