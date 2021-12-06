@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../CA-App"
+		},
+		{
+			"path": "../CA-Frontend"
+		}
+	],
+	"settings": {}
+}
