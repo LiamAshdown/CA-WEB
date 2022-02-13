@@ -63,43 +63,6 @@ Route::group([
 });
 
 Route::group([
-	'prefix' => 'customers',
-	'namespace' => 'V1',
-	'middleware' => ['auth']
-], function () {
-	Route::get('/', 'CustomerController@index');
-	Route::post('store', 'CustomerController@store');
-});
-
-Route::group([
-	'prefix' => 'items',
-	'namespace' => 'V1',
-	'middleware' => ['auth']
-], function () {
-	Route::get('/', 'ItemController@index');
-	Route::post('store', 'ItemController@store');
-});
-
-Route::group([
-	'prefix' => 'tax',
-	'namespace' => 'V1',
-	'middleware' => ['auth']
-], function () {
-	Route::get('/', 'TaxController@index');
-	Route::get('show/{id}', 'TaxController@show');
-	Route::post('update/{id}', 'TaxController@update');
-	Route::post('store', 'TaxController@store');
-});
-
-Route::group([
-	'prefix' => 'bills',
-	'namespace' => 'V1',
-	'middleware' => ['auth']
-], function () {
-	Route::post('store', 'BillController@store');
-});
-
-Route::group([
 	'prefix' => 'post',
 	'namespace' => 'V1',
 	'middleware' => ['auth']

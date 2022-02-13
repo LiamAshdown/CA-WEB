@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('message');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->unsignedBigInteger('reply_post_id');
+            $table->unsignedBigInteger('reply_post_id')->nullable();
             $table->foreign('reply_post_id')->references('id')->on('posts')->cascadeOnDelete();
             $table->timestamps();
         });

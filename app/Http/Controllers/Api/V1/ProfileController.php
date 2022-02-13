@@ -30,8 +30,7 @@ class ProfileController extends Controller
     /**
     * Update Profile Details
     *
-    * @bodyParam first_name string required First Name
-	* @bodyParam last_name string required Last Name
+    * @bodyParam name string required Name
 	* @bodyParam email string required Email
 	* @bodyParam password string optional Password
     *
@@ -44,7 +43,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $attributes = $request->validate([
-			'first_name' => 'required|string',
+			'name'       => 'required|string',
 			'last_name'  => 'required|string',
             'email'      => [
                 'required',
