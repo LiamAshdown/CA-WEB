@@ -18,8 +18,10 @@ class UserResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->name,
             'username'    => $this->username,
-            'email'       => $this->email,
-            'role'        => ucwords($this->roles->pluck('name')[0])
+            'profile_url' => $this->url('avatar'),
+            'banner_url'  => $this->url('banner'),
+            'bio'         => $this->bio,
+            'email'       => $this->email
         ];
     }
 }

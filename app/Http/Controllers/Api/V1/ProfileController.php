@@ -43,10 +43,11 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $attributes = $request->validate([
-			'name'       => 'required|string',
-			'last_name'  => 'required|string',
+			'name'       => 'sometimes|string',
+			'last_name'  => 'sometimes|string',
+            'bio'        => 'sometimes|string',
             'email'      => [
-                'required',
+                'sometimes',
                 'email',
                 Rule::unique('users')->ignore(auth()->id())
             ],
@@ -57,6 +58,54 @@ class ProfileController extends Controller
 
         return response()->json([
             'message' => 'Successfully updated profile.'
+        ]);
+    }
+
+    /**
+     * Upload Logo
+     *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+     */
+    public function uploadLogo(Request $request)
+    {
+        $attributes = $request->validate([
+            'avatar' => 'required|mimes:jpeg,png,jpg'
+        ]);
+
+        $user = auth()->user();
+
+        $attributes['profile_path'] = $user->upload($request, 'avatar');
+
+        $user->update($attributes);
+
+        return response()->json([
+            'message' => 'Successfully updated logo.',
+            'profile' => new ProfileResource($user)
+        ]);
+    }
+
+    /**
+     * Upload Banner
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadBanner(Request $request)
+    {
+        $attributes = $request->validate([
+            'banner' => 'required|mimes:jpeg,png,jpg'
+        ]);
+
+        $user = auth()->user();
+
+        $attributes['banner_path'] = $user->upload($request, 'banner');
+
+        $user->update($attributes);
+
+        return response()->json([
+            'message' => 'Successfully updated banner.',
+            'profile' => new ProfileResource($user)
         ]);
     }
 }

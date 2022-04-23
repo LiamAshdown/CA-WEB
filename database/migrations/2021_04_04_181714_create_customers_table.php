@@ -15,14 +15,18 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('website')->nullable();
+            $table->string('title')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('mobile')->nullable();
             $table->string('email')->nullable();
-            $table->string('telephone_number')->nullable();
-            $table->string('billing_name')->nullable();
-            $table->string('billing_telephone_number')->nullable();
-            $table->string('billing_postal_code')->nullable();
-            $table->string('billing_address')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('address3')->nullable();
+            $table->string('town')->nullable();
+            $table->string('county')->nullable();
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->cascadeOnDelete();
             $table->unsignedBigInteger('user_id');

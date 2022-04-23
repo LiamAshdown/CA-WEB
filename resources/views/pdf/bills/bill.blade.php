@@ -45,7 +45,7 @@
             .text-center {
                 text-align: center
             }
-            table .text-left {
+            .text-left {
                 text-align: left;
             }
             table .text-right {
@@ -140,17 +140,15 @@
                     <img class="logo" src="https://logoipsum.com/logo/logo-26.svg" alt="Company Logo">
                 </td>
                 <td class=" text-right">
-                    <h1 class="text-primary">{{ $type }} #{{ $number }}</h1>
+                    <h1 class="text-primary">{{ ucwords($bill->type) }} #{{ $bill->reference }}</h1>
                 </td>
             </tr>
             <tr class="text-right">
                 <td></td>
                 <td>
-                    <b>Life Style Builders.</b><br />
-                    20 Rochdale Road<br />
-                    Tunbridge Wells<br />
-                    Kent<br />
-                    TN1 2JE<br />
+                    <b>{{ $company->name }}</b><br />
+                    {{ $company->address }}<br />
+                    {{ $company->postal_code }}<br />
                 </td>
             </tr>
         </table>
@@ -159,22 +157,27 @@
             <tr>
                 <td class="p-0">
                     <table cellpadding="0" cellspacing="0" class="invoice-box w-75 m-0">
-                        <thead class="border-bottom text-left background-primary text-white">
+                        <thead class="border-bottom background-primary text-white">
                             <tr>
-                                <th class="font-weight-normal py-5 pl-5">Bill To</th>
-                                <th class="font-weight-normal py-5">Date</th>
-                                <th class="font-weight-normal py-5">Due Date</th>
+                                <th class="font-weight-normal text-left py-5 pl-5">Bill To</th>
+                                <th class="font-weight-normal text-left py-5">Date</th>
+                                <th class="font-weight-normal text-left py-5">Due Date</th>
                             </tr>
                         </thead>
                         <tr class="item vertical-align-top">
                             <td class="pl-5">
-                                <b>Luna Blogs.</b><br />
-                                St James Road<br />
-                                Seven Oaks<br />
-                                BE1 27H<br />
+                                <b>{{ $customer->title }} {{ $customer->first_name }} {{ $customer->last_name }}</b><br />
+                                {{ $customer->address1 }}<br />
+                                @if ($customer->address2)
+                                    {{ $customer->address2 }}<br />
+                                @endif
+                                @if ($customer->address3)
+                                    {{ $customer->address3 }}<br />
+                                @endif
+                                {{ $customer->postcode }}<br />
                             </td>
             
-                            <td>{{ $creation_date }}</td>
+                            <td>{{ $created_date }}</td>
                             <td>{{ $due_date }}</td>
                         </tr>
                     </table>
@@ -183,22 +186,24 @@
         </table>
 
         <table cellpadding="0" cellspacing="0" class="invoice-box w-100 mt-30">
-            <thead class="border-bottom text-left background-primary text-white">
+            <thead class="border-bottom background-primary text-white">
                 <tr>
                     <th class="font-weight-normal py-5 pl-5">#</th>
                     <th class="font-weight-normal py-5">Description</th>
                     <th class="font-weight-normal py-5">Quantity</th>
                     <th class="font-weight-normal py-5">Unit Price</th>
+                    <th class="font-weight-normal py-5">VAT</th>
                     <th class="font-weight-normal py-5 text-center">Total</th>
                 </tr>
             </thead>
             @foreach($items as $item)
                 <tr class="item">
-                    <td class="border-bottom pl-5">{{ $loop->index }}</td>
-                    <td class="border-bottom pl-5">{{ $item->item->name }}</td>
-                    <td class="border-bottom pl-5">{{ $item->quantity }}</td>
-                    <td class="border-bottom pl-5">{{ $item->net }}</td>
-                    <td class="border-bottom pl-5 text-center">£36.00</td>
+                    <td class="border-bottom pl-5 text-center">{{ $loop->index + 1 }}</td>
+                    <td class="border-bottom pl-5 text-center">{{ $item->description }}</td>
+                    <td class="border-bottom pl-5 text-center">{{ $item->quantity }}</td>
+                    <td class="border-bottom pl-5 text-center">&pound;{{ $item->net }}</td>
+                    <td class="border-bottom pl-5 text-center">{{ $item->vat ?? '0' }}%</td>
+                    <td class="border-bottom pl-5 text-center">&pound;{{ $item->gross }}</td>
                 </tr>
             @endforeach
         </table>
@@ -206,34 +211,26 @@
         <table class="invoice-box w-100">
             <tr class="heading text-right">
                 <td>SubTotal</td>
-                <td class="w-10 text-black"><span class="total">£489.60</span></td>
-            </tr>
-            <tr class="heading text-right" colspan="4">
-                <td class="pt-0">VAT</td>
-                <td class="w-10 border-bottom pt-0 text-black"><span class="total">20%</span></td>
+                <td class="w-10 text-black"><span class="total">&pound;{{ $bill->subTotal() }}</span></td>
             </tr>
             <tr class="heading text-right">
                 <td>Total</td>
-                <td class="w-10 text-primary font-weight-bold"><span class="total text-primary">£612.00</span></td>
+                <td class="w-10 text-primary font-weight-bold"><span class="total text-primary">&pound;{{ $bill->total() }}</span></td>
             </tr>
         </table>
 
         <table class="invoice-box w-100">
             <thead class="border-bottom text-left heading">
                 <tr>
-                    <th class="font-weight-normal py-5 pl-5">Terms & Conditions</th>
-                    <th class="font-weight-normal py-5">Notes</th>
+                    @if ($bill->notes)
+                        <th class="font-weight-normal py-5 pl-5 text-left">Notes</th>
+                    @endif
                 </tr>
             </thead>
             <tr class="item">
-                <td class="pl-5">
-                    Please pay to our Chase Bank Account<br/>
-                    Account Number: 1234567890<br/>
-                    Routing Number: 9876543219<br/>
-                    <br/>
-                    Thank you for your business!
-                </td>
-                <td class="vertical-align-top">This Invoice is non refundable</td>
+                @if ($bill->notes)
+                    <td class="vertical-align-top">{{ $bill->notes }}</td>
+                @endif
             </tr>
         </table>
 	</body>

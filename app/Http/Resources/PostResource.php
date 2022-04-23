@@ -22,6 +22,7 @@ class PostResource extends JsonResource
             'parent' => new PostResource($this->parent),
             'liked' => $this->liked(),
             'likes_count' => $this->likes()->count(),
+            'images' => new PostImageResourceCollection($this->images),
             'comments_count' => $this->replies()->count(),
             'created_at_readable' => $this->created_at->diffForHumans()
         ];

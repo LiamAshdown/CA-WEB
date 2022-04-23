@@ -14,39 +14,17 @@ class CompanyController extends Controller
     /**
 	* Show Company
 	*
-	* Show Company Details which user belongs to
-    *
-    * <aside class="notice">permission: view company</aside>
-	*
-	* @apiResource App\Http\Resources\CompanyResource
-    * @apiResourceModel App\Models\Company
-	*
     * @return \Illuminate\Http\Response
 	*/
     public function show()
     {
         $company = auth()->user()->company;
 
-        $this->authorize('view', $company);
-
         return new CompanyResource($company);
     }
 
     /**
 	* Update Company
-	*
-	* Update Company Details
-    *
-    * <aside class="notice">permission: update company</aside>
-	*
-    * @bodyParam name string required Name
-	* @bodyParam address string required Address
-	* @bodyParam postal_code string required Postal Code
-	* @bodyParam telephone_number string required Telephone Number
-	* @bodyParam logo file optional Logo
-    *
-	* @responseFile responses/company/update.json
-	* @responseFile status=422 scenario="Validation Error" responses/company/update.validation.json
 	*
     * @param \Illuminate\Http\Request $request
     * @return \Illuminate\Http\Response
@@ -62,8 +40,6 @@ class CompanyController extends Controller
         ]);
 
         $company = auth()->user()->company;
-
-        $this->authorize('update', $company);
 
         $attributes['logo_path'] = $company->logo($request);
 

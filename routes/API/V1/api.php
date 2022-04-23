@@ -31,6 +31,8 @@ Route::group([
 ], function () {
 	Route::get('', 'ProfileController@show');
 	Route::post('update', 'ProfileController@update');
+	Route::post('upload-logo', 'ProfileController@uploadLogo');
+	Route::post('upload-banner', 'ProfileController@uploadBanner');
 });
 
 Route::group([
@@ -56,11 +58,9 @@ Route::group([
 	'namespace' => 'V1',
 	'middleware' => ['auth']
 ], function () {
-	Route::get('/', 'UserController@index');
 	Route::get('show/{id}', 'UserController@show');
-	Route::post('update/{id}', 'UserController@update');
-	Route::post('store', 'UserController@store');
-});
+	Route::get('photos/{id}', 'UserController@getPhotos');
+});	
 
 Route::group([
 	'prefix' => 'post',
@@ -75,4 +75,38 @@ Route::group([
 	Route::get('replies/{id}', 'PostController@replies');
 	Route::get('show/{id}', 'PostController@show');
 	Route::get('likes/{id}', 'PostController@likes');
+	Route::get('user/{id}', 'PostController@userPosts');
+	Route::get('profile', 'PostController@profilePosts');
+});
+
+Route::group([
+	'prefix' => 'misc',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function () {
+	Route::post('postcode/lookup', 'MiscController@lookUpPostCode');
+});
+
+Route::group([
+	'prefix' => 'customer',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function () {
+	Route::post('store', 'CustomerController@store');
+	Route::post('update/{id}', 'CustomerController@update');
+	Route::get('show/{id}', 'CustomerController@show');
+	Route::get('', 'CustomerController@index');
+});
+
+Route::group([
+	'prefix' => 'bill',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function () {
+	Route::post('init', 'BillController@init');
+	Route::post('update/{id}', 'BillController@update');
+	Route::post('item/add', 'BillController@addBillItem');
+	Route::post('item/update', 'BillController@updateBillItem');
+	Route::get('bills', 'BillController@bills');
+	Route::get('view-pdf/{id}', 'BillController@viewPDF');
 });

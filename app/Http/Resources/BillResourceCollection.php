@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CustomerResourceCollection extends ResourceCollection
+class BillResourceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +14,6 @@ class CustomerResourceCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return CustomerResource::collection($this->collection->sortByDesc('created_at'));
+        return BillResource::collection($this->collection->sortByDesc('created_at'));
     }
 }

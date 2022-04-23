@@ -8,6 +8,7 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\PostResourceCollection;
 use App\Models\Post;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,7 +32,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'message' => 'required|string|max:255'
+            'message' => 'required|string|max:255',
+            'images' => 'array',
+            'images.*' => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:10240'
         ]);
 
         $post = new Post();
@@ -39,6 +42,13 @@ class PostController extends Controller
         $post->type = Post::POST_TYPE_PUBLIC;
         $post->user_id = auth()->id();
         $post->save();
+
+        // Store images if there's any
+        if (isset($attributes['images'])) {
+            foreach ($attributes['images'] as $image) {
+                $post->storeImage($image);
+            }
+        }
 
         return response()->noContent();
     }
@@ -96,6 +106,30 @@ class PostController extends Controller
         $post = Post::findOrFail($request->id);
 
         return new PostResource($post);
+    }
+
+    /**
+     * Get User Posts
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function userPosts($id)
+    {
+        $user = User::findOrFail($id);
+
+        return new PostResourceCollection($user->posts()->latest()->paginate());
+    }
+
+    /**
+     * Get Profile Posts
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function profilePosts()
+    {
+        return new PostResourceCollection(auth()->user()->posts()->latest()->paginate());
     }
 
     /**

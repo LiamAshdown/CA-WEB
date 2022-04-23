@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Image;
+use Storage;
 
 class Post extends Model
 {
@@ -61,5 +63,48 @@ class Post extends Model
     public function replies()
     {
         return $this->hasMany(self::class, 'reply_post_id')->latest();
+    }
+
+    /**
+     * Get Post Images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(PostImage::class, 'post_id');
+    }
+
+    /**
+     * Store Image
+     *
+     * @param object $file
+     * @return void
+     */
+    public function storeImage($file)
+    {
+        // Save to disk
+        $path = $file->hashName("posts/$this->id/images/");
+        $blurPath = $file->hashName("posts/$this->id/images/blur/");
+        
+        // TODO; The dimensions could be changed,
+        // potentially let frontend handle resizing the image.
+        $image = Image::make($file)->fit(640);
+
+        $model = new PostImage();
+        $model->path = $path;
+        $model->blur_path = $path;
+        $model->post_id = $this->id;
+        $model->save();
+
+        Storage::disk('public')->put($path, (string)$image->encode());
+
+        // Blur image
+        $image->blur(80);
+
+        // Reduce quality for smaller image
+        $image->encode('jpg', 10);
+
+        Storage::disk('public')->put($blurPath, (string)$image->encode());
     }
 }

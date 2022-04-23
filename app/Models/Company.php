@@ -95,6 +95,27 @@ class Company extends Model
         return '';
     }
 
+    /**
+     * Get Customers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    /**
+     * Get Bills
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
+
 	/**
     * Get Company Users
     *

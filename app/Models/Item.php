@@ -15,10 +15,11 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
         'description',
-        'net',
         'vat',
+        'unit_price',
+        'quantity',
+        'net',
         'gross'
     ];
 }

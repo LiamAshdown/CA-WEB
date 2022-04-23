@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Storage;
 
 /**
  * App\Models\User
@@ -87,6 +89,9 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
+        'profile_path',
+        'banner_path',
+        'bio',
         'password'
     ];
 
@@ -146,16 +151,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get Company Users
-     *
-     * @return mixed
-     */
-    public function users()
-    {
-        return $this->company->users();
-    }
-
-    /**
     * Get Company
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -166,41 +161,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get Taxes
+     * Get Posts
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function taxes()
+    public function posts()
     {
-        return $this->hasMany(Tax::class);
-    }
-
-    /**
-     * Get Customers
-     *
-     * @return mixed
-     */
-    public function customers()
-    {
-        if ($this->hasRole(self::ROLES['company_admin']) || $this->hasRole(self::ROLES['company_sub_admin'])) {
-            return Customer::where('company_id', $this->companyId())->get();
-        }
-
-        return Customer::where('user_id', $this->id)->get();
-    }
-
-    /**
-     * Get Items
-     *
-     * @return mixed
-     */
-    public function items()
-    {
-        if ($this->hasRole(self::ROLES['company_admin']) || $this->hasRole(self::ROLES['company_sub_admin'])) {
-            Item::where('company_id', $this->companyId())->get();
-        }
-
-        return Item::where('user_id', $this->id)->get();
+        return $this->hasMany(Post::class);
     }
 
     /**
@@ -211,5 +178,81 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(Notification::class, 'notify_user_id', 'id');
+    }
+
+     /**
+     * Get Company Path
+     *
+     * @param string $type
+     * @return string
+     */
+    public function getPath($type, $unique = false)
+    {
+        return 'users/'.$this->id.'/'.$type.'/'.($unique ? uniqid() : '');
+    }
+
+    /**
+     * Handle Avatar Upload
+     *
+     * @param Request $request
+     * @param string $type
+     * @return string
+     */
+    public function upload($request, $type)
+    {
+        $file = $request->file($type);
+
+        if ($file) {
+            if ($this->profile_path) {
+                if ($type == 'avatar') {
+                    Storage::delete($this->profile_path);
+                } else if ($type == 'banner') {
+                    Storage::delete($this->banner_path);
+                }
+            }
+
+            $path = $file->hashName($this->getPath($type));
+            $image = Image::make($file)->fit(150);
+            Storage::disk('public')->put($path, (string)$image->encode());
+            return $path;
+        }
+
+        return '';
+    }
+
+    /**
+     * Get Logo Url
+     *
+     * @return string
+     */
+    public function url($type)
+    {
+        if ($type === 'avatar') {
+            if ($this->profile_path) {
+                return url('/').Storage::url($this->profile_path);
+            }
+        } else if ($type === 'banner') {
+            if ($this->banner_path) {
+                return url('/').Storage::url($this->banner_path);
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * Get Photos
+     *
+     * @return array
+     */
+    public function getPhotos()
+    {
+        $posts = $this->posts();
+
+        $postImages = PostImage::whereIn('post_id', $posts->pluck('id'));
+
+        $images = $postImages->get();
+
+        return $images;
     }
 }
