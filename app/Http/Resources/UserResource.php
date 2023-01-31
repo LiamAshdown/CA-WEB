@@ -21,7 +21,11 @@ class UserResource extends JsonResource
             'profile_url' => $this->url('avatar'),
             'banner_url'  => $this->url('banner'),
             'bio'         => $this->bio,
-            'email'       => $this->email
+            'position'    => $this->position,
+            'email'       => $this->email,
+            'company'     => [
+                'name' => $this->company->name,
+            ]
         ];
     }
 }

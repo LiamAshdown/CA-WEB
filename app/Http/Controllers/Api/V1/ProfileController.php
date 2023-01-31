@@ -45,7 +45,8 @@ class ProfileController extends Controller
         $attributes = $request->validate([
 			'name'       => 'sometimes|string',
 			'last_name'  => 'sometimes|string',
-            'bio'        => 'sometimes|string',
+            'bio'        => 'nullable|string',
+            'position'   => 'nullable|string',
             'email'      => [
                 'sometimes',
                 'email',
@@ -53,6 +54,11 @@ class ProfileController extends Controller
             ],
             'password' => 'nullable'
 		]);
+
+        if ($request->position) {
+            // Upper case the words
+            $attributes['position'] = ucwords($request->position);
+        }
 
         auth()->user()->update($attributes);
 

@@ -30,7 +30,18 @@ class BillController extends Controller
         $bill->status = Bill::BILL_STATUS_DRAFT;
         $bill->unique_id = uniqid('bill_');
         $bill->customer_id = $request->customer_id;
-        $bill->reference = $bill->generateReference();
+
+        $reference = $bill->generateReference();
+
+        $billCustomization = auth()->user()->company->customization;
+
+        if ($request->type === 'invoice' && $billCustomization->invoice_prefix) {
+            $reference = $billCustomization->invoice_prefix . $reference;
+        } else if ($request->type === 'quote' && $billCustomization->estimate_prefix) {
+            $reference = $billCustomization->estimate_prefix . $reference;
+        }
+
+        $bill->reference = $reference;
         $bill->save();
 
         return response()->json([
@@ -76,6 +87,7 @@ class BillController extends Controller
         ]);
 
         $bill = Bill::find($attributes['id']);
+
         $bill->update($attributes);
 
         return response()->json([
@@ -169,12 +181,15 @@ class BillController extends Controller
         $items = $bill->items();
         $company = $bill->company;
 
+        $billCustomization = auth()->user()->company->customization;
+
         // Build template data
         $data = [
             'bill' => $bill,
             'customer' => $customer,
             'company' => $company,
             'items' => $items,
+            'billCustomization' => $billCustomization,
             'due_date' => Carbon::parse($bill->due_date)->format('d/m/Y'),
             'created_date' => Carbon::parse($bill->created_at)->format('d/m/Y')
         ];

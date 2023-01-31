@@ -92,6 +92,7 @@ class User extends Authenticatable
         'profile_path',
         'banner_path',
         'bio',
+        'position',
         'password'
     ];
 

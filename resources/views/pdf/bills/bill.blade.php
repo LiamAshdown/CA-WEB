@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -106,7 +106,7 @@
                 margin-top: 20px;
                 margin-bottom: 20px;
             }
-            
+
             .w-10 {
                 width: 10%;
             }
@@ -176,7 +176,7 @@
                                 @endif
                                 {{ $customer->postcode }}<br />
                             </td>
-            
+
                             <td>{{ $created_date }}</td>
                             <td>{{ $due_date }}</td>
                         </tr>
@@ -225,11 +225,37 @@
                     @if ($bill->notes)
                         <th class="font-weight-normal py-5 pl-5 text-left">Notes</th>
                     @endif
+                    @if ($billCustomization->terms_conditions)
+                        <th class="font-weight-normal py-5 pl-5 text-left">Terms & Conditions</th>
+                    @endif
                 </tr>
             </thead>
             <tr class="item">
-                @if ($bill->notes)
-                    <td class="vertical-align-top">{{ $bill->notes }}</td>
+                @if ($bill->notes || $billCustomization->default_invoice_body || $billCustomization->default_estimate_body)
+                    @if ($bill->type === 'invoice' && $billCustomization->default_invoice_body)
+                        <td class="vertical-align-top">
+                            @if ($bill->notes)
+                                {!! nl2br($bill->notes) !!}
+                                <br />
+                                <br />
+                            @endif
+                            {!! nl2br($billCustomization->default_invoice_body) !!}
+                        </td>
+                    @elseif ($bill->type === 'quote' && $billCustomization->default_estimate_body)
+                        <td class="vertical-align-top">
+                            @if ($bill->notes)
+                                {!! nl2br($bill->notes) !!}
+                                <br />
+                                <br />
+                            @endif
+                            {!! nl2br($billCustomization->default_estimate_body) !!}
+                        </td>
+                    @elseif ($bill->notes)
+                        <td class="vertical-align-top">{!! nl2br($bill->notes) !!}</td>
+                    @endif
+                @endif
+                @if ($billCustomization->terms_conditions)
+                    <td class="vertical-align-top">{!! nl2br($billCustomization->terms_conditions) !!}</td>
                 @endif
             </tr>
         </table>

@@ -23,7 +23,7 @@ class Bill extends Model
 
     /**
      * Bill Items
-     * 
+     *
      * @var array
      */
     private ?array $items = null;
