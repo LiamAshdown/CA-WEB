@@ -12,4 +12,14 @@ class Notification extends Model
     // Constants
     const TYPE_LIKE = 'like';
     const TYPE_COMMENT = 'comment';
+
+    /**
+     * User Relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

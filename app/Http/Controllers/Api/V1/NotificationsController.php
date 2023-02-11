@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
-    public function index()
+    public function unread()
     {
-        return auth()->user()->unreadNotifications;
+        $unreadNotifications = auth()->user()->notifications()->where('read', 0)->get();
+
+        $test = '';
+
     }
 }

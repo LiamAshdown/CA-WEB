@@ -32,10 +32,10 @@ class CompanyController extends Controller
     public function update(Request $request)
     {
         $attributes = $request->validate([
-            'name'			    => 'required|string',
-			'address' 		    => 'required|string',
-			'postal_code' 	    => 'required|string',
-			'telephone_number' 	=> 'required|string',
+            'name'			    => 'sometimes|string',
+			'address' 		    => 'sometimes|string',
+			'postal_code' 	    => 'sometimes|string',
+			'telephone_number' 	=> 'sometimes|string',
             'logo'              => 'nullable|mimes:jpeg,png,jpg'
         ]);
 

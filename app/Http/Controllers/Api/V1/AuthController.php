@@ -46,7 +46,7 @@ class AuthController extends Controller
             'email' 	=> 'required|email',
             'password' 	=> 'required'
         ]);
-        
+
         return $proxyService->proxy('password', [
 			'username' => $attributes['email'],
 			'password' => $attributes['password']
@@ -73,19 +73,21 @@ class AuthController extends Controller
 	 * @param \App\Service\Base\ProxyServiceInterface $proxyService
 	 * @return \App\Service\Base\ProxyServiceInterface::proxy
 	 */
-	public function registerUser(Request $request, ProxyServiceInterface $proxyService) 
+	public function registerUser(Request $request, ProxyServiceInterface $proxyService)
 	{
 		$attributes = $request->validate([
 			'name'  					=> 'required|string|max:30',
 			'username' 	 				=> 'required|string|max:30|unique:users',
 			'email' 	 				=> 'required|email|unique:users',
-			'password'   				=> 'required'
-		]);
+			'password'   				=> 'required|string|min:6|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/'
+		], [
+            'password.regex' => 'Password must contain at least one letter, one number and one special character.'
+        ]);
 
 		$user = new User();
 		$user->name  		= $attributes['name'];
-		$user->username  	= $attributes['username'];
-		$user->email		= $attributes['email'];
+		$user->username  	= strtolower($attributes['username']);
+		$user->email		= strtolower($attributes['email']);
 		$user->password	 	= $attributes['password'];
 		$user->save();
 
@@ -96,7 +98,7 @@ class AuthController extends Controller
 			'password' => $attributes['password']
 		]);
 	}
-	
+
 
 	/**
 	 * Register Company
@@ -105,7 +107,7 @@ class AuthController extends Controller
 	 * @param \App\Service\Base\ProxyServiceInterface $proxyService
 	 * @return \App\Service\Base\ProxyServiceInterface::proxy
 	 */
-	public function registerCompany(Request $request, ProxyServiceInterface $proxyService) 
+	public function registerCompany(Request $request, ProxyServiceInterface $proxyService)
 	{
 		$attributes = $request->validate([
 			'name' 				=> 'required|string',

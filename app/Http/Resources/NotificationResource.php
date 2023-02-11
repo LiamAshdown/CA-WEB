@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Notification;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Mockery\Matcher\Not;
-use Notification;
 
 class NotificationResource extends JsonResource
 {
@@ -16,7 +16,7 @@ class NotificationResource extends JsonResource
      */
     public function toArray($request)
     {
-        switch ($this->type) 
+        switch ($this->type)
         {
             case Notification::TYPE_LIKE:
                 return [

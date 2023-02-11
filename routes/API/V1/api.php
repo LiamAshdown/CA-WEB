@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([ 
+Route::group([
 	'prefix' => 'auth',
 	'namespace' => 'V1'
 ], function () {
@@ -60,7 +60,7 @@ Route::group([
 ], function () {
 	Route::get('show/{id}', 'UserController@show');
 	Route::get('photos/{id}', 'UserController@getPhotos');
-});	
+});
 
 Route::group([
 	'prefix' => 'post',
@@ -109,4 +109,12 @@ Route::group([
 	Route::post('item/update', 'BillController@updateBillItem');
 	Route::get('bills', 'BillController@bills');
 	Route::get('view-pdf/{id}', 'BillController@viewPDF');
+});
+
+Route::group([
+	'prefix' => 'notifications',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function () {
+	Route::get('unread', 'NotificationsController@unread');
 });
