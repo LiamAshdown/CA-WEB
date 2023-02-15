@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.CONTRACTORS_APP_USERNAME }} # User of the server you want to ssh into
           key: ${{secrets.CONTRACTORS_APP_SSH_KEY}}
           script:  |
-            echo "Deploying to Contractors App API"'
+            echo "Deploying to Contractors App API"
