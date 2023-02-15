@@ -18,3 +18,7 @@ jobs:
           key: ${{secrets.CONTRACTORS_APP_SSH_KEY}}
           script:  |
             echo "Deploying to Contractors App API"
+            cd /var/www
+            git pull
+            composer install --no-dev --prefer-dist --optimize-autoloader
+            echo "Deployed to Contractors App API"
