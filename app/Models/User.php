@@ -171,16 +171,6 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    /**
-     * Get Notifications
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class, 'notify_user_id', 'id');
-    }
-
      /**
      * Get Company Path
      *

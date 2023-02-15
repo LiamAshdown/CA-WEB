@@ -137,7 +137,9 @@
         <table cellpadding="0" cellspacing="0" class="invoice-box w-100 mb-60">
             <tr>
                 <td>
-                    <img class="logo" src="https://logoipsum.com/logo/logo-26.svg" alt="Company Logo">
+                    @if ($company->logo_path)
+                        <img src="{{ $company->url() }}" alt="{{ $company->name }}" class="w-50" />
+                    @endif
                 </td>
                 <td class=" text-right">
                     <h1 class="text-primary">{{ ucwords($bill->type) }} #{{ $bill->reference }}</h1>

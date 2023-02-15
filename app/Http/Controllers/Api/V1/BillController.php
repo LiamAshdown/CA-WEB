@@ -211,4 +211,23 @@ class BillController extends Controller
             'url' => $domain.$url
         ]);
     }
+
+    /**
+     * Convert Quote to Invoice
+     *
+     * @param Request $request
+     * @param int $id Bill ID
+     * @return \Illuminate\Http\Response
+     */
+    public function convertToInvoice(Request $request, $id)
+    {
+        $bill = Bill::findOrFail($id);
+        $bill->type = 'invoice';
+        $bill->save();
+
+        return response()->json([
+            'message' => 'Successfully converted bill to invoice.',
+            'data' => new BillResource($bill)
+        ]);
+    }
 }

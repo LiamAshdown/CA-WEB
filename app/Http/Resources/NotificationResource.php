@@ -16,15 +16,12 @@ class NotificationResource extends JsonResource
      */
     public function toArray($request)
     {
-        switch ($this->type)
-        {
-            case Notification::TYPE_LIKE:
-                return [
-                    'type' => 'like',
-                    'user' => $this->data['user'],
-                    'post' => $this->data['post'],
-                    'created_at' => $this->created_at->diffForHumans(),
-                ];
-        }
+        return [
+            'id' => $this->id,
+            'type' => $this->type,
+            'data' => $this->data,
+            'read_at' => $this->read_at ? $this->read_at->toDateTimeString() : null,
+            'created_at' => $this->created_at->toDateTimeString(),
+        ];
     }
 }

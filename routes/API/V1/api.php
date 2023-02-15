@@ -109,6 +109,7 @@ Route::group([
 	Route::post('item/update', 'BillController@updateBillItem');
 	Route::get('bills', 'BillController@bills');
 	Route::get('view-pdf/{id}', 'BillController@viewPDF');
+    Route::post('convert-to-invoice/{id}', 'BillController@convertToInvoice');
 });
 
 Route::group([
@@ -116,5 +117,7 @@ Route::group([
 	'namespace' => 'V1',
 	'middleware' => ['auth']
 ], function () {
-	Route::get('unread', 'NotificationsController@unread');
+	Route::get('index', 'NotificationsController@index');
+    Route::get('unread', 'NotificationsController@unread');
+    Route::post('mark-as-read/{id}', 'NotificationsController@markAsRead');
 });

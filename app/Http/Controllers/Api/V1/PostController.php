@@ -9,6 +9,7 @@ use App\Http\Resources\PostResourceCollection;
 use App\Models\Post;
 use App\Models\Notification;
 use App\Models\User;
+use App\Notifications\LikePostNotification;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -67,15 +68,7 @@ class PostController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        // Alert user
-        $notification = new Notification();
-        $notification->notify_user_id = $post->user_id;
-        $notification->by_user_id = auth()->id();
-        $notification->post_id = $post->id;
-        $notification->notifiable = true;
-        $notification->read = false;
-        $notification->type = Notification::TYPE_LIKE;
-        $notification->save();
+        $post->user->notify(new LikePostNotification(auth()->user(), $post));
 
         return response()->noContent();
     }
@@ -155,7 +148,7 @@ class PostController extends Controller
 
         return response()->noContent();
     }
-    
+
     /**
      * Reply Resource
      *

@@ -96,6 +96,20 @@ class Company extends Model
     }
 
     /**
+     * Get Logo Url
+     *
+     * @return string
+     */
+    public function url()
+    {
+        if ($this->logo_path) {
+            return url('/').Storage::url($this->logo_path);
+        }
+
+        return '';
+    }
+
+    /**
      * Get Customers
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
