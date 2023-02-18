@@ -170,10 +170,10 @@
                             <td class="pl-5">
                                 <b>{{ $customer->title }} {{ $customer->first_name }} {{ $customer->last_name }}</b><br />
                                 {{ $customer->address1 }}<br />
-                                @if ($customer->address2)
+                                @if (!empty($customer->address2))
                                     {{ $customer->address2 }}<br />
                                 @endif
-                                @if ($customer->address3)
+                                @if (!empty($customer->address3))
                                     {{ $customer->address3 }}<br />
                                 @endif
                                 {{ $customer->postcode }}<br />

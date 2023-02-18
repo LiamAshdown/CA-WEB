@@ -121,3 +121,13 @@ Route::group([
     Route::get('unread', 'NotificationsController@unread');
     Route::post('mark-as-read/{id}', 'NotificationsController@markAsRead');
 });
+
+
+Route::group([
+	'prefix' => 'email',
+	'namespace' => 'V1',
+	'middleware' => ['auth']
+], function () {
+	Route::get('init/{type}/{id}', 'EmailController@init');
+	Route::post('send', 'EmailController@send');
+});

@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class Bill extends Model
 {
@@ -20,6 +23,7 @@ class Bill extends Model
      * Bill Statuses
      */
     const BILL_STATUS_DRAFT = 'draft';
+    const BILL_STATUS_SENT = 'sent';
 
     /**
      * Bill Items
@@ -157,6 +161,50 @@ class Bill extends Model
         }
 
         return $postcode . ++$number;
+    }
+
+    /**
+     * Generate PDF
+     *
+     * @param bool $attachment whether to download or not
+     * @return string url to pdf
+     */
+    public function pdf($attachment = false)
+    {
+        $customer = $this->customer;
+        $items = $this->items();
+        $company = $this->company;
+
+        $billCustomization = auth()->user()->company->customization;
+
+        // Build template data
+        $data = [
+            'bill' => $this,
+            'customer' => $customer,
+            'company' => $company,
+            'items' => $items,
+            'billCustomization' => $billCustomization,
+            'due_date' => Carbon::parse($this->due_date)->format('d/m/Y'),
+            'created_date' => Carbon::parse($this->created_at)->format('d/m/Y')
+        ];
+
+        // Build PDF
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.bills.bill', $data);
+
+        if ($attachment) {
+            return $pdf->download($this->reference . '.pdf');
+        } else {
+            Storage::put('public/pdf/' . $this->unique_id . '.pdf', $pdf->output());
+
+            // Get url
+            $url = Storage::url('public/pdf/' . $this->unique_id . '.pdf');
+    
+            // Get domain
+            $domain = url('/');
+    
+            return $domain . $url;
+        }
     }
 
     /**
