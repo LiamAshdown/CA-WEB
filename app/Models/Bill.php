@@ -193,16 +193,16 @@ class Bill extends Model
         $pdf->loadView('pdf.bills.bill', $data);
 
         if ($attachment) {
-            return $pdf->download($this->reference . '.pdf');
+            return $pdf->output();
         } else {
             Storage::put('public/pdf/' . $this->unique_id . '.pdf', $pdf->output());
 
             // Get url
             $url = Storage::url('public/pdf/' . $this->unique_id . '.pdf');
-    
+
             // Get domain
             $domain = url('/');
-    
+
             return $domain . $url;
         }
     }
