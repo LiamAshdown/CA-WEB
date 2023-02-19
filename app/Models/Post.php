@@ -7,6 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 use Image;
 use Storage;
 
+/**
+ * App\Models\Post
+ *
+ * @property int $id
+ * @property string $type
+ * @property string $message
+ * @property int $user_id
+ * @property int|null $reply_post_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostImage> $images
+ * @property-read int|null $images_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LikedPosts> $likes
+ * @property-read int|null $likes_count
+ * @property-read Post|null $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $replies
+ * @property-read int|null $replies_count
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereReplyPostId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Post extends Model
 {
     use HasFactory;

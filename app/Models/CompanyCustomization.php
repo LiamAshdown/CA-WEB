@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyCustomization whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyCustomization whereInvoicePrefix($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CompanyCustomization whereUpdatedAt($value)
+ * @property string|null $terms_conditions
+ * @method static \Illuminate\Database\Eloquent\Builder|CompanyCustomization whereTermsConditions($value)
  * @mixin \Eloquent
  */
 class CompanyCustomization extends Model

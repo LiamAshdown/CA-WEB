@@ -31,9 +31,15 @@ use Image;
  * @method static \Illuminate\Database\Eloquent\Builder|Company wherePostalCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereTelephoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bill> $bills
+ * @property-read int|null $bills_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
+ * @property-read int|null $customers_count
+ * @property-read \App\Models\CompanyCustomization|null $customization
+ * @method static \Database\Factories\CompanyFactory factory($count = null, $state = [])
+ * @mixin \Eloquent
  */
 class Company extends Model
 {

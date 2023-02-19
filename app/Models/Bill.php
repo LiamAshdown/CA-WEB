@@ -9,6 +9,42 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * App\Models\Bill
+ *
+ * @property int $id
+ * @property string $type
+ * @property string $unique_id
+ * @property string $reference
+ * @property string|null $notes
+ * @property string $status
+ * @property string|null $due_date
+ * @property int $customer_id
+ * @property int $user_id
+ * @property int $company_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BillItem> $billItems
+ * @property-read int|null $bill_items_count
+ * @property-read \App\Models\Company $company
+ * @property-read \App\Models\Customer $customer
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereDueDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereReference($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereUniqueId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bill whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Bill extends Model
 {
     use HasFactory;

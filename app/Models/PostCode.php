@@ -5,6 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\PostCode
+ *
+ * @property int $id
+ * @property string $post_code
+ * @property string $response
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode wherePostCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode whereResponse($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostCode whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class PostCode extends Model
 {
     use HasFactory;
