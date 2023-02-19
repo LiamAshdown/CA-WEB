@@ -19,7 +19,6 @@ jobs:
           script:  |
             echo "Deploying to Contractors App API"
             cd /var/www
-            git reset --hard HEAD
             git pull origin master
-            composer install --no-dev --prefer-dist --optimize-autoloader --discard-changes
+            composer install --no-dev --prefer-dist --optimize-autoloader
             echo "Deployed to Contractors App API"
