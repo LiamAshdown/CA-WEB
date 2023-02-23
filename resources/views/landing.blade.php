@@ -213,7 +213,7 @@
         <div class="w-full container mx-auto p-6">
 
             <div class="w-full flex items-center justify-between">
-                <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+                <a class="flex items-center text-blue-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
                     href="#">
                     <svg class="h-8 fill-current text-indigo-600 pr-2" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20">
@@ -245,7 +245,7 @@
         </div>
 
         <!--Main-->
-        <div class="container pt-24 md:pt-0 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <div class="container pt-14 md:pt-0 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
 
             <!--Left Col-->
             <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
@@ -256,7 +256,7 @@
                     The perfect solution for busy contractors who need to stay organized and focused on their work, not paperwork.</p>
 
                 <p class="text-blue-600 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in">Download our app (coming soon):</p>
-                <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in te">
+                <div class="flex w-full justify-center md:justify-start pb-18 lg:pb-0 fade-in te">
                     <img src="{{ asset('images/landing-page/app-store.svg') }}" class="h-12 pr-4 bounce-top-icons opacity-30" alt="App Store">
                     <img src="{{ asset('images/landing-page/play-store.svg') }}" class="h-12 bounce-top-icons" alt="Play Store">
                 </div>
@@ -265,7 +265,7 @@
 
             <!--Right Col-->
             <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-                <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{{ asset('images/landing-page/people.svg') }}" alt="Devices">
+                <img class="mx-auto relative -left-2 sm:left-auto lg:mr-0 slide-in-bottom" src="{{ asset('images/landing-page/people.svg') }}" alt="Devices">
                 <div class="text-sm text-gray-400 text-right -top-8 mr-14 relative"><a href="https://www.freepik.com/free-vector/successful-partnership-negotiation-partners-handshaking_11669283.htm#query=networking&position=8&from_view=search&track=sph">Image by Pik</a></div>
             </div>
 
