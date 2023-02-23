@@ -266,7 +266,7 @@
             <!--Right Col-->
             <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
                 <img class="mx-auto relative -left-2 sm:left-auto lg:mr-0 slide-in-bottom" src="{{ asset('images/landing-page/people.svg') }}" alt="Devices">
-                <div class="text-sm text-gray-400 text-right -top-8 mr-14 relative"><a href="https://www.freepik.com/free-vector/successful-partnership-negotiation-partners-handshaking_11669283.htm#query=networking&position=8&from_view=search&track=sph">Image by Pik</a></div>
+                <div class="text-sm text-gray-400 text-right top-0 sm:-top-8 mr-14 relative"><a href="https://www.freepik.com/free-vector/successful-partnership-negotiation-partners-handshaking_11669283.htm#query=networking&position=8&from_view=search&track=sph">Image by Pik</a></div>
             </div>
 
             <!--Footer-->
