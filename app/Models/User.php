@@ -210,9 +210,9 @@ class User extends Authenticatable
 
         if ($file) {
             if ($this->profile_path) {
-                if ($type == 'avatar') {
+                if ($type == 'avatar' && $this->profile_path) {
                     Storage::delete($this->profile_path);
-                } else if ($type == 'banner') {
+                } else if ($type == 'banner' && $this->banner_path) {
                     Storage::delete($this->banner_path);
                 }
             }

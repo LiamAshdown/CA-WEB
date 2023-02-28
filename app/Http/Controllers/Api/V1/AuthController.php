@@ -47,10 +47,12 @@ class AuthController extends Controller
             'password' 	=> 'required'
         ]);
 
-        return $proxyService->proxy('password', [
+        $proxyResponse = $proxyService->proxy('password', [
 			'username' => $attributes['email'],
 			'password' => $attributes['password']
 		]);
+
+        return response()->json($proxyResponse->original, $proxyResponse->status());
 	}
 
 	/**
@@ -93,10 +95,12 @@ class AuthController extends Controller
 
 		$user->assignRole(User::ROLES['company_admin']);
 
-		return $proxyService->proxy('password', [
+		$proxyResponse = $proxyService->proxy('password', [
 			'username' => $attributes['email'],
 			'password' => $attributes['password']
 		]);
+
+        return response()->json($proxyResponse->original, $proxyResponse->status());
 	}
 
 

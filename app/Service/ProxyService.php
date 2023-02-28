@@ -25,14 +25,14 @@ class ProxyService implements ProxyServiceInterface
                 'grant_type'    => $grantType
             ])
         ]);
-        
+
         $response = response()->json(json_decode($guzzleResponse->getBody()));
         $response->setStatusCode($guzzleResponse->getStatusCode());
 
         $headers = $guzzleResponse->getHeaders();
         foreach($headers as $headerType => $headerValue) {
             $response->header($headerType, $headerValue);
-        } 
+        }
 
         return $response;
     }
