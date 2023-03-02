@@ -18,8 +18,8 @@ jobs:
           key: ${{secrets.CONTRACTORS_APP_SSH_KEY}}
           script:  |
             echo "Deploying to Contractors App API"
-            cd /var/www
-            php artisan migrate --force
+            cd /var/www/contractors-app
+            php artisan migrate --forcegi
             git pull origin master
             composer install --no-dev --prefer-dist --optimize-autoloader
             echo "Deployed to Contractors App API"
