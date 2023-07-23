@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Notification;
 use App\Models\User;
 use App\Notifications\LikePostNotification;
+use App\Notifications\ReplyPostNotification;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -138,6 +139,9 @@ class PostController extends Controller
             'message' => 'required|string|max:140'
         ]);
 
+        $post = Post::findOrFail($request->id);
+
+
         // Create Reply Post
         $replyPost = new Post();
         $replyPost->message = $attributes['message'];
@@ -145,6 +149,10 @@ class PostController extends Controller
         $replyPost->user_id = auth()->id();
         $replyPost->reply_post_id = $request->id; //< Reply Post ID; TODO : Validate
         $replyPost->save();
+
+        $post = Post::findOrFail($request->id);
+
+        $post->user->notify(new ReplyPostNotification(auth()->user(), $post));
 
         return response()->noContent();
     }

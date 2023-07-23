@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class LikePostNotification extends Notification
+class ReplyPostNotification extends Notification
 {
     use Queueable;
 
@@ -58,14 +58,14 @@ class LikePostNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'type' => 'like',
+            'type' => 'reply',
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
                 'profile_url' => $this->user->url('avatar')
             ],
             'post_id' => $this->post->id,
-            'message' => $this->user->name . ' liked your post'
+            'message' => $this->user->name . ' replied to your post.'
         ];
     }
 }
